@@ -1,0 +1,108 @@
+diff '--exclude=.git' -urN a/config.h.in b/config.h.in
+--- a/config.h.in	2017-04-12 10:47:02.000000000 -0400
++++ b/config.h.in	2017-05-18 08:09:27.019797883 -0400
+@@ -60,6 +60,9 @@
+ /* Define to 1 if you have the <syslog.h> header file. */
+ #undef HAVE_SYSLOG_H
+ 
++/* Define if elogind is used for session tracking */
++#undef HAVE_ELOGIND
++
+ /* Define if systemd is used for session tracking */
+ #undef HAVE_SYSTEMD
+ 
+diff '--exclude=.git' -urN a/configure.ac b/configure.ac
+--- a/configure.ac	2017-04-12 10:46:24.000000000 -0400
++++ b/configure.ac	2017-05-18 08:23:22.369117135 -0400
+@@ -109,6 +109,45 @@
+ fi
+ 
+ dnl ====================================================================
++dnl Check for elogind
++dnl ====================================================================
++AC_ARG_ENABLE([elogind],
++              AS_HELP_STRING([--enable-elogind], [Use elogind]),
++              [enable_elogind=$enableval],
++              [enable_elogind=auto])
++
++PKG_CHECK_MODULES(ELOGIND,
++                  [gio-unix-2.0 libelogind >= 209],
++                  [have_elogind=yes],
++                  [PKG_CHECK_MODULES([ELOGIND],
++                                     [gio-unix-2.0 libelogind-login >= 183],
++                                     [have_elogind=yes],[have_elogind=no])])
++
++AC_MSG_CHECKING([whether to use elogind])
++
++if test x$enable_elogind = xauto ; then
++        if test x$have_elogind = xno ; then
++                enable_elogind=no
++        else
++                enable_elogind=yes
++        fi
++fi
++
++AC_MSG_RESULT($enable_elogind)
++
++if test x$enable_elogind = xyes; then
++        if test x$have_elogind = xno; then
++                AC_MSG_ERROR([elogind support explicitly required, but elogind not found])
++        fi
++        AC_DEFINE(HAVE_ELOGIND, 1, [Define if elogind is used for session tracking])
++fi
++
++AC_SUBST(ELOGIND_CFLAGS)
++AC_SUBST(ELOGIND_LIBS)
++
++AM_CONDITIONAL(HAVE_ELOGIND, [test "$enable_elogind" = "yes"], [Using elogind])
++
++dnl ====================================================================
+ dnl Check for systemd
+ dnl ====================================================================
+ AC_ARG_ENABLE([systemd],
+@@ -173,7 +212,13 @@
+ 
+ AM_CONDITIONAL(HAVE_CONSOLEKIT, [test "$enable_consolekit" = "yes"], [Using ConsoleKit])
+ 
+-if test x$enable_systemd = xyes; then
++if test x$enable_elogind = xyes; then
++        if test x$enable_consolekit = xyes; then
++                session_tracking="elogind (with fallback to ConsoleKit)"
++        else
++                session_tracking="elogind"
++        fi
++elif test x$enable_systemd = xyes; then
+         if test x$enable_consolekit = xyes; then
+                 session_tracking="systemd (with fallback to ConsoleKit)"
+         else
+diff '--exclude=.git' -urN a/gnome-session/gsm-autostart-app.c b/gnome-session/gsm-autostart-app.c
+--- a/gnome-session/gsm-autostart-app.c	2017-04-12 10:35:48.000000000 -0400
++++ b/gnome-session/gsm-autostart-app.c	2017-05-18 08:18:14.122839869 -0400
+@@ -32,6 +32,10 @@
+ #include <gconf/gconf-client.h>
+ #endif
+ 
++#ifdef HAVE_ELOGIND
++#include <elogind/sd-login.h>
++#endif
++
+ #ifdef HAVE_SYSTEMD
+ #include <systemd/sd-journal.h>
+ #include <systemd/sd-daemon.h>
+diff '--exclude=.git' -urN a/gnome-session/gsm-systemd.c b/gnome-session/gsm-systemd.c
+--- a/gnome-session/gsm-systemd.c	2017-03-08 14:06:13.000000000 -0500
++++ b/gnome-session/gsm-systemd.c	2017-05-18 08:19:57.922259198 -0400
+@@ -30,7 +30,13 @@
+ #include <sys/types.h>
+ #include <pwd.h>
+ 
++#ifdef HAVE_ELOGIND
++#include <elogind/sd-login.h>
++#endif
++
++#ifdef HAVE_SYSTEMD
+ #include <systemd/sd-login.h>
++#endif
+ 
+ #include <glib.h>
+ #include <glib-object.h>

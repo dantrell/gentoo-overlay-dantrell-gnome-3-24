@@ -1,0 +1,131 @@
+diff '--exclude=.git' -urN a/common/gdm-common.c b/common/gdm-common.c
+--- a/common/gdm-common.c	2017-05-04 16:08:17.000000000 -0400
++++ b/common/gdm-common.c	2017-05-18 08:13:12.323531550 -0400
+@@ -39,7 +39,13 @@
+ #include "mkdtemp.h"
+ #endif
+ 
++#ifdef WITH_ELOGIND
++#include <elogind/sd-login.h>
++#endif
++
++#ifdef WITH_SYSTEMD
+ #include <systemd/sd-login.h>
++#endif
+ 
+ #define GDM_DBUS_NAME                            "org.gnome.DisplayManager"
+ #define GDM_DBUS_LOCAL_DISPLAY_FACTORY_PATH      "/org/gnome/DisplayManager/LocalDisplayFactory"
+diff '--exclude=.git' -urN a/common/gdm-log.c b/common/gdm-log.c
+--- a/common/gdm-log.c	2017-05-04 16:08:17.000000000 -0400
++++ b/common/gdm-log.c	2017-05-17 14:45:16.936210107 -0400
+@@ -30,7 +30,6 @@
+ #include <unistd.h>
+ 
+ #include <syslog.h>
+-#include <systemd/sd-daemon.h>
+ 
+ #include <glib.h>
+ #include <glib/gstdio.h>
+diff '--exclude=.git' -urN a/configure.ac b/configure.ac
+--- a/configure.ac	2017-05-09 17:10:05.000000000 -0400
++++ b/configure.ac	2017-05-18 11:25:45.266977641 -0400
+@@ -902,11 +902,23 @@
+ CPPFLAGS="$xinerama_save_cppflags"
+ 
+ dnl ---------------------------------------------------------------------------
++dnl - Check for elogind support
++dnl ---------------------------------------------------------------------------
++
++PKG_CHECK_MODULES(SYSTEMD,
++                  [libelogind],
++                  [have_elogind=yes], [have_elogind=no])
++
++AC_SUBST(SYSTEMD_CFLAGS)
++AC_SUBST(SYSTEMD_LIBS)
++
++dnl ---------------------------------------------------------------------------
+ dnl - Check for systemd support
+ dnl ---------------------------------------------------------------------------
+ 
+ PKG_CHECK_MODULES(SYSTEMD,
+-                  [libsystemd])
++                  [libsystemd],
++                  [have_systemd=yes], [have_systemd=no])
+ 
+ AC_SUBST(SYSTEMD_CFLAGS)
+ AC_SUBST(SYSTEMD_LIBS)
+diff '--exclude=.git' -urN a/daemon/gdm-manager.c b/daemon/gdm-manager.c
+--- a/daemon/gdm-manager.c	2017-05-09 17:09:48.000000000 -0400
++++ b/daemon/gdm-manager.c	2017-05-18 08:13:41.621367100 -0400
+@@ -36,7 +36,13 @@
+ 
+ #include <act/act-user-manager.h>
+ 
++#ifdef WITH_ELOGIND
++#include <elogind/sd-login.h>
++#endif
++
++#ifdef WITH_SYSTEMD
+ #include <systemd/sd-login.h>
++#endif
+ 
+ #include "gdm-common.h"
+ 
+diff '--exclude=.git' -urN a/daemon/gdm-server.c b/daemon/gdm-server.c
+--- a/daemon/gdm-server.c	2017-05-05 10:40:44.000000000 -0400
++++ b/daemon/gdm-server.c	2017-05-17 14:45:16.975209883 -0400
+@@ -43,8 +43,6 @@
+ #include <linux/vt.h>
+ #endif
+ 
+-#include <systemd/sd-daemon.h>
+-
+ #ifdef ENABLE_SYSTEMD_JOURNAL
+ #include <systemd/sd-journal.h>
+ #endif
+diff '--exclude=.git' -urN a/daemon/gdm-session-worker-job.c b/daemon/gdm-session-worker-job.c
+--- a/daemon/gdm-session-worker-job.c	2017-05-04 16:08:17.000000000 -0400
++++ b/daemon/gdm-session-worker-job.c	2017-05-17 14:45:17.040209510 -0400
+@@ -36,8 +36,6 @@
+ #include <sys/prctl.h>
+ #endif
+ 
+-#include <systemd/sd-daemon.h>
+-
+ #ifdef ENABLE_SYSTEMD_JOURNAL
+ #include <systemd/sd-journal.h>
+ #endif
+diff '--exclude=.git' -urN a/daemon/gdm-session-worker.c b/daemon/gdm-session-worker.c
+--- a/daemon/gdm-session-worker.c	2017-05-04 16:08:17.000000000 -0400
++++ b/daemon/gdm-session-worker.c	2017-05-18 10:44:31.217382774 -0400
+@@ -49,7 +49,13 @@
+ 
+ #include <X11/Xauth.h>
+ 
++#ifdef WITH_ELOGIND
++#include <elogind/sd-journal.h>
++#endif
++
++#ifdef WITH_SYSTEMD
+ #include <systemd/sd-daemon.h>
++#endif
+ 
+ #ifdef ENABLE_SYSTEMD_JOURNAL
+ #include <systemd/sd-journal.h>
+diff '--exclude=.git' -urN a/libgdm/gdm-user-switching.c b/libgdm/gdm-user-switching.c
+--- a/libgdm/gdm-user-switching.c	2017-05-04 16:08:17.000000000 -0400
++++ b/libgdm/gdm-user-switching.c	2017-05-18 08:15:57.722603804 -0400
+@@ -31,7 +31,13 @@
+ #include <glib-object.h>
+ #include <gio/gio.h>
+ 
++#ifdef WITH_ELOGIND
++#include <elogind/sd-login.h>
++#endif
++
++#ifdef WITH_SYSTEMD
+ #include <systemd/sd-login.h>
++#endif
+ 
+ #include "common/gdm-common.h"
+ #include "gdm-user-switching.h"
