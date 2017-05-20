@@ -58,7 +58,7 @@ COMMON_DEPEND="
 		>=dev-libs/wayland-1.6.90
 		>=dev-libs/wayland-protocols-1.7
 		>=media-libs/mesa-10.3[egl,gbm,wayland]
-		sys-apps/systemd
+		|| ( sys-auth/elogind sys-apps/systemd )
 		virtual/libgudev:=
 		>=virtual/libudev-136:=
 		x11-base/xorg-server[wayland]
