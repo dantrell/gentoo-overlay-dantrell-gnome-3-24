@@ -18,14 +18,15 @@ COMMON_DEPEND="
 	>=app-crypt/gcr-3.5.5:=
 	>=app-crypt/libsecret-0.14
 	>=app-text/iso-codes-0.35
-	>=dev-libs/glib-2.44.0:2[dbus]
+	>=dev-libs/glib-2.46.0:2[dbus]
+	>=dev-libs/json-glib-1.2.0
 	>=dev-libs/libxml2-2.6.12:2
 	>=dev-libs/libxslt-1.1.7
 	>=gnome-base/gsettings-desktop-schemas-0.0.1
 	>=net-dns/avahi-0.6.22[dbus]
 	>=net-libs/webkit-gtk-2.15.90:4=
 	>=net-libs/libsoup-2.48:2.4
-	>=x11-libs/gtk+-3.19.1:3
+	>=x11-libs/gtk+-3.22.13:3
 	>=x11-libs/libnotify-0.5.1:=
 	gnome-base/gnome-desktop:3=
 
