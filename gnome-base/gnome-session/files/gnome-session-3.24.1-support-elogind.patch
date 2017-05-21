@@ -1,6 +1,6 @@
 diff '--exclude=.git' -urN a/config.h.in b/config.h.in
 --- a/config.h.in	2017-04-12 10:47:02.000000000 -0400
-+++ b/config.h.in	2017-05-18 08:09:27.019797883 -0400
++++ b/config.h.in	2017-05-21 16:12:33.984792491 -0400
 @@ -60,6 +60,9 @@
  /* Define to 1 if you have the <syslog.h> header file. */
  #undef HAVE_SYSLOG_H
@@ -13,7 +13,7 @@ diff '--exclude=.git' -urN a/config.h.in b/config.h.in
  
 diff '--exclude=.git' -urN a/configure.ac b/configure.ac
 --- a/configure.ac	2017-04-12 10:46:24.000000000 -0400
-+++ b/configure.ac	2017-05-18 08:23:22.369117135 -0400
++++ b/configure.ac	2017-05-21 17:04:28.367497506 -0400
 @@ -109,6 +109,45 @@
  fi
  
@@ -25,10 +25,10 @@ diff '--exclude=.git' -urN a/configure.ac b/configure.ac
 +              [enable_elogind=$enableval],
 +              [enable_elogind=auto])
 +
-+PKG_CHECK_MODULES(ELOGIND,
++PKG_CHECK_MODULES(SYSTEMD,
 +                  [gio-unix-2.0 libelogind >= 209],
 +                  [have_elogind=yes],
-+                  [PKG_CHECK_MODULES([ELOGIND],
++                  [PKG_CHECK_MODULES([SYSTEMD],
 +                                     [gio-unix-2.0 libelogind-login >= 183],
 +                                     [have_elogind=yes],[have_elogind=no])])
 +
@@ -77,7 +77,7 @@ diff '--exclude=.git' -urN a/configure.ac b/configure.ac
          else
 diff '--exclude=.git' -urN a/gnome-session/gsm-autostart-app.c b/gnome-session/gsm-autostart-app.c
 --- a/gnome-session/gsm-autostart-app.c	2017-04-12 10:35:48.000000000 -0400
-+++ b/gnome-session/gsm-autostart-app.c	2017-05-18 08:18:14.122839869 -0400
++++ b/gnome-session/gsm-autostart-app.c	2017-05-21 17:10:15.518553392 -0400
 @@ -32,6 +32,10 @@
  #include <gconf/gconf-client.h>
  #endif
@@ -91,7 +91,16 @@ diff '--exclude=.git' -urN a/gnome-session/gsm-autostart-app.c b/gnome-session/g
  #include <systemd/sd-daemon.h>
 diff '--exclude=.git' -urN a/gnome-session/gsm-systemd.c b/gnome-session/gsm-systemd.c
 --- a/gnome-session/gsm-systemd.c	2017-03-08 14:06:13.000000000 -0500
-+++ b/gnome-session/gsm-systemd.c	2017-05-18 08:19:57.922259198 -0400
++++ b/gnome-session/gsm-systemd.c	2017-05-21 17:06:30.224814927 -0400
+@@ -21,7 +21,7 @@
+ #include "config.h"
+ #include "gsm-systemd.h"
+ 
+-#ifdef HAVE_SYSTEMD
++#if defined(HAVE_ELOGIND) || defined(HAVE_SYSTEMD)
+ 
+ #include <errno.h>
+ #include <string.h>
 @@ -30,7 +30,13 @@
  #include <sys/types.h>
  #include <pwd.h>
