@@ -1,6 +1,6 @@
 diff '--exclude=.git' -urN a/config.h.in b/config.h.in
 --- a/config.h.in	2017-04-12 10:47:02.000000000 -0400
-+++ b/config.h.in	2017-05-21 16:12:33.984792491 -0400
++++ b/config.h.in	2017-05-21 18:40:58.371988932 -0400
 @@ -60,6 +60,9 @@
  /* Define to 1 if you have the <syslog.h> header file. */
  #undef HAVE_SYSLOG_H
@@ -13,7 +13,7 @@ diff '--exclude=.git' -urN a/config.h.in b/config.h.in
  
 diff '--exclude=.git' -urN a/configure.ac b/configure.ac
 --- a/configure.ac	2017-04-12 10:46:24.000000000 -0400
-+++ b/configure.ac	2017-05-21 17:04:28.367497506 -0400
++++ b/configure.ac	2017-05-22 14:23:49.095116063 -0400
 @@ -109,6 +109,45 @@
  fi
  
@@ -75,23 +75,9 @@ diff '--exclude=.git' -urN a/configure.ac b/configure.ac
          if test x$enable_consolekit = xyes; then
                  session_tracking="systemd (with fallback to ConsoleKit)"
          else
-diff '--exclude=.git' -urN a/gnome-session/gsm-autostart-app.c b/gnome-session/gsm-autostart-app.c
---- a/gnome-session/gsm-autostart-app.c	2017-04-12 10:35:48.000000000 -0400
-+++ b/gnome-session/gsm-autostart-app.c	2017-05-21 17:10:15.518553392 -0400
-@@ -32,6 +32,10 @@
- #include <gconf/gconf-client.h>
- #endif
- 
-+#ifdef HAVE_ELOGIND
-+#include <elogind/sd-login.h>
-+#endif
-+
- #ifdef HAVE_SYSTEMD
- #include <systemd/sd-journal.h>
- #include <systemd/sd-daemon.h>
 diff '--exclude=.git' -urN a/gnome-session/gsm-systemd.c b/gnome-session/gsm-systemd.c
 --- a/gnome-session/gsm-systemd.c	2017-03-08 14:06:13.000000000 -0500
-+++ b/gnome-session/gsm-systemd.c	2017-05-21 17:06:30.224814927 -0400
++++ b/gnome-session/gsm-systemd.c	2017-05-21 18:40:58.372988926 -0400
 @@ -21,7 +21,7 @@
  #include "config.h"
  #include "gsm-systemd.h"

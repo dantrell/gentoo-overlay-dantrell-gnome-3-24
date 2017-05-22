@@ -135,6 +135,10 @@ src_prepare() {
 
 	eapply "${FILESDIR}"/${PN}-3.24.2-support-elogind.patch
 
+	if use elogind; then
+		eapply "${FILESDIR}"/${PN}-3.24.2-enable-elogind.patch
+	fi
+
 	if ! use wayland; then
 		eapply "${FILESDIR}"/${PN}-3.24.2-prioritize-xorg.patch
 	fi
@@ -163,16 +167,13 @@ src_configure() {
 		--with-xdmcp=yes \
 		--enable-authentication-scheme=pam \
 		--with-default-pam-config=exherbo \
-		--with-pam-dir=$(getpam_mod_dir) \
 		--with-at-spi-registryd-directory="${EPREFIX}"/usr/libexec \
 		--with-systemdsystemunitdir="$(systemd_get_systemunitdir)" \
 		--without-xevie \
 		$(use_with audit libaudit) \
-		$(use_with elogind) \
 		$(use_enable ipv6) \
 		$(use_with plymouth) \
 		$(use_with selinux) \
-		$(use_with systemd) \
 		$(use_enable systemd systemd-journal) \
 		$(use_with tcpd tcp-wrappers) \
 		$(use_enable wayland wayland-support) \
