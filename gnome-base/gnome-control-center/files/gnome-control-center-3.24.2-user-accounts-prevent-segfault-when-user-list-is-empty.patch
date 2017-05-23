@@ -50,7 +50,7 @@ diff '--exclude=.git' -urN a/panels/user-accounts/data/user-accounts-dialog.ui b
 +        <child>
 +          <object class="GtkLabel">
 +            <property name="visible">True</property>
-+            <property name="label" translatable="yes">Unlock to add a user account.</property>
++            <property name="label" translatable="yes">Unlock (if needed) to add a user account.</property>
 +          </object>
 +        </child>
 +      </object>

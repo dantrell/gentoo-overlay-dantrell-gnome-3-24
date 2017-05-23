@@ -2,9 +2,8 @@
 
 EAPI="6"
 GNOME2_LA_PUNT="yes"
-GNOME2_EAUTORECONF="yes"
 
-inherit bash-completion-r1 gnome2
+inherit autotools bash-completion-r1 gnome2
 
 DESCRIPTION="GNOME's main interface to configure various aspects of the desktop"
 HOMEPAGE="https://git.gnome.org/browse/gnome-control-center/"
@@ -13,7 +12,7 @@ LICENSE="GPL-2+"
 SLOT="2"
 KEYWORDS="*"
 
-IUSE="+bluetooth +colord debug elogind +gnome-online-accounts +ibus input_devices_wacom kerberos libinput networkmanager systemd v4l wayland"
+IUSE="+bluetooth +colord debug elogind +gnome-online-accounts +ibus input_devices_wacom kerberos libinput networkmanager systemd v4l vanilla-datetime vanilla-hostname wayland"
 REQUIRED_USE="
 	?? ( elogind systemd )
 	wayland? ( || ( elogind systemd ) )
@@ -139,21 +138,39 @@ DEPEND="${COMMON_DEPEND}
 #	gnome-base/gnome-common
 #	sys-devel/autoconf-archive
 
-PATCHES=(
+src_prepare() {
 	# From GNOME:
 	# 	https://bugzilla.gnome.org/show_bug.cgi?id=773673
-	"${FILESDIR}"/${PN}-3.24.2-user-accounts-prevent-segfault-when-user-list-is-empty.patch
+	eapply "${FILESDIR}"/${PN}-3.24.2-user-accounts-prevent-segfault-when-user-list-is-empty.patch
+
 	# Make some panels and dependencies optional; requires eautoreconf
 	# https://bugzilla.gnome.org/686840, 697478, 700145
-	"${FILESDIR}"/${PN}-3.23.90-optional.patch
-	"${FILESDIR}"/${PN}-3.22.0-make-wayland-optional.patch
-	"${FILESDIR}"/${PN}-3.23.90-make-networkmanager-optional.patch
+	eapply "${FILESDIR}"/${PN}-3.23.90-optional.patch
+	eapply "${FILESDIR}"/${PN}-3.22.0-make-wayland-optional.patch
+	eapply "${FILESDIR}"/${PN}-3.23.90-make-networkmanager-optional.patch
+
 	# Fix some absolute paths to be appropriate for Gentoo
-	"${FILESDIR}"/${PN}-3.23.90-gentoo-paths.patch
+	eapply "${FILESDIR}"/${PN}-3.23.90-gentoo-paths.patch
+
 	# From GNOME:
 	# 	https://bugzilla.gnome.org/show_bug.cgi?id=774324
-	"${FILESDIR}"/${PN}-3.24.2-common-fix-build-when-wayland-is-disabled.patch
-)
+	eapply "${FILESDIR}"/${PN}-3.24.2-common-fix-build-when-wayland-is-disabled.patch
+
+	if ! use vanilla-datetime; then
+		# From Funtoo:
+		# 	https://bugs.funtoo.org/browse/FL-1389
+		eapply "${FILESDIR}"/${PN}-3.18.2-disable-automatic-datetime-and-timezone-options.patch
+	fi
+
+	if ! use vanilla-hostname; then
+		# From Funtoo:
+		# 	https://bugs.funtoo.org/browse/FL-1391
+		eapply "${FILESDIR}"/${PN}-3.18.2-disable-changing-hostname.patch
+	fi
+
+	eautoreconf
+	gnome2_src_prepare
+}
 
 src_configure() {
 	gnome2_src_configure \
