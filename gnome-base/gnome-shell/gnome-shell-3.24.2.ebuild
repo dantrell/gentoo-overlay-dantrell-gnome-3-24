@@ -111,6 +111,7 @@ DEPEND="${COMMON_DEPEND}
 	>=dev-util/gdbus-codegen-2.45.3
 	>=dev-util/gtk-doc-am-1.17
 	gnome-base/gnome-common
+	sys-devel/autoconf-archive
 	>=sys-devel/gettext-0.19.6
 	virtual/pkgconfig
 	!!=dev-lang/spidermonkey-1.8.2*

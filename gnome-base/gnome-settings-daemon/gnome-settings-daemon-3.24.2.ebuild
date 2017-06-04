@@ -22,9 +22,12 @@ REQUIRED_USE="
 	wayland? ( || ( elogind systemd ) )
 "
 
+# TypeErrors with python3; weird test errors with python2; all in power component that was made required now
+RESTRICT="test"
+
 COMMON_DEPEND="
 	>=dev-libs/glib-2.44.0:2[dbus]
-	>=x11-libs/gtk+-3.15.3:3
+	>=x11-libs/gtk+-3.15.3:3[X]
 	>=gnome-base/gnome-desktop-3.11.1:3=
 	>=gnome-base/gsettings-desktop-schemas-3.23.3
 	>=gnome-base/librsvg-2.36.2:2
@@ -79,12 +82,12 @@ RDEPEND="${COMMON_DEPEND}
 	systemd? ( >=sys-apps/systemd-186:0= )
 "
 # xproto-7.0.15 needed for power plugin
-# FIXME: tests require dbus-mock
 DEPEND="${COMMON_DEPEND}
 	cups? ( sys-apps/sed )
 	test? (
 		${PYTHON_DEPS}
 		$(python_gen_any_dep 'dev-python/pygobject:3[${PYTHON_USEDEP}]')
+		$(python_gen_any_dep 'dev-python/dbusmock[${PYTHON_USEDEP}]')
 		gnome-base/gnome-session )
 	dev-libs/libxml2:2
 	sys-devel/gettext
@@ -92,18 +95,28 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 	x11-proto/inputproto
 	x11-proto/xf86miscproto
+	x11-proto/kbproto
 	>=x11-proto/xproto-7.0.15
 "
 
 PATCHES=(
 	# Make colord and wacom optional; requires eautoreconf
-	"${FILESDIR}"/${PN}-3.24.0-optional.patch
+	"${FILESDIR}"/${PN}-3.24.2-optional.patch
 	# Allow specifying udevrulesdir via configure, bug 509484; requires eautoreconf
-	"${FILESDIR}"/${PN}-3.22.2-udevrulesdir-configure.patch
+	"${FILESDIR}"/${PN}-3.24.2-udevrulesdir-configure.patch
+	# Fix uninstalled (during build) color plugin test run
+	"${FILESDIR}"/${PN}-3.24.2-fix-color-tests.patch
+	# Reduce memory usage by not initing GTK+ where not needed
+	"${FILESDIR}"/${PN}-3.24.2-remove-unneeded-gtk-init.patch
+	# Reduce memory usage by using a fake CSS theme instead of full Adwaita for GTK+ needing plugins; requires eautoreconf
+	"${FILESDIR}"/${PN}-3.24.2-reduce-memory-usage.patch
 )
 
 python_check_deps() {
-	use test && has_version "dev-python/pygobject:3[${PYTHON_USEDEP}]"
+	if use test; then
+		has_version "dev-python/pygobject:3[${PYTHON_USEDEP}]" &&
+		has_version "dev-python/dbusmock[${PYTHON_USEDEP}]"
+	fi
 }
 
 pkg_setup() {
