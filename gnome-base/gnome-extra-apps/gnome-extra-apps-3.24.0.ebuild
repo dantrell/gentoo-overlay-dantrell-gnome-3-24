@@ -53,7 +53,7 @@ RDEPEND="
 	>=sys-apps/baobab-${PV}
 	>=sys-apps/gnome-disk-utility-${PV}
 
-	bijiben? ( >=app-misc/bijiben-3.21.2 )
+	bijiben? ( >=app-misc/bijiben-${PV} )
 	boxes? ( >=gnome-extra/gnome-boxes-${PV} )
 	builder? ( >=gnome-extra/gnome-builder-${PV} )
 	california? ( >=gnome-extra/california-0.4.0 )

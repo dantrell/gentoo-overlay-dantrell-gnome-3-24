@@ -4,6 +4,7 @@ app-accessibility/orca::gentoo
 app-arch/file-roller::gentoo
 app-dicts/gnome-dictionary::gentoo
 app-editors/latexila::gentoo
+app-misc/bijiben::gentoo
 app-misc/gnote::gentoo
 app-misc/tracker::gentoo
 app-text/evince::gentoo
