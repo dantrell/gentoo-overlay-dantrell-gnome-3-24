@@ -11,7 +11,7 @@ SLOT="3.0"
 # double check none of the deps are still masked !
 KEYWORDS="*"
 
-IUSE="+bijiben boxes builder california epiphany +evolution flashback +fonts +games geary +share +shotwell +todo +tracker"
+IUSE="+bijiben boxes builder california epiphany +evolution flashback +fonts +games geary latexila +share +shotwell +todo +tracker"
 
 # Note to developers:
 #
@@ -86,6 +86,7 @@ RDEPEND="
 		>=games-puzzle/quadrapassel-3.22.0
 		>=games-puzzle/swell-foop-${PV} )
 	geary? ( >=mail-client/geary-0.11.3 )
+	latexila? ( >=app-editors/latexila-${PV} )
 	share? ( >=gnome-extra/gnome-user-share-3.18.1 )
 	shotwell? ( >=media-gfx/shotwell-0.24 )
 	todo? ( >=gnome-extra/gnome-todo-${PV} )
