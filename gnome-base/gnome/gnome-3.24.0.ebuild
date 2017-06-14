@@ -26,6 +26,7 @@ RDEPEND="
 
 	>=x11-wm/mutter-3.20.0
 	>=gnome-base/gnome-shell-${PV}[bluetooth?]
+	gnome-base/gnome-shell-common
 
 	>=x11-themes/gnome-backgrounds-$(get_version_component_range 1-2)
 	x11-themes/sound-theme-freedesktop

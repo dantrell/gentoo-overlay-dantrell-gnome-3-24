@@ -13,11 +13,12 @@ KEYWORDS="*"
 
 IUSE="examples"
 
-PDEPEND="
+COMMON_DEPEND="
 	>=dev-libs/glib-2.26:2
 	>=gnome-base/libgtop-2.28.3[introspection]
 	>=app-eselect/eselect-gnome-shell-extensions-20111211
-
+"
+RDEPEND="${COMMON_DEPEND}
 	>=dev-libs/gjs-1.29
 	dev-libs/gobject-introspection:=
 	dev-libs/atk[introspection]
@@ -31,7 +32,7 @@ PDEPEND="
 	x11-themes/adwaita-icon-theme
 	x11-wm/mutter[introspection]
 "
-DEPEND="
+DEPEND="${COMMON_DEPEND}
 	>=sys-devel/gettext-0.19.6
 	virtual/pkgconfig
 "
@@ -46,6 +47,14 @@ Alternatively, to enable/disable extensions on a per-user basis,
 you can use the https://extensions.gnome.org/ web interface, the
 gnome-extra/gnome-tweak-tool GUI, or modify the org.gnome.shell
 enabled-extensions gsettings key from the command line or a script."
+
+src_prepare() {
+	# Provided by gnome-base/gnome-shell-common
+	sed -e '/.*calendar-today.svg.*/d' \
+		-i data/Makefile.in || die "sed failed"
+
+	gnome2_src_prepare
+}
 
 src_configure() {
 	gnome2_src_configure --enable-extensions=all

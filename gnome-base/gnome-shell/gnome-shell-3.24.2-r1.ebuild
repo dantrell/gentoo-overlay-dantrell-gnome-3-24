@@ -13,7 +13,7 @@ LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="+bluetooth browser-extension elogind +ibus +networkmanager nsplugin systemd vanilla-motd vanilla-screen"
+IUSE="+bluetooth browser-extension deprecated-background elogind +ibus +networkmanager nsplugin systemd vanilla-motd vanilla-screen"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	?? ( elogind systemd )
 "
@@ -40,7 +40,7 @@ COMMON_DEPEND="
 	>=sys-auth/polkit-0.100[introspection]
 	>=x11-libs/libXfixes-5.0
 	x11-libs/libXtst
-	>=x11-wm/mutter-3.20.0[introspection]
+	>=x11-wm/mutter-3.24.0[introspection]
 	>=x11-libs/startup-notification-0.11
 
 	${PYTHON_DEPS}
@@ -58,6 +58,7 @@ COMMON_DEPEND="
 	x11-apps/mesa-progs
 
 	bluetooth? ( >=net-wireless/gnome-bluetooth-3.9[introspection] )
+	deprecated-background? ( x11-wm/mutter[deprecated-background] )
 	networkmanager? (
 		app-crypt/libsecret
 		>=gnome-extra/nm-applet-0.9.8
@@ -120,6 +121,14 @@ DEPEND="${COMMON_DEPEND}
 # https://bugs.gentoo.org/show_bug.cgi?id=360413
 
 src_prepare() {
+	if use deprecated-background; then
+		eapply "${FILESDIR}"/${PN}-3.24.2-restore-deprecated-background-code.patch
+
+		# Provided by gnome-base/gnome-shell-common
+		sed -e '/.*calendar-today.svg.*/d' \
+			-i data/Makefile.am || die "sed failed"
+	fi
+
 	if ! use vanilla-motd; then
 		eapply "${FILESDIR}"/${PN}-3.24.2-improve-motd-handling.patch
 	fi

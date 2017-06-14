@@ -2,7 +2,7 @@
 
 EAPI="6"
 
-inherit gnome2 virtualx
+inherit autotools gnome2 virtualx
 
 DESCRIPTION="GNOME 3 compositing window manager based on Clutter"
 HOMEPAGE="https://git.gnome.org/browse/mutter/"
@@ -11,7 +11,7 @@ LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="debug egl gles2 input_devices_wacom +introspection test udev wayland"
+IUSE="debug egl gles2 input_devices_wacom deprecated-background +introspection test udev wayland"
 
 # libXi-1.7.4 or newer needed per:
 # https://bugzilla.gnome.org/show_bug.cgi?id=738944
@@ -89,6 +89,11 @@ src_prepare() {
 			-i src/Makefile.in || die
 	fi
 
+	if use deprecated-background; then
+		eapply "${FILESDIR}"/${PN}-3.22.0-restore-deprecated-background-code.patch
+	fi
+
+	eautoreconf
 	gnome2_src_prepare
 
 	# Leave the damn CFLAGS alone
