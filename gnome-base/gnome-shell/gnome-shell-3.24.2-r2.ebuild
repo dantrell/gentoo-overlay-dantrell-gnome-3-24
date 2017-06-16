@@ -11,7 +11,7 @@ HOMEPAGE="https://wiki.gnome.org/Projects/GnomeShell"
 
 LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS="~*"
 
 IUSE="+bluetooth browser-extension deprecated-background elogind +ibus +networkmanager nsplugin systemd vanilla-motd vanilla-screen"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
@@ -121,11 +121,7 @@ DEPEND="${COMMON_DEPEND}
 
 src_prepare() {
 	if use deprecated-background; then
-		eapply "${FILESDIR}"/${PN}-3.24.2-restore-deprecated-background-code.patch
-
-		# Provided by gnome-base/gnome-shell-common
-		sed -e '/.*calendar-today.svg.*/d' \
-			-i data/Makefile.am || die "sed failed"
+		eapply "${FILESDIR}"/${PN}-3.24.2-restore-deprecated-background-code-r1.patch
 	fi
 
 	if ! use vanilla-motd; then
