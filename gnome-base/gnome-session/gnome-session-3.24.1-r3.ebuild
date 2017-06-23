@@ -44,6 +44,7 @@ COMMON_DEPEND="
 	x11-misc/xdg-user-dirs-gtk
 	x11-apps/xdpyinfo
 
+	consolekit? ( sys-auth/consolekit )
 	elogind? ( sys-auth/elogind )
 	gconf? ( >=gnome-base/gconf-2:2 )
 	systemd? ( >=sys-apps/systemd-186:0= )
