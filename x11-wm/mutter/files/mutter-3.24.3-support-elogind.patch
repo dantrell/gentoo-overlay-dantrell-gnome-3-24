@@ -1,0 +1,75 @@
+diff '--exclude=.git' -urN a/config.h.in b/config.h.in
+--- a/config.h.in	2017-06-23 05:40:47.000000000 -0400
++++ b/config.h.in	2017-06-27 07:32:33.962863101 -0400
+@@ -73,6 +73,12 @@
+ /* Define to 1 if you have the <string.h> header file. */
+ #undef HAVE_STRING_H
+ 
++/* Define if elogind is used for session tracking */
++#undef HAVE_ELOGIND
++
++/* Define if systemd is used for session tracking */
++#undef HAVE_SYSTEMD
++
+ /* Define to 1 if you have the <sys/stat.h> header file. */
+ #undef HAVE_SYS_STAT_H
+ 
+diff '--exclude=.git' -urN a/configure.ac b/configure.ac
+--- a/configure.ac	2017-06-23 05:38:36.000000000 -0400
++++ b/configure.ac	2017-06-27 07:41:13.441286089 -0400
+@@ -243,7 +243,19 @@
+ 
+ PKG_CHECK_MODULES(MUTTER, $MUTTER_PC_MODULES)
+ 
+-MUTTER_NATIVE_BACKEND_MODULES="libdrm libsystemd libinput >= 1.4 gudev-1.0 gbm >= 10.3"
++MUTTER_NATIVE_BACKEND_MODULES="libdrm libinput >= 1.4 gudev-1.0 gbm >= 10.3"
++
++PKG_CHECK_MODULES(ELOGIND, [libelogind], [have_elogind=yes], [have_elogind=no])
++
++if test x$have_elogind = xyes; then
++     AC_DEFINE(HAVE_ELOGIND, 1, [Define if elogind is used])
++fi
++
++PKG_CHECK_MODULES(SYSTEMD, [libsystemd], [have_systemd=yes], [have_systemd=no])
++
++if test x$have_systemd = xyes; then
++     AC_DEFINE(HAVE_SYSTEMD, 1, [Define if systemd is used])
++fi
+ 
+ AC_ARG_ENABLE(native-backend,
+   AS_HELP_STRING([--disable-native-backend], [disable mutter native (KMS) backend]),,
+diff '--exclude=.git' -urN a/src/backends/native/meta-launcher.c b/src/backends/native/meta-launcher.c
+--- a/src/backends/native/meta-launcher.c	2017-04-10 20:41:18.000000000 -0400
++++ b/src/backends/native/meta-launcher.c	2017-06-27 07:31:03.851307989 -0400
+@@ -35,7 +35,12 @@
+ #include <string.h>
+ #include <unistd.h>
+ 
++#ifdef HAVE_ELOGIND
++#include <elogind/sd-login.h>
++#endif
++#ifdef HAVE_SYSTEMD
+ #include <systemd/sd-login.h>
++#endif
+ #include <gudev/gudev.h>
+ 
+ #include "dbus-utils.h"
+diff '--exclude=.git' -urN a/src/core/main.c b/src/core/main.c
+--- a/src/core/main.c	2017-05-16 13:33:52.000000000 -0400
++++ b/src/core/main.c	2017-06-27 07:29:07.771880098 -0400
+@@ -89,9 +89,12 @@
+ 
+ #ifdef HAVE_NATIVE_BACKEND
+ #include "backends/native/meta-backend-native.h"
+-#ifdef HAVE_WAYLAND
+-#include <systemd/sd-login.h>
+-#endif /* HAVE_WAYLAND */
++#ifdef HAVE_ELOGIND
++ #include <elogind/sd-login.h>
++#endif /* HAVE_ELOGIND */
++#ifdef HAVE_SYSTEMD
++ #include <systemd/sd-login.h>
++#endif /* HAVE_SYSTEMD */
+ #endif /* HAVE_NATIVE_BACKEND */
+ 
+ /*

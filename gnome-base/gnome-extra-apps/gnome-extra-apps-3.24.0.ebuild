@@ -23,7 +23,7 @@ IUSE="+bijiben boxes builder california epiphany +evolution flashback +fonts +ga
 RDEPEND="
 	>=gnome-base/gnome-core-libs-${PV}
 
-	>=app-admin/gnome-system-log-20170424
+	>=app-admin/gnome-system-log-20170611
 	>=app-arch/file-roller-${PV}
 	>=app-dicts/gnome-dictionary-${PV}
 	>=gnome-base/dconf-editor-3.23.4
@@ -39,7 +39,7 @@ RDEPEND="
 	>=gnome-extra/gnome-tweak-tool-${PV}
 	>=gnome-extra/gnome-weather-3.20.0
 	>=gnome-extra/gucharmap-${PV}:2.90
-	>=gnome-extra/nautilus-sendto-3.8.4
+	>=gnome-extra/nautilus-sendto-3.8.5
 	>=gnome-extra/sushi-3.21.91
 	>=media-gfx/gnome-font-viewer-${PV}
 	>=media-gfx/gnome-screenshot-3.22.0

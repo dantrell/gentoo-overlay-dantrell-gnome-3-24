@@ -89,6 +89,8 @@ src_prepare() {
 			-i src/Makefile.in || die
 	fi
 
+	eapply "${FILESDIR}"/${PN}-3.24.3-support-elogind.patch
+
 	if use deprecated-background; then
 		eapply "${FILESDIR}"/${PN}-3.22.0-restore-deprecated-background-code.patch
 	fi
