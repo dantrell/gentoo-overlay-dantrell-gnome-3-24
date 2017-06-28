@@ -24,7 +24,7 @@ diff '--exclude=.git' -urN a/configure.ac b/configure.ac
 -MUTTER_NATIVE_BACKEND_MODULES="libdrm libsystemd libinput >= 1.4 gudev-1.0 gbm >= 10.3"
 +MUTTER_NATIVE_BACKEND_MODULES="libdrm libinput >= 1.4 gudev-1.0 gbm >= 10.3"
 +
-+PKG_CHECK_MODULES(ELOGIND, [libelogind], [have_elogind=yes], [have_elogind=no])
++PKG_CHECK_MODULES(SYSTEMD, [libelogind], [have_elogind=yes], [have_elogind=no])
 +
 +if test x$have_elogind = xyes; then
 +     AC_DEFINE(HAVE_ELOGIND, 1, [Define if elogind is used])
