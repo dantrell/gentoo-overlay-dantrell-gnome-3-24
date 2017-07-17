@@ -14,15 +14,17 @@ KEYWORDS="*"
 IUSE=""
 
 COMMON_DEPEND="
-	app-crypt/libsecret[introspection]
-	>=dev-libs/gjs-1.45.3
+	>=x11-libs/gtk+-3.21.6:3[introspection]
+	net-libs/telepathy-glib[introspection]
 	>=dev-libs/glib-2.43.4:2
 	>=dev-libs/gobject-introspection-1.50:=
-	net-im/telepathy-logger[introspection]
-	net-libs/libsoup:2.4[introspection]
-	net-libs/telepathy-glib[introspection]
+	>=dev-libs/gjs-1.45.3
 	x11-libs/gdk-pixbuf:2[introspection]
-	>=x11-libs/gtk+-3.21.6:3[introspection]
+	>=app-text/gspell-1.4.0[introspection]
+	x11-libs/pango[introspection]
+	app-crypt/libsecret[introspection]
+	net-libs/libsoup:2.4[introspection]
+	net-im/telepathy-logger[introspection]
 "
 RDEPEND="${COMMON_DEPEND}
 	>=net-irc/telepathy-idle-0.2

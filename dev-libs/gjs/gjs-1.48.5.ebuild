@@ -14,14 +14,14 @@ KEYWORDS="*"
 IUSE="+cairo examples gtk test"
 
 RDEPEND="
-	>=dev-libs/glib-2.50:2
-	>=dev-libs/gobject-introspection-1.41.4:=
+	>=dev-libs/glib-2.52.1
+	>=dev-libs/gobject-introspection-1.52.1:=
 
 	sys-libs/readline:0=
 	dev-lang/spidermonkey:38
 	virtual/libffi
 	cairo? ( x11-libs/cairo[X] )
-	gtk? ( x11-libs/gtk+:3 )
+	gtk? ( >=x11-libs/gtk+-3.20:3 )
 "
 DEPEND="${RDEPEND}
 	gnome-base/gnome-common
@@ -31,16 +31,18 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	# Disable broken unittests, upstream bug #????
-	"${FILESDIR}"/${PN}-1.48.0-disable-unittest-1.patch
+	# Disable unittest failing without pt_BR locale, upstream bug #????
+	"${FILESDIR}"/${PN}-1.48.5-disable-unittest.patch
 )
 
 src_configure() {
 	# FIXME: add systemtap/dtrace support, like in glib:2
 	# FIXME: --enable-systemtap installs files in ${D}/${D} for some reason
+	# XXX: Do NOT enable coverage, completely useless for portage installs
 	gnome2_src_configure \
 		--disable-systemtap \
 		--disable-dtrace \
+		--disable-code-coverage \
 		$(use_with cairo cairo) \
 		$(use_with gtk) \
 		$(use_with test dbus-tests) \

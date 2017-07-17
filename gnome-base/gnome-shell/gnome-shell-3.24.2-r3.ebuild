@@ -26,7 +26,7 @@ COMMON_DEPEND="
 	>=dev-libs/atk-2[introspection]
 	>=app-crypt/gcr-3.7.5[introspection]
 	>=dev-libs/glib-2.45.3:2[dbus]
-	>=dev-libs/gjs-1.39
+	>=dev-libs/gjs-1.47.0
 	>=dev-libs/gobject-introspection-1.49.1:=
 	dev-libs/libical:=
 	>=x11-libs/gtk+-3.15.0:3[introspection]
@@ -114,10 +114,7 @@ DEPEND="${COMMON_DEPEND}
 	sys-devel/autoconf-archive
 	>=sys-devel/gettext-0.19.6
 	virtual/pkgconfig
-	!!=dev-lang/spidermonkey-1.8.2*
 "
-# libmozjs.so is picked up from /usr/lib while compiling, so block at build-time
-# https://bugs.gentoo.org/show_bug.cgi?id=360413
 
 src_prepare() {
 	if use deprecated-background; then
@@ -189,12 +186,6 @@ pkg_postinst() {
 		ewarn "you need to either install media-libs/gst-plugins-good:1.0"
 		ewarn "and media-plugins/gst-plugins-vpx:1.0, or use dconf-editor to change"
 		ewarn "apps.gnome-shell.recorder/pipeline to what you want to use."
-	fi
-
-	if has_version "<x11-drivers/ati-drivers-12"; then
-		ewarn "GNOME Shell has been reported to show graphical corruption under"
-		ewarn "x11-drivers/ati-drivers-11.*; you may want to switch to open-source"
-		ewarn "drivers."
 	fi
 
 	if ! has_version "media-libs/mesa[llvm]"; then

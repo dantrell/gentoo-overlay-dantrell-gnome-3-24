@@ -1,18 +1,19 @@
-From 09d1f1a057268a6acdfb42e7dcb2843c0066f542 Mon Sep 17 00:00:00 2001
+From e18ff93353a432867e373e549206928d3ced04cc Mon Sep 17 00:00:00 2001
 From: Ole Reifschneider <tranquility@gentoo.org>
 Date: Sat, 25 Apr 2015 22:22:09 +0200
 Subject: [PATCH 2/5] Make wayland support optional
 
 Signed-off-by: Gilles Dartiguelongue <eva@gentoo.org>
+Signed-off-by: Mart Raudsepp <leio@gentoo.org>
 ---
  configure.ac | 21 +++++++++++++++------
  1 file changed, 15 insertions(+), 6 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 19096f5..140459c 100644
+index 9566fb7..b47dbc8 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -225,12 +225,21 @@ if test "x$have_udev" = xyes ; then
+@@ -227,12 +227,21 @@ if test "x$have_udev" = xyes ; then
  fi
  AM_CONDITIONAL(HAVE_UDEV, [test "x$have_udev" = "xyes"])
  
@@ -38,8 +39,8 @@ index 19096f5..140459c 100644
 +        PKG_CHECK_MODULES(WAYLAND, gdk-wayland-3.0)
 +])
  
- PKG_CHECK_MODULES(NETWORK_MANAGER,
-                   libnm >= $NETWORK_MANAGER_REQUIRED_VERSION
+ # Panels that must be built on Linux systems
+ linux_error_or_warn()
 -- 
-2.10.1
+2.10.2
 

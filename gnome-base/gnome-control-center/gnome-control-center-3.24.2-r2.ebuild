@@ -12,7 +12,7 @@ LICENSE="GPL-2+"
 SLOT="2"
 KEYWORDS="*"
 
-IUSE="+bluetooth +colord debug elogind +gnome-online-accounts +ibus input_devices_wacom kerberos libinput networkmanager systemd v4l vanilla-datetime vanilla-hostname wayland"
+IUSE="+bluetooth +colord +cups debug elogind +gnome-online-accounts +ibus input_devices_wacom kerberos libinput networkmanager systemd v4l vanilla-datetime vanilla-hostname wayland"
 REQUIRED_USE="
 	?? ( elogind systemd )
 	wayland? ( || ( elogind systemd ) )
@@ -27,7 +27,7 @@ QA_CONFIGURE_OPTIONS=".*"
 # udev could be made optional, only conditions gsd-device-panel
 # (mouse, keyboards, touchscreen, etc)
 # display panel requires colord
-# printer panel is not optional and not yet patched
+# printer panel requires cups and smbclient (the latter is not patch yet to be separately optional)
 COMMON_DEPEND="
 	>=dev-libs/glib-2.44.0:2[dbus]
 	>=x11-libs/gdk-pixbuf-2.23.0:2
@@ -60,10 +60,10 @@ COMMON_DEPEND="
 		net-libs/libsoup:2.4
 		>=x11-misc/colord-0.1.34:0=
 		>=x11-libs/colord-gtk-0.1.24 )
-
-	>=net-print/cups-1.4[dbus]
-	>=net-fs/samba-4.0.0[client]
-
+	cups? (
+		>=net-print/cups-1.4[dbus]
+		>=net-fs/samba-4.0.0[client]
+	)
 	gnome-online-accounts? (
 		>=media-libs/grilo-0.3.0:0.3=
 		>=net-libs/gnome-online-accounts-3.21.5:= )
@@ -94,10 +94,9 @@ COMMON_DEPEND="
 RDEPEND="${COMMON_DEPEND}
 	x11-themes/adwaita-icon-theme
 	colord? ( >=gnome-extra/gnome-color-manager-3 )
-
-	app-admin/system-config-printer
-	net-print/cups-pk-helper
-
+	cups? (
+		app-admin/system-config-printer
+		net-print/cups-pk-helper )
 	input_devices_wacom? ( gnome-base/gnome-settings-daemon[input_devices_wacom] )
 	>=gnome-base/libgnomekbd-3
 	wayland? ( libinput? ( dev-libs/libinput ) )
@@ -145,16 +144,18 @@ src_prepare() {
 
 	# Make some panels and dependencies optional; requires eautoreconf
 	# https://bugzilla.gnome.org/686840, 697478, 700145
-	eapply "${FILESDIR}"/${PN}-3.23.90-optional.patch
-	eapply "${FILESDIR}"/${PN}-3.22.0-make-wayland-optional.patch
-	eapply "${FILESDIR}"/${PN}-3.23.90-make-networkmanager-optional.patch
+	eapply "${FILESDIR}"/${PN}-3.24.2-optional.patch
+	eapply "${FILESDIR}"/${PN}-3.24.2-optional-wayland.patch
+	eapply "${FILESDIR}"/${PN}-3.24.2-optional-networkmanager.patch
+	eapply "${FILESDIR}"/${PN}-3.24.2-optional-cups.patch
 
 	# Fix some absolute paths to be appropriate for Gentoo
-	eapply "${FILESDIR}"/${PN}-3.23.90-gentoo-paths.patch
+	eapply "${FILESDIR}"/${PN}-3.24.2-gentoo-paths.patch
 
 	# From GNOME:
 	# 	https://bugzilla.gnome.org/show_bug.cgi?id=774324
-	eapply "${FILESDIR}"/${PN}-3.24.2-common-fix-build-when-wayland-is-disabled.patch
+	# 	https://bugzilla.gnome.org/show_bug.cgi?id=780544
+	eapply "${FILESDIR}"/${PN}-3.24.2-fix-without-gdkwayland.patch
 
 	if ! use vanilla-datetime; then
 		# From Funtoo:
@@ -179,6 +180,7 @@ src_configure() {
 		--enable-documentation \
 		$(use_enable bluetooth) \
 		$(use_enable colord color) \
+		$(use_enable cups) \
 		$(usex debug --enable-debug=yes ' ') \
 		$(use_enable gnome-online-accounts goa) \
 		$(use_enable ibus) \

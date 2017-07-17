@@ -38,7 +38,7 @@ COMMON_DEPEND="
 	>=media-libs/fontconfig-2.5.0:1.0
 	>=media-libs/libcanberra-0.4[gtk3]
 	sys-apps/dbus
-	>=sys-apps/accountsservice-0.6.12
+	>=sys-apps/accountsservice-0.6.35
 
 	x11-apps/sessreg
 	x11-base/xorg-server
@@ -167,6 +167,7 @@ src_configure() {
 		--with-xdmcp=yes \
 		--enable-authentication-scheme=pam \
 		--with-default-pam-config=exherbo \
+		--with-pam-mod-dir=$(getpam_mod_dir) \
 		--with-at-spi-registryd-directory="${EPREFIX}"/usr/libexec \
 		--with-systemdsystemunitdir="$(systemd_get_systemunitdir)" \
 		--without-xevie \
