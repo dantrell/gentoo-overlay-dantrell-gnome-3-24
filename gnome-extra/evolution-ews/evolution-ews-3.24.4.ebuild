@@ -3,7 +3,7 @@
 EAPI="6"
 GNOME2_LA_PUNT="yes"
 
-inherit gnome2
+inherit gnome2 cmake-utils
 
 DESCRIPTION="Evolution module for connecting to Microsoft Exchange Web Services"
 HOMEPAGE="https://wiki.gnome.org/Apps/Evolution"
@@ -33,6 +33,8 @@ DEPEND="${RDEPEND}
 "
 
 src_configure() {
-	gnome2_src_configure \
-		$(use_enable test tests)
+	local mycmakeargs=(
+		-DENABLE_TESTS=$(usex test)
+	)
+	cmake-utils_src_configure
 }

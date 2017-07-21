@@ -3,7 +3,7 @@
 EAPI="6"
 GNOME2_LA_PUNT="yes"
 
-inherit cmake-utils gnome2 flag-o-matic readme.gentoo-r1 virtualx
+inherit gnome2 flag-o-matic readme.gentoo-r1 cmake-utils virtualx
 
 DESCRIPTION="Integrated mail, addressbook and calendaring functionality"
 HOMEPAGE="https://wiki.gnome.org/Apps/Evolution"
@@ -66,7 +66,7 @@ COMMON_DEPEND="
 	weather? ( >=dev-libs/libgweather-3.10:2= )
 "
 DEPEND="${COMMON_DEPEND}
-	app-text/highlight
+	>=net-mail/libpst-0.6.54
 	app-text/docbook-xml-dtd:4.1.2
 	app-text/yelp-tools
 	>=dev-util/gtk-doc-am-1.14

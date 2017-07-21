@@ -5,7 +5,7 @@ GNOME2_LA_PUNT="yes"
 PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} pypy )
 VALA_USE_DEPEND="vapigen"
 
-inherit cmake-utils db-use flag-o-matic gnome2 python-any-r1 systemd vala virtualx
+inherit db-use flag-o-matic gnome2 cmake-utils python-any-r1 systemd vala virtualx
 
 DESCRIPTION="Evolution groupware backend"
 HOMEPAGE="https://wiki.gnome.org/Apps/Evolution"

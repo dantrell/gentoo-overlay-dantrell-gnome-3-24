@@ -19,6 +19,7 @@ RDEPEND="
 	>=x11-libs/gtk+-3.21.6:3
 	>=gnome-extra/evolution-data-server-3.17.1:=
 	>=dev-libs/libical-1.0.1:0=
+	net-libs/libsoup:2.4
 	>=net-libs/gnome-online-accounts-3.2.0:=
 	>=gnome-base/gsettings-desktop-schemas-3.21.2
 "
@@ -29,3 +30,13 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	virtual/pkgconfig
 "
+
+PATCHES=(
+	"${FILESDIR}"/${PN}-3.24.3-week-grid-fixes.patch # from gnome-3-24 branch
+)
+
+src_configure() {
+	# Explicit --enable-debug=minimum forces no -O and -g touching in development (odd minor) versions
+	gnome2_src_configure \
+		--enable-debug=minimum
+}
