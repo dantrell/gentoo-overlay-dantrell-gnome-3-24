@@ -1,7 +1,7 @@
 diff '--exclude=.git' -urN a/src/Makefile.am b/src/Makefile.am
---- a/src/Makefile.am	2016-09-16 10:24:13.000000000 -0400
-+++ b/src/Makefile.am	2016-09-27 23:33:00.708843001 -0400
-@@ -152,10 +152,8 @@
+--- a/src/Makefile.am	2017-06-23 05:24:22.000000000 -0400
++++ b/src/Makefile.am	2017-07-21 16:43:49.684426136 -0400
+@@ -168,10 +168,8 @@
  	compositor/compositor.c			\
  	compositor/compositor-private.h		\
  	compositor/meta-background.c		\
@@ -12,7 +12,7 @@ diff '--exclude=.git' -urN a/src/Makefile.am b/src/Makefile.am
  	compositor/meta-background-group.c	\
  	compositor/meta-cullable.c		\
  	compositor/meta-cullable.h		\
-@@ -191,7 +189,6 @@
+@@ -208,7 +206,6 @@
  	meta/compositor.h			\
  	meta/meta-background.h			\
  	meta/meta-background-actor.h		\
@@ -20,7 +20,7 @@ diff '--exclude=.git' -urN a/src/Makefile.am b/src/Makefile.am
  	meta/meta-background-group.h		\
  	meta/meta-plugin.h			\
  	meta/meta-shadow-factory.h		\
-@@ -406,10 +403,9 @@
+@@ -427,10 +424,9 @@
  	meta/keybindings.h			\
  	meta/main.h				\
  	meta/meta-backend.h			\
@@ -30,11 +30,11 @@ diff '--exclude=.git' -urN a/src/Makefile.am b/src/Makefile.am
  	meta/meta-background-group.h		\
 +	meta/meta-background.h			\
  	meta/meta-cursor-tracker.h		\
+ 	meta/meta-dnd.h			\
  	meta/meta-idle-monitor.h		\
- 	meta/meta-plugin.h			\
 diff '--exclude=.git' -urN a/src/compositor/cogl-utils.c b/src/compositor/cogl-utils.c
---- a/src/compositor/cogl-utils.c	2016-07-29 00:51:39.000000000 -0400
-+++ b/src/compositor/cogl-utils.c	2016-09-27 23:33:00.708843001 -0400
+--- a/src/compositor/cogl-utils.c	2016-11-22 10:27:46.000000000 -0500
++++ b/src/compositor/cogl-utils.c	2017-07-21 16:43:49.686426124 -0400
 @@ -64,78 +64,3 @@
  
    return pipeline;
@@ -115,8 +115,8 @@ diff '--exclude=.git' -urN a/src/compositor/cogl-utils.c b/src/compositor/cogl-u
 -  return texture;
 -}
 diff '--exclude=.git' -urN a/src/compositor/cogl-utils.h b/src/compositor/cogl-utils.h
---- a/src/compositor/cogl-utils.h	2016-07-29 00:51:39.000000000 -0400
-+++ b/src/compositor/cogl-utils.h	2016-09-27 23:33:00.709842996 -0400
+--- a/src/compositor/cogl-utils.h	2016-11-22 10:27:46.000000000 -0500
++++ b/src/compositor/cogl-utils.h	2017-07-21 16:43:49.686426124 -0400
 @@ -25,14 +25,4 @@
  
  CoglPipeline * meta_create_texture_pipeline (CoglTexture *texture);
@@ -133,8 +133,8 @@ diff '--exclude=.git' -urN a/src/compositor/cogl-utils.h b/src/compositor/cogl-u
 -
  #endif /* __META_COGL_UTILS_H__ */
 diff '--exclude=.git' -urN a/src/compositor/meta-background-actor.c b/src/compositor/meta-background-actor.c
---- a/src/compositor/meta-background-actor.c	2016-07-29 00:51:39.000000000 -0400
-+++ b/src/compositor/meta-background-actor.c	2016-09-27 23:33:00.709842996 -0400
+--- a/src/compositor/meta-background-actor.c	2016-11-22 10:27:46.000000000 -0500
++++ b/src/compositor/meta-background-actor.c	2017-07-21 16:43:49.686426124 -0400
 @@ -1,7 +1,7 @@
  /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
  /*
@@ -873,9 +873,9 @@ diff '--exclude=.git' -urN a/src/compositor/meta-background-actor.c b/src/compos
 -    clutter_actor_queue_redraw (CLUTTER_ACTOR (self));
 -}
 diff '--exclude=.git' -urN a/src/compositor/meta-background-image.c b/src/compositor/meta-background-image.c
---- a/src/compositor/meta-background-image.c	2016-08-29 18:17:55.000000000 -0400
+--- a/src/compositor/meta-background-image.c	2017-06-21 14:34:30.000000000 -0400
 +++ b/src/compositor/meta-background-image.c	1969-12-31 19:00:00.000000000 -0500
-@@ -1,359 +0,0 @@
+@@ -1,366 +0,0 @@
 -/* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 -/*
 - * Copyright 2014 Red Hat, Inc.
@@ -1033,7 +1033,7 @@ diff '--exclude=.git' -urN a/src/compositor/meta-background-image.c b/src/compos
 -  CoglError *catch_error = NULL;
 -  GTask *task;
 -  CoglTexture *texture;
--  GdkPixbuf *pixbuf;
+-  GdkPixbuf *pixbuf, *rotated;
 -  int width, height, row_stride;
 -  guchar *pixels;
 -  gboolean has_alpha;
@@ -1049,6 +1049,13 @@ diff '--exclude=.git' -urN a/src/compositor/meta-background-image.c b/src/compos
 -      g_clear_error (&error);
 -      g_free (uri);
 -      goto out;
+-    }
+-
+-  rotated = gdk_pixbuf_apply_embedded_orientation (pixbuf);
+-  if (rotated != NULL)
+-    {
+-      g_object_unref (pixbuf);
+-      pixbuf = rotated;
 -    }
 -
 -  width = gdk_pixbuf_get_width (pixbuf);
@@ -1236,7 +1243,7 @@ diff '--exclude=.git' -urN a/src/compositor/meta-background-image.c b/src/compos
 -  return image->texture;
 -}
 diff '--exclude=.git' -urN a/src/compositor/meta-background-private.h b/src/compositor/meta-background-private.h
---- a/src/compositor/meta-background-private.h	2016-07-29 00:51:39.000000000 -0400
+--- a/src/compositor/meta-background-private.h	2016-11-22 10:27:46.000000000 -0500
 +++ b/src/compositor/meta-background-private.h	1969-12-31 19:00:00.000000000 -0500
 @@ -1,15 +0,0 @@
 -/* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
@@ -1255,8 +1262,8 @@ diff '--exclude=.git' -urN a/src/compositor/meta-background-private.h b/src/comp
 -
 -#endif /* META_BACKGROUND_PRIVATE_H */
 diff '--exclude=.git' -urN a/src/compositor/meta-background.c b/src/compositor/meta-background.c
---- a/src/compositor/meta-background.c	2016-08-29 18:17:55.000000000 -0400
-+++ b/src/compositor/meta-background.c	2016-09-27 23:33:36.543633534 -0400
+--- a/src/compositor/meta-background.c	2017-05-22 10:54:02.000000000 -0400
++++ b/src/compositor/meta-background.c	2017-07-21 16:43:49.687426118 -0400
 @@ -17,350 +17,731 @@
   * along with this program; if not, see <http://www.gnu.org/licenses/>.
   */
@@ -3188,8 +3195,8 @@ diff '--exclude=.git' -urN a/src/compositor/meta-background.c b/src/compositor/m
 +    return self->priv->filename;
  }
 diff '--exclude=.git' -urN a/src/compositor/plugins/default.c b/src/compositor/plugins/default.c
---- a/src/compositor/plugins/default.c	2016-08-29 18:17:55.000000000 -0400
-+++ b/src/compositor/plugins/default.c	2016-09-27 23:36:24.770641091 -0400
+--- a/src/compositor/plugins/default.c	2017-03-09 13:39:07.000000000 -0500
++++ b/src/compositor/plugins/default.c	2017-07-21 16:43:49.687426118 -0400
 @@ -331,16 +331,15 @@
    for (i = 0; i < n; i++)
      {
@@ -3233,8 +3240,8 @@ diff '--exclude=.git' -urN a/src/compositor/plugins/default.c b/src/compositor/p
  
    g_rand_free (rand);
 diff '--exclude=.git' -urN a/src/meta/meta-background-actor.h b/src/meta/meta-background-actor.h
---- a/src/meta/meta-background-actor.h	2016-07-29 00:51:37.000000000 -0400
-+++ b/src/meta/meta-background-actor.h	2016-09-27 23:33:00.710842990 -0400
+--- a/src/meta/meta-background-actor.h	2016-11-22 10:27:46.000000000 -0500
++++ b/src/meta/meta-background-actor.h	2017-07-21 16:43:49.687426118 -0400
 @@ -22,8 +22,9 @@
  #define META_BACKGROUND_ACTOR_H
  
@@ -3264,7 +3271,7 @@ diff '--exclude=.git' -urN a/src/meta/meta-background-actor.h b/src/meta/meta-ba
  
  #endif /* META_BACKGROUND_ACTOR_H */
 diff '--exclude=.git' -urN a/src/meta/meta-background-image.h b/src/meta/meta-background-image.h
---- a/src/meta/meta-background-image.h	2016-07-29 00:51:38.000000000 -0400
+--- a/src/meta/meta-background-image.h	2017-03-09 13:39:07.000000000 -0500
 +++ b/src/meta/meta-background-image.h	1969-12-31 19:00:00.000000000 -0500
 @@ -1,76 +0,0 @@
 -/* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
@@ -3344,8 +3351,8 @@ diff '--exclude=.git' -urN a/src/meta/meta-background-image.h b/src/meta/meta-ba
 -
 -#endif /* __META_BACKGROUND_IMAGE_H__ */
 diff '--exclude=.git' -urN a/src/meta/meta-background.h b/src/meta/meta-background.h
---- a/src/meta/meta-background.h	2016-07-29 00:51:37.000000000 -0400
-+++ b/src/meta/meta-background.h	2016-09-27 23:33:00.710842990 -0400
+--- a/src/meta/meta-background.h	2017-03-09 13:39:07.000000000 -0500
++++ b/src/meta/meta-background.h	2017-07-21 16:43:49.688426113 -0400
 @@ -1,8 +1,8 @@
  /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
  /*

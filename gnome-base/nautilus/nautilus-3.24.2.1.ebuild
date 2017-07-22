@@ -94,7 +94,7 @@ src_prepare() {
 	if ! use vanilla-search; then
 		# From Dr. Amr Osman:
 		# 	https://bugs.launchpad.net/ubuntu/+source/nautilus/+bug/1164016/comments/31
-		eapply "${FILESDIR}"/${PN}-3.22.0-support-alternative-search.patch
+		eapply "${FILESDIR}"/${PN}-3.24.2.1-support-alternative-search.patch
 	fi
 
 	gnome2_src_prepare

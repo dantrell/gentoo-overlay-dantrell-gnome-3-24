@@ -1,6 +1,6 @@
 diff '--exclude=.git' -urN a/src/nautilus-query.c b/src/nautilus-query.c
---- a/src/nautilus-query.c	2016-09-13 17:06:51.000000000 -0400
-+++ b/src/nautilus-query.c	2016-10-01 22:57:31.786030635 -0400
+--- a/src/nautilus-query.c	2017-03-23 09:23:55.000000000 -0400
++++ b/src/nautilus-query.c	2017-07-21 17:52:19.709555013 -0400
 @@ -31,24 +31,6 @@
  #include "nautilus-query.h"
  #include "nautilus-enum-types.h"
@@ -27,8 +27,8 @@ diff '--exclude=.git' -urN a/src/nautilus-query.c b/src/nautilus-query.c
  static void  nautilus_query_init (NautilusQuery *query);
  
 diff '--exclude=.git' -urN a/src/nautilus-query.h b/src/nautilus-query.h
---- a/src/nautilus-query.h	2016-09-13 17:06:51.000000000 -0400
-+++ b/src/nautilus-query.h	2016-10-01 22:57:31.786030635 -0400
+--- a/src/nautilus-query.h	2017-03-23 09:23:55.000000000 -0400
++++ b/src/nautilus-query.h	2017-07-21 17:52:19.709555013 -0400
 @@ -35,6 +35,27 @@
          NAUTILUS_QUERY_SEARCH_CONTENT_FULL_TEXT,
  } NautilusQuerySearchContent;
@@ -58,8 +58,8 @@ diff '--exclude=.git' -urN a/src/nautilus-query.h b/src/nautilus-query.h
  
  G_DECLARE_FINAL_TYPE (NautilusQuery, nautilus_query, NAUTILUS, QUERY, GObject)
 diff '--exclude=.git' -urN a/src/nautilus-search-directory.c b/src/nautilus-search-directory.c
---- a/src/nautilus-search-directory.c	2016-09-13 17:06:51.000000000 -0400
-+++ b/src/nautilus-search-directory.c	2016-10-01 22:57:31.786030635 -0400
+--- a/src/nautilus-search-directory.c	2017-07-17 16:24:33.000000000 -0400
++++ b/src/nautilus-search-directory.c	2017-07-21 17:52:19.709555013 -0400
 @@ -204,7 +204,10 @@
      nautilus_search_engine_model_set_model (model_provider, search->details->base_model);
  
@@ -73,9 +73,9 @@ diff '--exclude=.git' -urN a/src/nautilus-search-directory.c b/src/nautilus-sear
  
      reset_file_list (search);
 diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-slot.c
---- a/src/nautilus-window-slot.c	2016-09-13 17:06:51.000000000 -0400
-+++ b/src/nautilus-window-slot.c	2016-10-02 00:34:52.194774957 -0400
-@@ -124,6 +124,11 @@
+--- a/src/nautilus-window-slot.c	2017-07-17 16:24:33.000000000 -0400
++++ b/src/nautilus-window-slot.c	2017-07-21 20:16:46.774525037 -0400
+@@ -126,6 +126,11 @@
  
  G_DEFINE_TYPE_WITH_PRIVATE (NautilusWindowSlot, nautilus_window_slot, GTK_TYPE_BOX);
  
@@ -87,7 +87,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
  static guint signals[LAST_SIGNAL] = { 0 };
  static GParamSpec *properties[NUM_PROPERTIES] = { NULL, };
  
-@@ -144,7 +149,10 @@
+@@ -146,7 +151,10 @@
  char *nautilus_window_slot_get_location_uri (NautilusWindowSlot *self);
  static void nautilus_window_slot_set_search_visible (NautilusWindowSlot *self,
                                                       gboolean            visible);
@@ -97,8 +97,8 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
 +static gboolean nautilus_window_slot_get_alternative_search_visible (NautilusWindowSlot *self);
  static void nautilus_window_slot_set_location (NautilusWindowSlot *self,
                                                 GFile              *location);
- gboolean
-@@ -304,6 +312,45 @@
+ static void trash_state_changed_cb (NautilusTrashMonitor *monitor,
+@@ -310,6 +318,45 @@
  }
  
  static void
@@ -144,7 +144,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
  nautilus_window_slot_sync_actions (NautilusWindowSlot *self)
  {
      NautilusWindowSlotPrivate *priv;
-@@ -326,6 +373,7 @@
+@@ -332,6 +379,7 @@
       * Needs to be done after the change has been done, if not, a loop happens,
       * because setting the search enabled or not actually opens a location */
      update_search_visible (self);
@@ -152,7 +152,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
  
      /* Files view mode */
      action = g_action_map_lookup_action (G_ACTION_MAP (priv->slot_action_group), "files-view-mode");
-@@ -338,9 +386,11 @@
+@@ -344,9 +392,11 @@
  
  static void
  query_editor_cancel_callback (NautilusQueryEditor *editor,
@@ -166,15 +166,16 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
  }
  
  static void
-@@ -358,6 +408,7 @@
+@@ -362,6 +412,8 @@
+         {
+             nautilus_files_view_activate_selection (NAUTILUS_FILES_VIEW (priv->content_view));
          }
- 
-         nautilus_window_slot_set_search_visible (self, FALSE);
++
 +        nautilus_window_slot_set_alternative_search_visible (self, FALSE);
      }
  }
  
-@@ -365,14 +416,16 @@
+@@ -369,14 +421,16 @@
  query_editor_changed_callback (NautilusQueryEditor *editor,
                                 NautilusQuery       *query,
                                 gboolean             reload,
@@ -194,7 +195,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
  }
  
  static void
-@@ -445,14 +498,19 @@
+@@ -449,14 +503,19 @@
  }
  
  static void
@@ -215,7 +216,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
      if (nautilus_view_is_searching (view))
      {
          NautilusQuery *query;
-@@ -472,13 +530,13 @@
+@@ -476,13 +535,13 @@
      {
          priv->qe_changed_id =
              g_signal_connect (priv->query_editor, "changed",
@@ -231,7 +232,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
      }
      if (priv->qe_activated_id == 0)
      {
-@@ -502,6 +560,20 @@
+@@ -506,6 +565,20 @@
      g_action_change_state (action, g_variant_new_boolean (visible));
  }
  
@@ -252,7 +253,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
  static gboolean
  nautilus_window_slot_get_search_visible (NautilusWindowSlot *self)
  {
-@@ -521,6 +593,25 @@
+@@ -525,6 +598,25 @@
      return searching;
  }
  
@@ -278,7 +279,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
  void
  nautilus_window_slot_search (NautilusWindowSlot *self,
                               const gchar        *text)
-@@ -542,6 +633,7 @@
+@@ -546,6 +638,7 @@
      if (view)
      {
          nautilus_window_slot_set_search_visible (self, TRUE);
@@ -286,7 +287,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
          nautilus_query_editor_set_text (priv->query_editor, text);
      }
      else
-@@ -573,6 +665,7 @@
+@@ -577,6 +670,7 @@
      if (retval)
      {
          nautilus_window_slot_set_search_visible (self, TRUE);
@@ -294,7 +295,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
      }
  
      return retval;
-@@ -796,7 +889,34 @@
+@@ -800,7 +894,34 @@
  
          if (g_variant_get_boolean (state))
          {
@@ -330,7 +331,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
          }
          else
          {
-@@ -875,6 +995,7 @@
+@@ -879,6 +1000,7 @@
      { "files-view-mode", NULL, "u", "uint32 4", action_files_view_mode },
      { "files-view-mode-toggle", action_files_view_mode_toggle },
      { "search-visible", NULL, NULL, "false", action_search_visible },
@@ -338,7 +339,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
  };
  
  static void
-@@ -897,6 +1018,7 @@
+@@ -905,6 +1027,7 @@
      nautilus_application_set_accelerator (app, "slot.files-view-mode(uint32 1)", "<control>1");
      nautilus_application_set_accelerator (app, "slot.files-view-mode(uint32 0)", "<control>2");
      nautilus_application_set_accelerator (app, "slot.search-visible", "<control>f");
@@ -346,7 +347,7 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
  
      priv->view_mode_before_search = NAUTILUS_VIEW_INVALID_ID;
  }
-@@ -2702,8 +2824,7 @@
+@@ -2746,8 +2869,7 @@
  
      GTK_WIDGET_CLASS (nautilus_window_slot_parent_class)->grab_focus (widget);
  
@@ -356,9 +357,23 @@ diff '--exclude=.git' -urN a/src/nautilus-window-slot.c b/src/nautilus-window-sl
          gtk_widget_grab_focus (GTK_WIDGET (priv->query_editor));
      }
      else if (priv->content_view)
+diff '--exclude=.git' -urN a/src/nautilus-window-slot.c.rej b/src/nautilus-window-slot.c.rej
+--- a/src/nautilus-window-slot.c.rej	1969-12-31 19:00:00.000000000 -0500
++++ b/src/nautilus-window-slot.c.rej	2017-07-21 17:52:19.710555007 -0400
+@@ -0,0 +1,10 @@
++--- src/nautilus-window-slot.c	2016-09-13 17:06:51.000000000 -0400
+++++ src/nautilus-window-slot.c	2016-10-02 00:34:52.194774957 -0400
++@@ -408,6 +458,7 @@
++         }
++ 
++         nautilus_window_slot_set_search_visible (self, FALSE);
+++        nautilus_window_slot_set_alternative_search_visible (self, FALSE);
++     }
++ }
++ 
 diff '--exclude=.git' -urN a/src/nautilus-window-slot.h b/src/nautilus-window-slot.h
---- a/src/nautilus-window-slot.h	2016-09-13 17:06:51.000000000 -0400
-+++ b/src/nautilus-window-slot.h	2016-10-01 22:57:31.787030617 -0400
+--- a/src/nautilus-window-slot.h	2017-07-17 16:24:33.000000000 -0400
++++ b/src/nautilus-window-slot.h	2017-07-21 17:52:19.710555007 -0400
 @@ -37,6 +37,9 @@
  G_DECLARE_DERIVABLE_TYPE (NautilusWindowSlot, nautilus_window_slot, NAUTILUS, WINDOW_SLOT, GtkBox)
  
