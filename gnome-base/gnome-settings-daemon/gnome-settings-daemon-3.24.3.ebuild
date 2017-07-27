@@ -104,12 +104,12 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-3.24.2-optional.patch
 	# Allow specifying udevrulesdir via configure, bug 509484; requires eautoreconf
 	"${FILESDIR}"/${PN}-3.24.2-udevrulesdir-configure.patch
-	# Fix uninstalled (during build) color plugin test run
-	"${FILESDIR}"/${PN}-3.24.2-fix-color-tests.patch
 	# Reduce memory usage by not initing GTK+ where not needed
 	"${FILESDIR}"/${PN}-3.24.2-remove-unneeded-gtk-init.patch
 	# Reduce memory usage by using a fake CSS theme instead of full Adwaita for GTK+ needing plugins; requires eautoreconf
 	"${FILESDIR}"/${PN}-3.24.2-reduce-memory-usage.patch
+	# Fix build when Wayland is disabled
+	"${FILESDIR}"/${PN}-3.24.3-fix-without-gdkwayland.patch
 )
 
 python_check_deps() {

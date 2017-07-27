@@ -30,15 +30,15 @@ diff '--exclude=.git' -urN a/common/gdm-log.c b/common/gdm-log.c
  #include <glib/gstdio.h>
 diff '--exclude=.git' -urN a/configure.ac b/configure.ac
 --- a/configure.ac	2017-05-09 17:10:05.000000000 -0400
-+++ b/configure.ac	2017-05-22 14:24:23.534862144 -0400
-@@ -902,15 +902,35 @@
++++ b/configure.ac	2017-07-25 18:22:44.248689085 -0400
+@@ -902,15 +902,38 @@
  CPPFLAGS="$xinerama_save_cppflags"
  
  dnl ---------------------------------------------------------------------------
 +dnl - Check for elogind support
 +dnl ---------------------------------------------------------------------------
 +
-+PKG_CHECK_MODULES(SYSTEMD,
++PKG_CHECK_MODULES(ELOGIND,
 +                  [libelogind],
 +                  [have_elogind=yes], [have_elogind=no])
 +
@@ -61,6 +61,9 @@ diff '--exclude=.git' -urN a/configure.ac b/configure.ac
  AC_SUBST(SYSTEMD_CFLAGS)
  AC_SUBST(SYSTEMD_LIBS)
  
++SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS $ELOGIND_CFLAGS"
++SYSTEMD_LIBS="$SYSTEMD_LIBS $ELOGIND_LIBS"
++
 +if test "x$have_systemd" != "xno" ; then
 +        AC_DEFINE(WITH_SYSTEMD, 1, [Define to enable systemd support])
 +fi

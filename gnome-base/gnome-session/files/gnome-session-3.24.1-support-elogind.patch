@@ -13,7 +13,7 @@ diff '--exclude=.git' -urN a/config.h.in b/config.h.in
  
 diff '--exclude=.git' -urN a/configure.ac b/configure.ac
 --- a/configure.ac	2017-04-12 10:46:24.000000000 -0400
-+++ b/configure.ac	2017-05-22 14:23:49.095116063 -0400
++++ b/configure.ac	2017-07-27 03:00:21.099794128 -0400
 @@ -109,6 +109,45 @@
  fi
  
@@ -25,7 +25,7 @@ diff '--exclude=.git' -urN a/configure.ac b/configure.ac
 +              [enable_elogind=$enableval],
 +              [enable_elogind=auto])
 +
-+PKG_CHECK_MODULES(SYSTEMD,
++PKG_CHECK_MODULES(ELOGIND,
 +                  [gio-unix-2.0 libelogind >= 209],
 +                  [have_elogind=yes],
 +                  [PKG_CHECK_MODULES([SYSTEMD],
@@ -60,7 +60,17 @@ diff '--exclude=.git' -urN a/configure.ac b/configure.ac
  dnl Check for systemd
  dnl ====================================================================
  AC_ARG_ENABLE([systemd],
-@@ -173,7 +212,13 @@
+@@ -145,6 +184,9 @@
+ AC_SUBST(SYSTEMD_CFLAGS)
+ AC_SUBST(SYSTEMD_LIBS)
+ 
++SYSTEMD_CFLAGS="$SYSTEMD_CFLAGS $ELOGIND_CFLAGS"
++SYSTEMD_LIBS="$SYSTEMD_LIBS $ELOGIND_LIBS"
++
+ AM_CONDITIONAL(HAVE_SYSTEMD, [test "$enable_systemd" = "yes"], [Using systemd])
+ 
+ dnl ====================================================================
+@@ -173,7 +215,13 @@
  
  AM_CONDITIONAL(HAVE_CONSOLEKIT, [test "$enable_consolekit" = "yes"], [Using ConsoleKit])
  

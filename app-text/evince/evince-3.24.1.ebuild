@@ -64,10 +64,6 @@ DEPEND="${COMMON_DEPEND}
 # eautoreconf needs:
 #  app-text/yelp-tools
 
-PATCHES=(
-	"${FILESDIR}"/${PN}-3.22.1-CVE-2017-1000083.patch
-)
-
 src_prepare() {
 	gnome2_src_prepare
 
