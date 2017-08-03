@@ -22,12 +22,15 @@ IUSE="branding"
 # This ebuild does not install any binaries
 RESTRICT="binchecks strip"
 
+# gtk+:3 is needed for build for the gtk-encode-symbolic-svg utility
+# librsvg is needed for gtk-encode-symbolic-svg to be able to read the source SVG via its pixbuf loader and at runtime for rendering scalable icons shipped by the theme
 COMMON_DEPEND="
 	>=x11-themes/hicolor-icon-theme-0.10
+	gnome-base/librsvg:2
 "
 RDEPEND="${COMMON_DEPEND}
-	gnome-base/librsvg:2
 	!<x11-themes/gnome-themes-standard-3.14
+	x11-libs/gtk+:3
 "
 DEPEND="${COMMON_DEPEND}
 	sys-devel/gettext
