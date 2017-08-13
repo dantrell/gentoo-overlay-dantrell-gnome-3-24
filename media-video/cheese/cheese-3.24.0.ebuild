@@ -48,6 +48,7 @@ DEPEND="${COMMON_DEPEND}
 	app-text/yelp-tools
 	dev-libs/appstream-glib
 	dev-libs/libxml2:2
+	dev-libs/libxslt
 	dev-util/gdbus-codegen
 	>=dev-util/gtk-doc-am-1.14
 	>=dev-util/intltool-0.50

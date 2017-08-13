@@ -26,8 +26,7 @@ DEPEND="${COMMON_DEPEND}
 	app-text/docbook-sgml-dtd:4.1
 	app-text/docbook-sgml-utils
 	dev-libs/appstream-glib
-	>=dev-util/intltool-0.50
-	sys-devel/gettext
+	>=sys-devel/gettext-0.19.7
 	x11-proto/randrproto
 	virtual/pkgconfig
 	test? ( sys-apps/dbus )

@@ -39,7 +39,6 @@ RDEPEND="${COMMON_DEPEND}
 DEPEND="${COMMON_DEPEND}
 	app-text/yelp-tools
 	dev-libs/appstream-glib
-	gnome-base/gnome-common
 	>=sys-devel/gettext-0.19.6
 	virtual/pkgconfig
 	test? ( ~app-text/docbook-xml-dtd-4.3 )

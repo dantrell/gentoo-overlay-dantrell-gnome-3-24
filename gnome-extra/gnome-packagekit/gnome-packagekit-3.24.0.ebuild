@@ -38,9 +38,8 @@ DEPEND="${RDEPEND}
 	app-text/docbook-sgml-utils
 	dev-libs/appstream-glib
 	>=dev-util/gtk-doc-am-1.9
-	>=dev-util/intltool-0.35
 	dev-libs/libxslt
-	sys-devel/gettext
+	>=sys-devel/gettext-0.19.7
 	virtual/pkgconfig
 "
 
@@ -74,7 +73,6 @@ src_prepare() {
 src_configure() {
 	gnome2_src_configure \
 		--localstatedir=/var \
-		--enable-iso-c \
 		--disable-tests \
 		$(use_enable systemd) \
 		$(use_enable udev gudev)

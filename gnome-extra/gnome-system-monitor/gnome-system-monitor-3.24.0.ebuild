@@ -16,9 +16,9 @@ IUSE="systemd X"
 RDEPEND="
 	>=dev-libs/glib-2.37.3:2
 	>=gnome-base/libgtop-2.28.2:2=
-	>=x11-libs/gtk+-3.12:3[X(+)]
+	>=x11-libs/gtk+-3.22:3[X(+)]
 	>=dev-cpp/gtkmm-3.3.18:3.0
-	>=dev-cpp/glibmm-2.34:2
+	>=dev-cpp/glibmm-2.46:2
 	>=dev-libs/libxml2-2.0:2
 	>=gnome-base/librsvg-2.35:2
 	systemd? ( >=sys-apps/systemd-44:0= )
@@ -35,6 +35,6 @@ src_configure() {
 	# XXX: appdata is deprecated by appstream-glib, upstream must upgrade
 	gnome2_src_configure \
 		$(use_enable systemd) \
-		$(use_enable X wnck) \
+		$(use_enable X broken-wnck) \
 		APPDATA_VALIDATE="$(type -P true)"
 }

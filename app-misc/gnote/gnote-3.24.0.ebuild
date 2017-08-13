@@ -14,7 +14,9 @@ KEYWORDS="*"
 
 IUSE="debug"
 
-# Automagic glib-2.32 dep
+# Automagic:
+# glib-2.32 dep
+# >=dev-libs/unittest++-1.5.1 (but not detected due to missing .pc)
 COMMON_DEPEND="
 	>=app-crypt/libsecret-0.8
 	>=app-text/gtkspell-3.0:3
