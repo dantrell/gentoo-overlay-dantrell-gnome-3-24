@@ -5,7 +5,7 @@ GNOME2_LA_PUNT="yes"
 PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} pypy )
 VALA_USE_DEPEND="vapigen"
 
-inherit db-use flag-o-matic gnome2 cmake-utils python-any-r1 systemd vala virtualx
+inherit cmake-utils db-use flag-o-matic gnome2 python-any-r1 systemd vala virtualx
 
 DESCRIPTION="Evolution groupware backend"
 HOMEPAGE="https://wiki.gnome.org/Apps/Evolution"
@@ -64,8 +64,7 @@ DEPEND="${RDEPEND}
 	dev-util/gperf
 	>=dev-util/gtk-doc-am-1.14
 	>=dev-util/intltool-0.35.5
-	>=gnome-base/gnome-common-2
-	>=sys-devel/gettext-0.17
+	>=sys-devel/gettext-0.18.3
 	virtual/pkgconfig
 	vala? ( $(vala_depend) )
 "
@@ -78,57 +77,65 @@ src_prepare() {
 	eapply "${FILESDIR}"/${PN}-3.24.2-assume-vala-bindings.patch
 
 	use vala && vala_src_prepare
-	cmake-utils_src_prepare
+	gnome2_src_prepare
+
+	# Make CMakeLists versioned vala enabled
+	sed -e "s;\(find_program(VALAC\) valac);\1 ${VALAC});" \
+	    -e "s;\(find_program(VAPIGEN\) vapigen);\1 ${VAPIGEN});" \
+		-i "${S}"/CMakeLists.txt || die
 }
 
 src_configure() {
-	local mycmakeargs=(
-		-DENABLE_GOA=$(usex gnome-online-accounts)
-		-DENABLE_GOOGLE_AUTH=$(usex google)
-		-DENABLE_GTK=$(usex gtk)
-		-DENABLE_GTK_DOC=$(usex api-doc-extras)
-		-DENABLE_INTROSPECTION=$(usex introspection)
-		-DENABLE_IPV6=$(usex ipv6)
-		-DENABLE_VALA_BINDINGS=$(usex vala)
-		-DENABLE_WEATHER=$(usex weather)
-		-DWITH_PRIVATE_DOCS=$(usex api-doc-extras "ON" "OFF")
-		-DWITH_LIBDB=$(usex berkdb "${EPREFIX}"/usr "OFF")
-		-DWITH_OPENLDAP=$(usex ldap "ON" "OFF")
-		-DWITH_KRB5=$(usex kerberos "ON" "OFF")
-		-DWITH_KRB5_LIBS=$(usex kerberos "${EPREFIX}"/usr/$(get_libdir) "")
-		-DWITH_CFLAGS=$(usex berkdb "-I$(db_includedir)" "")
-		-DENABLE_LARGEFILE=ON
-		-DENABLE_SMIME=ON
-		-DWITH_SYSTEMDUSERUNITDIR="$(systemd_get_userunitdir)"
-		-DWITH_PHONENUMBER=OFF
-		-DENABLE_EXAMPLES=OFF
-		-DENABLE_UOA=OFF
-	)
+	# /usr/include/db.h is always db-1 on FreeBSD
+	# so include the right dir in CPPFLAGS
+	use berkdb && append-cppflags "-I$(db_includedir)"
 
+	local google_auth_enable
 	if use google || use gnome-online-accounts; then
-		mycmakeargs+=( -DENABLE_GOOGLE=ON )
+		google_auth_enable="ON"
 	else
-		mycmakeargs+=( -DENABLE_GOOGLE=OFF )
+		google_auth_enable="OFF"
 	fi
+
+	# phonenumber does not exist in tree
+	local mycmakeargs=(
+		-DWITH_SYSTEMDUSERUNITDIR="$(systemd_get_userunitdir)"
+		-DENABLE_GTK_DOC=$(usex api-doc-extras)
+		-DWITH_PRIVATE_DOCS=$(usex api-doc-extras "ON" "OFF")
+		-DENABLE_SCHEMAS_COMPILE=OFF
+		-DENABLE_INTROSPECTION=$(usex introspection)
+		-DWITH_KRB5=$(usex kerberos "ON" "OFF")
+		-DWITH_KRB5_INCLUDES=$(usex kerberos "${EPREFIX}"/usr "")
+		-DWITH_KRB5_LIBS=$(usex kerberos "${EPREFIX}"/usr/$(get_libdir) "")
+		-DWITH_OPENLDAP=$(usex ldap "ON" "OFF")
+		-DWITH_PHONENUMBER=OFF
+		-DENABLE_SMIME=ON
+		-DENABLE_GTK=$(usex gtk)
+		-DENABLE_GOOGLE_AUTH=${google_auth_enable}
+		-DENABLE_EXAMPLES=OFF
+		-DENABLE_GOA=$(usex gnome-online-accounts)
+		-DENABLE_UOA=OFF
+		-DWITH_LIBDB=$(usex berkdb "${EPREFIX}"/usr "OFF")
+		# ENABLE_BACKTRACES requires libdwarf ?
+		-DENABLE_IPV6=$(usex ipv6)
+		-DENABLE_WEATHER=$(usex weather)
+		-DENABLE_GOOGLE=$(usex google)
+		-DENABLE_LARGEFILE=ON
+		-DENABLE_VALA_BINDINGS=$(usex vala)
+	)
 
 	cmake-utils_src_configure
 }
 
+src_compile() {
+	cmake-utils_src_compile
+}
+
 src_test() {
-	unset ORBIT_SOCKETDIR
-	unset SESSION_MANAGER
-	virtx emake check
+	virtx cmake-utils_src_test
 }
 
 src_install() {
-	addwrite /usr/share/glib-2.0/schemas/org.gnome.Evolution.DefaultSources.gschema.xml
-	addwrite /usr/share/glib-2.0/schemas/org.gnome.evolution-data-server.gschema.xml
-	addwrite /usr/share/glib-2.0/schemas/org.gnome.evolution-data-server.calendar.gschema.xml
-	addwrite /usr/share/glib-2.0/schemas/org.gnome.evolution.eds-shell.gschema.xml
-	addwrite /usr/share/glib-2.0/schemas/org.gnome.evolution-data-server.addressbook.gschema.xml
-	addwrite /usr/share/glib-2.0/schemas/org.gnome.evolution.shell.network-config.gschema.xml
-	addwrite /usr/share/glib-2.0/schemas/
-
 	cmake-utils_src_install
 
 	if use ldap; then

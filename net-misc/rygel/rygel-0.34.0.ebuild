@@ -55,6 +55,15 @@ DEPEND="${RDEPEND}
 #	>=dev-lang/vala-0.22
 #   dev-libs/libxslt
 
+src_prepare() {
+	# Disable test triggering call to gst-plugins-scanner which causes
+	# sandbox issues when plugins such as clutter are installed
+	sed -e 's/return rygel_playbin_renderer_test_main (argv, argc);/return 0;/' \
+		-i tests/rygel-playbin-renderer-test.c || die
+
+	gnome2_src_prepare
+}
+
 src_configure() {
 	# We set xsltproc because man pages are provided by upstream
 	# and we do not want to regenerate them automagically.

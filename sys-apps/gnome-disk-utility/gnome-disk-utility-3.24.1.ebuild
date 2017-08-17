@@ -32,9 +32,9 @@ RDEPEND="${COMMON_DEPEND}
 	gnome? ( >=gnome-base/gnome-settings-daemon-3.8 )
 "
 DEPEND="${COMMON_DEPEND}
-	>=dev-util/intltool-0.50.2
 	dev-libs/appstream-glib
 	dev-libs/libxslt
+	>=sys-devel/gettext-0.19.8
 	virtual/pkgconfig
 "
 

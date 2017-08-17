@@ -22,9 +22,9 @@ COMMON_DEPEND="
 	>=dev-libs/libgee-0.16:0.8[introspection]
 	dev-libs/libxml2:2
 	>=media-libs/libchamplain-0.12.14:0.12[gtk,introspection]
-	net-libs/rest:0.7[introspection]
+	>=net-libs/rest-0.7.90:0.7[introspection]
 	>=sci-geosciences/geocode-glib-3.15.2[introspection]
-	>=x11-libs/gtk+-3.15.9:3[introspection]
+	>=x11-libs/gtk+-3.22:3[introspection]
 "
 # Found by grepping imports.gi in ${S}
 RDEPEND="${COMMON_DEPEND}

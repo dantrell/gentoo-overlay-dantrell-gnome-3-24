@@ -3,7 +3,7 @@
 EAPI="6"
 GNOME2_LA_PUNT="yes"
 
-inherit gnome2 flag-o-matic readme.gentoo-r1 cmake-utils virtualx
+inherit cmake-utils gnome2 flag-o-matic readme.gentoo-r1
 
 DESCRIPTION="Integrated mail, addressbook and calendaring functionality"
 HOMEPAGE="https://wiki.gnome.org/Apps/Evolution"
@@ -66,12 +66,12 @@ COMMON_DEPEND="
 	weather? ( >=dev-libs/libgweather-3.10:2= )
 "
 DEPEND="${COMMON_DEPEND}
-	>=net-mail/libpst-0.6.54
 	app-text/docbook-xml-dtd:4.1.2
 	app-text/yelp-tools
+	dev-util/gdbus-codegen
 	>=dev-util/gtk-doc-am-1.14
 	>=dev-util/intltool-0.40.0
-	>=gnome-base/gnome-common-2.12
+	>=sys-devel/gettext-0.18.3
 	virtual/pkgconfig
 "
 RDEPEND="${COMMON_DEPEND}
@@ -93,38 +93,50 @@ x-scheme-handler/https=firefox.desktop
 (replace firefox.desktop with the name of the appropriate .desktop
 file from /usr/share/applications if you use a different browser)."
 
+src_prepare() {
+	# Leave post-install actions to eclass
+	sed -e "s;\(find_program(GTK_UPDATE_ICON_CACHE\).*;\1 $(type -P true));" \
+		-i "${S}"/cmake/modules/IconCache.cmake || die
+
+	gnome2_src_prepare
+}
+
 src_configure() {
+	# Use NSS/NSPR only if 'ssl' is enabled.
 	local mycmakeargs=(
-		-DENABLE_CODE_COVERAGE=OFF
+		-DENABLE_SCHEMAS_COMPILE=OFF
+		-DENABLE_GTK_DOC=OFF
+		-DWITH_OPENLDAP=$(usex ldap "ON" "OFF")
+		-DENABLE_SMIME=$(usex ssl)
+		-DENABLE_GNOME_DESKTOP=ON
+		-DENABLE_CANBERRA=ON
+		-DENABLE_AUTOAR=$(usex archive)
+		-DWITH_HELP=ON
+		-DENABLE_LIBCRYPTUI=$(usex crypt "ON" "OFF")
+		-DENABLE_YTNEF=OFF
+		-DWITH_BOGOFILTER=$(usex bogofilter)
+		-DWITH_SPAMASSASSIN=$(usex spamassassin "ON" "OFF")
+		-DENABLE_GTKSPELL=$(usex spell)
+		-DENABLE_TEXT_HIGHLIGHT=$(usex highlight "ON" "OFF")
+		-DENABLE_WEATHER=$(usex weather)
+		-DENABLE_CONTACT_MAPS=$(usex geolocation)
 		-DENABLE_INSTALLED_TESTS=OFF
 		-DENABLE_PST_IMPORT=OFF
-		-DENABLE_AUTOAR=$(usex archive)
-		-DENABLE_LIBCRYPTUI=$(usex crypt "ON" "OFF")
-		-DENABLE_TEXT_HIGHLIGHT=$(usex highlight "ON" "OFF")
-		-DENABLE_CONTACT_MAP=$(usex geolocation)
-		-DENABLE_GTKSPELL=$(usex spell)
-		-DENABLE_NSS=$(usex ssl)
-		-DENABLE_SMIME=$(usex ssl)
-		-DWITH_BOGOFILTER=$(usex bogofilter)
-		-DWITH_OPENLDAP=$(usex ldap "ON" "OFF")
-		-DWITH_SPAMASSASION=$(usex spamassassin "ON" "OFF")
-		-DENABLE_WEATHER=$(usex weather)
-		-DENABLE_YTNEF=OFF
-		-DENABLE_SCHEMAS_COMPILE=OFF
+		-DWITH_GLADE_CATALOG=OFF
 	)
-    cmake-utils_src_configure
+
+	cmake-utils_src_configure
+}
+
+src_compile() {
+	cmake-utils_src_compile
 }
 
 src_test() {
-	"${EROOT}${GLIB_COMPILE_SCHEMAS}" --allow-any-name "${S}/data" || die
-    GSETTINGS_SCHEMA_DIR="${S}/data" virtx emake check
+	cmake-utils_src_test
 }
 
 src_install() {
-	addwrite /usr/share/evolution
-	#addwrite /usr/share/glib-2.0/schemas
-	addwrite /usr/share/icons/hicolor
-
 	cmake-utils_src_install
 
 	# Problems with prelink:

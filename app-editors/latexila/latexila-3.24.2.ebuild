@@ -21,10 +21,10 @@ COMMON_DEPEND="
 	>=dev-libs/glib-2.50:2[dbus]
 	>=dev-libs/libgee-0.10:0.8=
 	gnome-base/gsettings-desktop-schemas
+	>=x11-libs/gtef-2.0
 	>=x11-libs/gtk+-3.20:3
 	>=x11-libs/gtksourceview-3.24:3.0=
 	x11-libs/gdk-pixbuf:2
-	>=x11-libs/gtef-2.0.0
 	x11-libs/pango
 	introspection? ( >=dev-libs/gobject-introspection-1.30.0:= )
 "

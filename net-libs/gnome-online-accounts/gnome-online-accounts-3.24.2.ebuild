@@ -21,7 +21,7 @@ IUSE="debug gnome +introspection kerberos" # telepathy"
 # https://bugzilla.gnome.org/show_bug.cgi?id=692250
 # json-glib-0.16 needed for bug #485092
 RDEPEND="
-	>=dev-libs/glib-2.40:2
+	>=dev-libs/glib-2.44:2
 	>=app-crypt/libsecret-0.5
 	>=dev-libs/json-glib-0.16
 	dev-libs/libxml2:2

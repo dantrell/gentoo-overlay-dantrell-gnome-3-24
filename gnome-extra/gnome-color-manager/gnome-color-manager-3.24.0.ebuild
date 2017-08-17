@@ -35,8 +35,8 @@ DEPEND="${RDEPEND}
 	app-text/docbook-sgml-utils
 	dev-libs/appstream-glib
 	dev-libs/libxslt
-	>=dev-util/intltool-0.35
 	dev-util/itstool
+	>=sys-devel/gettext-0.19.7
 	virtual/pkgconfig
 "
 

@@ -34,7 +34,7 @@ RDEPEND="
 	accessibility? (
 		>=app-accessibility/at-spi2-atk-2.24
 		>=app-accessibility/at-spi2-core-2.24
-		>=app-accessibility/caribou-0.4.8
+		>=app-accessibility/caribou-0.4.21
 		>=app-accessibility/orca-${PV}
 		>=gnome-extra/mousetweaks-3.12.0 )
 	classic? ( >=gnome-extra/gnome-shell-extensions-${PV} )

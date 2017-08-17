@@ -92,7 +92,7 @@ RDEPEND="
 	shotwell? ( >=media-gfx/shotwell-0.24 )
 	todo? ( >=gnome-extra/gnome-todo-${PV} )
 	tracker? (
-		>=app-misc/tracker-1.10
+		>=app-misc/tracker-1.12
 		>=gnome-extra/gnome-documents-${PV}
 		>=media-gfx/gnome-photos-${PV}
 		>=media-sound/gnome-music-${PV} )

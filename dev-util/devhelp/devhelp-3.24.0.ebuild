@@ -11,16 +11,17 @@ DESCRIPTION="An API documentation browser for GNOME"
 HOMEPAGE="https://wiki.gnome.org/Apps/Devhelp"
 
 LICENSE="GPL-2+"
-SLOT="0/3-1" # subslot = 3-(libdevhelp-3 soname version)
+SLOT="0/3-3" # subslot = 3-(libdevhelp-3 soname version)
 KEYWORDS="*"
 
-IUSE="gedit"
+IUSE="gedit +introspection"
 REQUIRED_USE="gedit? ( ${PYTHON_REQUIRED_USE} )"
 
 COMMON_DEPEND="
-	>=dev-libs/glib-2.37.3:2[dbus]
-	>=x11-libs/gtk+-3.19.3:3
+	>=dev-libs/glib-2.38:2[dbus]
+	>=x11-libs/gtk+-3.20:3
 	>=net-libs/webkit-gtk-2.6.0:4
+	introspection? ( >=dev-libs/gobject-introspection-1.30:= )
 "
 RDEPEND="${COMMON_DEPEND}
 	gedit? (
@@ -32,10 +33,12 @@ RDEPEND="${COMMON_DEPEND}
 "
 DEPEND="${COMMON_DEPEND}
 	${PYTHON_DEPS}
-	>=dev-util/intltool-0.40
-	gnome-base/gnome-common
+	>=dev-util/gtk-doc-am-1.25
 	virtual/pkgconfig
 "
+# eautoreconf requires:
+#  dev-libs/appstream-glib
+#  sys-devel/autoconf-archive
 
 pkg_setup() {
 	use gedit && python-single-r1_pkg_setup
@@ -55,5 +58,7 @@ src_configure() {
 	if [[ $(tc-getCC) == "icc" ]] ; then
 		myconf="--with-compile-warnings=no"
 	fi
-	gnome2_src_configure ${myconf}
+	gnome2_src_configure \
+		$(use_enable introspection) \
+		${myconf}
 }

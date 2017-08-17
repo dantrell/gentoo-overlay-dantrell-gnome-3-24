@@ -22,8 +22,8 @@ RESTRICT="test"
 # Require {glib,gdbus-codegen}-2.30.0 due to GDBus API changes between 2.29.92
 # and 2.30.0
 COMMON_DEPEND="
-	>=app-arch/gnome-autoar-0.1
-	>=dev-libs/glib-2.49.1:2[dbus]
+	>=app-arch/gnome-autoar-0.2.1
+	>=dev-libs/glib-2.51.2:2[dbus]
 	>=x11-libs/pango-1.28.3
 	>=x11-libs/gtk+-3.21.6:3[introspection?]
 	>=dev-libs/libxml2-2.7.8:2
@@ -38,8 +38,8 @@ COMMON_DEPEND="
 	exif? ( >=media-libs/libexif-0.6.20 )
 	introspection? ( >=dev-libs/gobject-introspection-0.6.4:= )
 	selinux? ( >=sys-libs/libselinux-2 )
-	tracker? ( >=app-misc/tracker-0.16:= )
-	xmp? ( >=media-libs/exempi-2.1.0 )
+	tracker? ( >=app-misc/tracker-1:= )
+	xmp? ( >=media-libs/exempi-2.1.0:2 )
 "
 DEPEND="${COMMON_DEPEND}
 	>=dev-lang/perl-5

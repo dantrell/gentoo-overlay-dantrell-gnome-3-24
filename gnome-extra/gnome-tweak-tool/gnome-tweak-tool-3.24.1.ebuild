@@ -16,12 +16,11 @@ KEYWORDS="*"
 IUSE=""
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-# Newer pygobject needed due upstream bug #723951
 COMMON_DEPEND="
 	${PYTHON_DEPS}
 	dev-libs/glib:2[dbus]
 	>=dev-python/pygobject-3.10.2:3[${PYTHON_USEDEP}]
-	>=gnome-base/gsettings-desktop-schemas-3.21.2
+	>=gnome-base/gsettings-desktop-schemas-3.23.3
 "
 # g-s-d, gnome-desktop, gnome-shell etc. needed at runtime for the gsettings schemas
 RDEPEND="${COMMON_DEPEND}
@@ -32,7 +31,7 @@ RDEPEND="${COMMON_DEPEND}
 	x11-libs/libnotify[introspection]
 
 	>=gnome-base/gnome-settings-daemon-3
-	gnome-base/gnome-shell
+	>=gnome-base/gnome-shell-3.24
 	>=gnome-base/nautilus-3
 "
 DEPEND="${COMMON_DEPEND}

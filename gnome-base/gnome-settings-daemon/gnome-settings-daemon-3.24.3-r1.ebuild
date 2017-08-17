@@ -101,7 +101,7 @@ DEPEND="${COMMON_DEPEND}
 
 PATCHES=(
 	# Make colord and wacom optional; requires eautoreconf
-	"${FILESDIR}"/${PN}-3.24.2-optional.patch
+	"${FILESDIR}"/${PN}-3.24.3-optional.patch
 	# Allow specifying udevrulesdir via configure, bug 509484; requires eautoreconf
 	"${FILESDIR}"/${PN}-3.24.2-udevrulesdir-configure.patch
 	# Reduce memory usage by not initing GTK+ where not needed

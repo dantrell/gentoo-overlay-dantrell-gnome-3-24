@@ -1,16 +1,17 @@
-From 22f6a45b665e604f874e82a817d45bb976d8c5ae Mon Sep 17 00:00:00 2001
-From: Timo Tambet <ttambet@gmail.com>
-Date: Sat, 25 Feb 2017 14:48:19 +0200
-Subject: [PATCH 1/1] [PATCH] Make colord and wacom support optional
+From 7b7bbbeeb9fa422d5a291574910e0881fa13f171 Mon Sep 17 00:00:00 2001
+From: Ole Reifschneider <mail@ole-reifschneider.de>
+Date: Tue, 15 Aug 2017 18:51:42 +0200
+Subject: [PATCH] Make colord and wacom support optional
 
+Signed-off-by: Gilles Dartiguelongue <eva@gentoo.org>
 ---
- configure.ac              | 56 +++++++++++++++++++++++++++++++----------------
+ configure.ac              | 54 +++++++++++++++++++++++++++++++----------------
  plugins/Makefile.am       |  9 ++++++--
  plugins/dummy/Makefile.am |  5 ++++-
- 3 files changed, 48 insertions(+), 22 deletions(-)
+ 3 files changed, 47 insertions(+), 21 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 0d169c8f..792195aa 100644
+index 73fe91e6..d8778c93 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -158,13 +158,23 @@ PKG_CHECK_MODULES(CLIPBOARD,
@@ -25,19 +26,19 @@ index 0d169c8f..792195aa 100644
 -		  lcms2 >= $LCMS_REQUIRED_VERSION
 -		  libnotify)
 +AC_ARG_ENABLE([color],
-+	      AS_HELP_STRING([--disable-color],
-+	      [turn off color plugin]),
-+	      [],
-+	      [enable_color=yes])
++  AS_HELP_STRING([--disable-color],
++                 [turn off color plugin]),
++       [],
++       [enable_color=yes])
 +
 +AS_IF([test "$enable_color" = "yes"],
 +      [PKG_CHECK_MODULES(COLOR,
-+			 colord >= 1.0.2
-+			 gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
-+			 libcanberra-gtk3
-+			 libgeoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
-+			 lcms2 >= $LCMS_REQUIRED_VERSION
-+			 libnotify)
++                         colord >= 1.0.2
++                         gnome-desktop-3.0 >= $GNOME_DESKTOP_REQUIRED_VERSION
++                         libcanberra-gtk3
++                         libgeoclue-2.0 >= $GEOCLUE_REQUIRED_VERSION
++                         lcms2 >= $LCMS_REQUIRED_VERSION
++                         libnotify)
 +       AC_DEFINE(HAVE_COLOR, 1, [Define if color plugin is enabled])
 +      ])
 +AM_CONDITIONAL(BUILD_COLOR, test "x$enable_color" = "xyes")
@@ -54,34 +55,33 @@ index 0d169c8f..792195aa 100644
 -        PKG_CHECK_MODULES(WACOM, [gtk+-3.0 pango >= $PANGO_REQUIRED_VERSION])
 -        PKG_CHECK_MODULES(WACOM_OLED, [gudev-1.0])
 -      else
-+      have_wacom=no
-+      AS_IF([test "$enable_gudev" != "no"],
-+      [AC_ARG_ENABLE([wacom],
-+                     AS_HELP_STRING([--disable-wacom],
-+                                    [turn off wacom plugin]),
-+                                    [],
-+                                    [enable_wacom=no]) dnl Default value
-+        AS_IF([test "$enable_wacom" = "xyes"],
-+             [
-+               PKG_CHECK_MODULES(LIBWACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION])
-+               PKG_CHECK_MODULES(WACOM, [gtk+-3.0, pango >= $PANGO_REQUIRED_VERSION])
-+               PKG_CHECK_MODULES(WACOM_OLED, [gudev-1.0])
-+               have_wacom=yes
-+               AC_DEFINE_UNQUOTED(HAVE_WACOM, 1, [Define to 1 if wacom support is available])
-+             ])
-+       ], [
-         AC_MSG_ERROR([GUdev is necessary to compile Wacom support])
+-        AC_MSG_ERROR([GUdev is necessary to compile Wacom support])
 -      fi
 -      AC_DEFINE_UNQUOTED(HAVE_WACOM, 1, [Define to 1 if wacom support is available])
 -      have_wacom=yes
-+      ])
++      have_wacom=no
++      AS_IF([test "$enable_gudev" != "no"],
++        [AC_ARG_ENABLE([wacom],
++           AS_HELP_STRING([--disable-wacom],
++                          [turn off wacom plugin]),
++                          [],
++                          [enable_wacom=no]) dnl Default value
++         AS_IF([test "$enable_wacom" = "yes"],
++               [
++                 PKG_CHECK_MODULES(LIBWACOM, [libwacom >= $LIBWACOM_REQUIRED_VERSION])
++                 PKG_CHECK_MODULES(WACOM, [gtk+-3.0 pango >= $PANGO_REQUIRED_VERSION])
++                 PKG_CHECK_MODULES(WACOM_OLED, [gudev-1.0])
++                 have_wacom=yes
++                 AC_DEFINE_UNQUOTED(HAVE_WACOM, 1, [Define to 1 if wacom support is available])
++               ])
++        ], [
++          AC_MSG_ERROR([GUdev is necessary to compile Wacom support])
++        ])
      fi
      ;;
    *)
--    have_wacom=no
--    ;;
-+  have_wacom=no
-+  ;;
+     have_wacom=no
+     ;;
  esac
 -AM_CONDITIONAL(HAVE_WACOM, test x$have_wacom = xyes)
 +AM_CONDITIONAL(BUILD_WACOM, test x$have_wacom = xyes)
@@ -122,24 +122,21 @@ index 9324b406..ee78d6d0 100644
  else
  disabled_plugins += wacom
 diff --git a/plugins/dummy/Makefile.am b/plugins/dummy/Makefile.am
-index cb5856cf..06ac595a 100644
+index cb5856cf..d8e8bc4e 100644
 --- a/plugins/dummy/Makefile.am
 +++ b/plugins/dummy/Makefile.am
-@@ -22,10 +22,13 @@ gsd_dummy_LDADD = $(DUMMY_LIBS) $(top_builddir)/gnome-settings-daemon/libgsd.la
- desktopdir = $(sysconfdir)/xdg/autostart
- 
- desktop_DATA =
-+if !BUILD_COLOR
-+desktop_DATA += org.gnome.SettingsDaemon.Color.desktop
-+endif
+@@ -25,7 +25,10 @@ desktop_DATA =
  if !SMARTCARD_SUPPORT
  desktop_DATA += org.gnome.SettingsDaemon.Smartcard.desktop
  endif
 -if !HAVE_WACOM
++if !BUILD_COLOR
++desktop_DATA += org.gnome.SettingsDaemon.Color.desktop
++endif
 +if !BUILD_WACOM
  desktop_DATA += org.gnome.SettingsDaemon.Wacom.desktop
  endif
  if !BUILD_PRINT_NOTIFICATIONS
 -- 
-2.11.1
+2.14.0
 
