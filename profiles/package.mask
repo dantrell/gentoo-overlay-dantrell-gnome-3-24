@@ -103,6 +103,8 @@ gnome-extra/gnome-power-manager::gentoo
 gnome-extra/gnome-power-manager::gnome-kit
 gnome-extra/gnome-shell-extensions::gentoo
 gnome-extra/gnome-shell-extensions::gnome-kit
+gnome-extra/gnome-shell-frippery::gentoo
+gnome-extra/gnome-shell-frippery::gnome-kit
 gnome-extra/gnome-software::gentoo
 gnome-extra/gnome-software::gnome-kit
 gnome-extra/gnome-system-monitor::gentoo

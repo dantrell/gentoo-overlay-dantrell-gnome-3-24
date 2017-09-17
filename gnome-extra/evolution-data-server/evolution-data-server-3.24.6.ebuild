@@ -141,7 +141,7 @@ src_install() {
 	if use ldap; then
 		insinto /etc/openldap/schema
 		doins "${FILESDIR}"/calentry.schema
-		dosym /usr/share/${PN}/evolutionperson.schema /etc/openldap/schema/evolutionperson.schema
+		dosym ../../../usr/share/${PN}/evolutionperson.schema /etc/openldap/schema/evolutionperson.schema
 	fi
 }
 

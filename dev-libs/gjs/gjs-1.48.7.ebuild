@@ -30,10 +30,10 @@ DEPEND="${RDEPEND}
 	test? ( sys-apps/dbus )
 "
 
-PATCHES=(
+#PATCHES=(
 	# Disable unittest failing without pt_BR locale, upstream bug #????
-	"${FILESDIR}"/${PN}-1.48.6-disable-unittest.patch
-)
+#	"${FILESDIR}"/${PN}-1.48.6-disable-unittest.patch
+#)
 
 src_configure() {
 	# FIXME: add systemtap/dtrace support, like in glib:2
@@ -47,10 +47,6 @@ src_configure() {
 		$(use_with gtk) \
 		$(use_with test dbus-tests) \
 		$(use_with test xvfb-tests)
-}
-
-src_test() {
-	virtx emake check
 }
 
 src_install() {
