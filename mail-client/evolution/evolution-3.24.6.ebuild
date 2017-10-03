@@ -98,6 +98,10 @@ src_prepare() {
 	sed -e "s;\(find_program(GTK_UPDATE_ICON_CACHE\).*;\1 $(type -P true));" \
 		-i "${S}"/cmake/modules/IconCache.cmake || die
 
+	# From GNOME:
+	# 	https://git.gnome.org/browse/evolution/commit/?id=a9f72bd18c3b66dd7d2a98d5905af69d340ac5ab
+	eapply "${FILESDIR}"/${PN}-3.27.1-skip-gsettings-schema-compile-and-icon-cache-update-when-destdir-is-set.patch
+
 	gnome2_src_prepare
 }
 
