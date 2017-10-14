@@ -24,7 +24,7 @@ RDEPEND="
 
 	>=gnome-base/gdm-3.8.0
 
-	>=x11-wm/mutter-3.20.0
+	>=x11-wm/mutter-${PV}
 	>=gnome-base/gnome-shell-${PV}[bluetooth?]
 	gnome-base/gnome-shell-common
 

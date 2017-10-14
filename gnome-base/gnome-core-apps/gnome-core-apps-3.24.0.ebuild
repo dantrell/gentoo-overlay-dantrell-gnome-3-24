@@ -37,17 +37,17 @@ RDEPEND="
 	>=gnome-extra/gnome-contacts-3.22.0
 	>=media-gfx/eog-${PV}
 	>=media-video/totem-${PV}
-	>=net-im/empathy-3.12.12
+	>=net-im/empathy-3.12.13
 	>=x11-terms/gnome-terminal-${PV}
 
 	>=gnome-extra/gnome-user-docs-${PV}
 	>=gnome-extra/yelp-3.22.0
 
 	>=x11-themes/adwaita-icon-theme-$(get_version_component_range 1-2)
-	>=x11-themes/gnome-themes-standard-3.22.0
+	>=x11-themes/gnome-themes-standard-3.22
 
 	bluetooth? ( >=net-wireless/gnome-bluetooth-3.20.0 )
-	cdr? ( >=app-cdr/brasero-3.12.1 )
+	cdr? ( >=app-cdr/brasero-3.12.2 )
 
 	!gnome-base/gnome-applets
 "

@@ -26,6 +26,8 @@ dev-libs/gobject-introspection-common::gentoo
 dev-libs/gobject-introspection-common::gnome-kit
 dev-libs/gobject-introspection::gentoo
 dev-libs/gobject-introspection::gnome-kit
+dev-libs/libgweather::gentoo
+dev-libs/libgweather::gnome-kit
 dev-python/pyatspi::gentoo
 dev-python/pyatspi::gnome-kit
 dev-python/pygobject::gentoo
@@ -34,8 +36,6 @@ dev-util/devhelp::gentoo
 dev-util/devhelp::gnome-kit
 dev-vcs/gitg::gentoo
 dev-vcs/gitg::gnome-kit
-games-arcade/gnome-nibbles::gentoo
-games-arcade/gnome-nibbles::gnome-kit
 games-board/gnome-chess::gentoo
 games-board/gnome-chess::gnome-kit
 games-board/gnome-mines::gentoo
@@ -71,8 +71,6 @@ gnome-base/gnome-shell::gentoo
 gnome-base/gnome-shell::gnome-kit
 gnome-base/gnome::gentoo
 gnome-base/gnome::gnome-kit
-gnome-base/gsettings-desktop-schemas::gentoo
-gnome-base/gsettings-desktop-schemas::gnome-kit
 gnome-base/gvfs::gentoo
 gnome-base/gvfs::gnome-kit
 gnome-base/nautilus::gentoo
@@ -89,6 +87,8 @@ gnome-extra/gnome-calculator::gentoo
 gnome-extra/gnome-calculator::gnome-kit
 gnome-extra/gnome-calendar::gentoo
 gnome-extra/gnome-calendar::gnome-kit
+gnome-extra/gnome-characters::gentoo
+gnome-extra/gnome-characters::gnome-kit
 gnome-extra/gnome-clocks::gentoo
 gnome-extra/gnome-clocks::gnome-kit
 gnome-extra/gnome-color-manager::gentoo
@@ -114,12 +114,10 @@ gnome-extra/gnome-tweak-tool::gentoo
 gnome-extra/gnome-tweak-tool::gnome-kit
 gnome-extra/gnome-user-docs::gentoo
 gnome-extra/gnome-user-docs::gnome-kit
+gnome-extra/gnome-weather::gentoo
+gnome-extra/gnome-weather::gnome-kit
 gnome-extra/nautilus-tracker-tags::gentoo
 gnome-extra/nautilus-tracker-tags::gnome-kit
-gnome-extra/sushi::gentoo
-gnome-extra/sushi::gnome-kit
-gnome-extra/zenity::gentoo
-gnome-extra/zenity::gnome-kit
 mail-client/evolution::gentoo
 mail-client/evolution::gnome-kit
 media-gfx/eog::gentoo
@@ -132,10 +130,6 @@ media-gfx/simple-scan::gentoo
 media-gfx/simple-scan::gnome-kit
 media-sound/gnome-music::gentoo
 media-sound/gnome-music::gnome-kit
-media-sound/gnome-sound-recorder::gentoo
-media-sound/gnome-sound-recorder::gnome-kit
-media-sound/sound-juicer::gentoo
-media-sound/sound-juicer::gnome-kit
 media-video/cheese::gentoo
 media-video/cheese::gnome-kit
 media-video/totem::gentoo
@@ -148,6 +142,8 @@ net-libs/libsoup-gnome::gentoo
 net-libs/libsoup-gnome::gnome-kit
 net-libs/libsoup::gentoo
 net-libs/libsoup::gnome-kit
+net-misc/gnome-online-miners::gentoo
+net-misc/gnome-online-miners::gnome-kit
 net-misc/rygel::gentoo
 net-misc/rygel::gnome-kit
 sci-geosciences/geocode-glib::gentoo
@@ -160,8 +156,6 @@ sys-apps/gnome-disk-utility::gentoo
 sys-apps/gnome-disk-utility::gnome-kit
 www-client/epiphany::gentoo
 www-client/epiphany::gnome-kit
-x11-libs/gtksourceview::gentoo
-x11-libs/gtksourceview::gnome-kit
 x11-libs/vte::gentoo
 x11-libs/vte::gnome-kit
 x11-misc/gpaste::desktop-kit
