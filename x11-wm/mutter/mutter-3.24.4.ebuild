@@ -11,7 +11,7 @@ LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="debug egl gles2 input_devices_wacom deprecated-background +introspection test udev wayland"
+IUSE="debug gles2 input_devices_wacom deprecated-background +introspection test udev wayland"
 
 # libXi-1.7.4 or newer needed per:
 # https://bugzilla.gnome.org/show_bug.cgi?id=738944
@@ -48,6 +48,7 @@ COMMON_DEPEND="
 	x11-misc/xkeyboard-config
 
 	gnome-extra/zenity
+	media-libs/mesa[egl]
 
 	gles2? ( media-libs/mesa[gles2] )
 	input_devices_wacom? ( >=dev-libs/libwacom-0.13 )
@@ -130,10 +131,10 @@ src_configure() {
 		--with-libcanberra \
 		$(usex debug --enable-debug=yes "") \
 		$(use_enable gles2)        \
-		$(use_enable egl egl-device)        \
 		$(use_enable gles2 cogl-gles2) \
 		$(use_enable introspection) \
 		$(use_enable wayland) \
+		$(use_enable wayland egl-device) \
 		$(use_enable wayland kms-egl-platform) \
 		$(use_enable wayland native-backend) \
 		$(use_enable wayland wayland-egl-server) \
