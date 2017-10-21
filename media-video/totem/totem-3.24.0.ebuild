@@ -14,7 +14,7 @@ LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="debug +introspection lirc nautilus +python test zeitgeist"
+IUSE="debug +introspection lirc nautilus +python test vanilla-thumbnailer zeitgeist"
 # see bug #359379
 REQUIRED_USE="
 	python? ( introspection ${PYTHON_REQUIRED_USE} )
@@ -92,6 +92,13 @@ pkg_setup() {
 src_prepare() {
 	# Prevent pylint usage by tests, bug #482538
 	sed -i -e 's/ check-pylint//' src/plugins/Makefile.plugins || die
+
+	# Support the FFMPEG Thumbnailer out-of-the-box
+	if ! use vanilla-thumbnailer; then
+		sed -e "s/totem-video-thumbnailer/ffmpegthumbnailer/" \
+			-e "s/-s %s %u %o/-i %i -o %o -s %s -c png -f/" \
+			-i data/totem.thumbnailer.in
+	fi
 
 	eautoreconf
 	gnome2_src_prepare
