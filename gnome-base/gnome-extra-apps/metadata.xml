@@ -10,6 +10,7 @@
 	<flag name="boxes">Install <pkg>gnome-extra/gnome-boxes</pkg> (remote and virtual system manager)</flag>
 	<flag name="builder">Install <pkg>gnome-extra/gnome-builder</pkg> (IDE)</flag>
 	<flag name="california">Install <pkg>gnome-extra/california</pkg> (calendar)</flag>
+	<flag name="empathy">Install <pkg>net-im/empathy</pkg> (chat client)</flag>
 	<flag name="epiphany">Install <pkg>www-client/epiphany</pkg> (web browser)</flag>
 	<flag name="evolution">Install <pkg>mail-client/evolution</pkg> (mail client)</flag>
 	<flag name="flashback">Install <pkg>gnome-base/gnome-flashback</pkg> (session and helper application)</flag>
@@ -18,8 +19,10 @@
 	<flag name="geary">Install <pkg>mail-client/geary</pkg> (mail client)</flag>
 	<flag name="gnote">Install <pkg>app-misc/gnote</pkg> (note editor)</flag>
 	<flag name="latexila">Install <pkg>app-editors/latexila</pkg> (integrated LaTeX environment)</flag>
+	<flag name="recipes">Install <pkg>gnome-extra/gnome-recipes</pkg> (live cookbook)</flag>
 	<flag name="share">Install <pkg>gnome-extra/gnome-user-share</pkg> (personal file sharing tool)</flag>
 	<flag name="shotwell">Install <pkg>media-gfx/shotwell</pkg> (photo manager)</flag>
+	<flag name="simple-scan">Install <pkg>media-gfx/simple-scan</pkg> (document scanning utility)</flag>
 	<flag name="todo">Install <pkg>gnome-extra/gnome-todo</pkg> (task manager)</flag>
 	<flag name="tracker">Install <pkg>app-misc/tracker</pkg> (search engine, search tool and metadata storage system)</flag>
 </use>

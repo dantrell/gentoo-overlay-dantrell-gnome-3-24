@@ -11,7 +11,7 @@ SLOT="3.0"
 # double check none of the deps are still masked !
 KEYWORDS="*"
 
-IUSE="+bijiben boxes builder california epiphany +evolution flashback +fonts +games geary gnote latexila +recipes +share +shotwell simple-scan +todo +tracker"
+IUSE="+bijiben boxes builder california empathy epiphany +evolution flashback +fonts +games geary gnote latexila +recipes +share +shotwell simple-scan +todo +tracker"
 
 # Note to developers:
 #
@@ -57,6 +57,7 @@ RDEPEND="
 	boxes? ( >=gnome-extra/gnome-boxes-${PV} )
 	builder? ( >=gnome-extra/gnome-builder-${PV} )
 	california? ( >=gnome-extra/california-0.4.0 )
+	empathy? ( >=net-im/empathy-3.12.13 )
 	epiphany? ( >=www-client/epiphany-${PV} )
 	evolution? ( >=mail-client/evolution-${PV} )
 	flashback? ( >=gnome-base/gnome-flashback-${PV} )

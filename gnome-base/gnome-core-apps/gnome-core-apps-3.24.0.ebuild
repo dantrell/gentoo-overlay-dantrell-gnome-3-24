@@ -37,7 +37,6 @@ RDEPEND="
 	>=gnome-extra/gnome-contacts-3.22.0
 	>=media-gfx/eog-${PV}
 	>=media-video/totem-${PV}
-	>=net-im/empathy-3.12.13
 	>=x11-terms/gnome-terminal-${PV}
 
 	>=gnome-extra/gnome-user-docs-${PV}
