@@ -48,11 +48,15 @@ src_configure() {
 	gnome2_src_configure \
 		$(use_enable colord) \
 		$(use_enable packagekit)
+}
 
+src_compile() {
 	# From Simple Scan:
 	# 	https://bugs.launchpad.net/simple-scan/+bug/1462769
 	if ! use packagekit; then
 		# Force Vala to regenerate C files
 		emake clean
 	fi
+
+	gnome2_src_compile
 }
