@@ -28,6 +28,7 @@ COMMON_DEPEND="
 	>=dev-libs/json-glib-0.10
 	>=gnome-base/gnome-desktop-3.18:3=
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
+	gconf? ( >=gnome-base/gconf-2:2 )
 	wayland? ( media-libs/mesa[egl,gles2] )
 	!wayland? ( media-libs/mesa[gles2] )
 
@@ -44,9 +45,8 @@ COMMON_DEPEND="
 	x11-misc/xdg-user-dirs-gtk
 	x11-apps/xdpyinfo
 
-	consolekit? ( sys-auth/consolekit )
+	consolekit? ( >=sys-auth/consolekit-0.9 )
 	elogind? ( sys-auth/elogind )
-	gconf? ( >=gnome-base/gconf-2:2 )
 	systemd? ( >=sys-apps/systemd-186:0= )
 "
 # Pure-runtime deps from the session files should *NOT* be added here
@@ -86,16 +86,14 @@ src_configure() {
 	# 3. Enable old gconf support
 	gnome2_src_configure \
 		--enable-session-selector \
+		$(use_enable consolekit) \
 		$(use_enable doc docbook-docs) \
 		$(use_enable elogind) \
 		$(use_enable gconf) \
 		$(use_enable ipv6) \
 		$(use_enable systemd) \
-		$(use_enable consolekit) \
 		UPOWER_CFLAGS="" \
 		UPOWER_LIBS=""
-		# gnome-session-selector pre-generated man page is missing
-		#$(usex !doc XSLTPROC=$(type -P true))
 }
 
 src_install() {

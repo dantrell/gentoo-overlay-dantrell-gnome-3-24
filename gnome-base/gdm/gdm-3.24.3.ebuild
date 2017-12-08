@@ -56,7 +56,7 @@ COMMON_DEPEND="
 	elogind? ( sys-auth/elogind )
 	systemd? ( >=sys-apps/systemd-186:0=[pam] )
 
-	sys-auth/pambase[systemd?]
+	sys-auth/pambase[elogind?,systemd?]
 
 	audit? ( sys-process/audit )
 	introspection? ( >=dev-libs/gobject-introspection-0.9.12:= )
@@ -133,9 +133,8 @@ src_prepare() {
 	# Show logo when branding is enabled
 	use branding && eapply "${FILESDIR}/${PN}-3.8.4-logo.patch"
 
-	eapply "${FILESDIR}"/${PN}-3.24.2-support-elogind.patch
-
 	if use elogind; then
+		eapply "${FILESDIR}"/${PN}-3.24.2-support-elogind.patch
 		eapply "${FILESDIR}"/${PN}-3.24.2-enable-elogind.patch
 	fi
 
@@ -148,7 +147,8 @@ src_prepare() {
 }
 
 src_configure() {
-	local myconf
+	local myconf=()
+
 	# PAM is the only auth scheme supported
 	# even though configure lists shadow and crypt
 	# they don't have any corresponding code.
@@ -156,7 +156,7 @@ src_configure() {
 	# of https://bugzilla.gnome.org/show_bug.cgi?id=607643#c4
 	# Xevie is obsolete, bug #482304
 	# --with-initial-vt=7 conflicts with plymouth, bug #453392
-	! use plymouth && myconf="${myconf} --with-initial-vt=7"
+	! use plymouth && myconf+=( --with-initial-vt=7 )
 
 	gnome2_src_configure \
 		--enable-gdm-xsession \
@@ -179,7 +179,7 @@ src_configure() {
 		$(use_with tcpd tcp-wrappers) \
 		$(use_enable wayland wayland-support) \
 		$(use_with xinerama) \
-		${myconf}
+		"${myconf[@]}"
 }
 
 src_install() {
