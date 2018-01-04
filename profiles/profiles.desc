@@ -1,0 +1,11 @@
+# arch      profile_directory                                   status
+
+amd64       default/linux/amd64/13.0/desktop/gnome              stable
+amd64       default/linux/amd64/13.0/desktop/gnome/extended     stable
+amd64       default/linux/amd64/17.0/desktop/gnome              stable
+amd64       default/linux/amd64/17.0/desktop/gnome/extended     stable
+
+x86         default/linux/x86/13.0/desktop/gnome                stable
+x86         default/linux/x86/13.0/desktop/gnome/extended       stable
+x86         default/linux/x86/17.0/desktop/gnome                stable
+x86         default/linux/x86/17.0/desktop/gnome/extended       stable

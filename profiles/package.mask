@@ -166,7 +166,6 @@ x11-themes/adwaita-icon-theme::gentoo
 x11-themes/adwaita-icon-theme::gnome-kit
 x11-themes/gnome-backgrounds::gentoo
 x11-themes/gnome-backgrounds::gnome-kit
-x11-wm/metacity::desktop-kit
 x11-wm/metacity::gentoo
 x11-wm/mutter::gentoo
 x11-wm/mutter::gnome-kit
