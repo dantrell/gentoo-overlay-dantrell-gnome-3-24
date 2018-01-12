@@ -1,0 +1,110 @@
+From 5df9c4a71c41e9f8be498d241bf658181c659ee0 Mon Sep 17 00:00:00 2001
+From: Sven Eden <yamakuzure@gmx.net>
+Date: Tue, 10 Oct 2017 11:54:22 +0200
+Subject: [PATCH 13/13] Enable support for elogind, substituting systemd-login
+ on demand
+
+Users who wish to use modern systems, but without using systemd as
+their init system, elogind might be installed.
+
+As elogind is "just" systemd-login extracted as a standalone package,
+features that do not depend on more parts of systemd than its session
+tracker can use elogind instead.
+
+This patch enables the usage of elogind when substituting
+systemd-login.
+
+The inner changes are minor:
+
+1) monitor/udisks2/Makefile.am
+   Add LIBELOGIND_CFLAGS and LIBELOGIND_LIBS where needed.
+2) monitor/udisks2/gvfsudisks2utils.c
+   Enable get_seat() if either HAVE_LIBSYSTEMD_LOGIN or
+   HAVE_LIBELOGIND is defined.
+
+The main changes are in configure.ac. Here a new option
+--disable-libelogind is introduced.
+If this option is not used, and libsystemd-login is not detected and
+enabled, configure now checks for libelogind and uses that instead.
+---
+ configure.ac                       | 22 ++++++++++++++++++++++
+ monitor/udisks2/Makefile.am        |  2 ++
+ monitor/udisks2/gvfsudisks2utils.c |  2 +-
+ 3 files changed, 25 insertions(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index a6f7766c..b81a6ac8 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -312,6 +312,27 @@ fi
+ 
+ AM_CONDITIONAL(USE_LIBSYSTEMD_LOGIN, [test "$msg_libsystemd_login" = "yes"])
+ 
++dnl **********************************
++dnl *** Check for libelogind       ***
++dnl **********************************
++
++AC_ARG_ENABLE([libelogind], [AS_HELP_STRING([--disable-libelogind],[build without libelogind])])
++msg_libelogind=no
++LIBELOGIND_REQUIRED=229
++
++if test "x$enable_libelogind" != "xno" -a "x$msg_libsystemd_login" != "xyes" ; then
++  PKG_CHECK_EXISTS([libelogind], [msg_libelogind=yes],
++                   [PKG_CHECK_EXISTS([libelogind >= $LIBELOGIND_REQUIRED], [msg_libelogind=yes])])
++
++  if test "x$msg_libelogind" = "xyes"; then
++    PKG_CHECK_MODULES([LIBELOGIND],[libelogind],,
++                      [PKG_CHECK_MODULES([LIBELOGIND],[libelogind >= $LIBELOGIND_REQUIRED])])
++    AC_DEFINE([HAVE_LIBELOGIND], 1, [Define to 1 if libelogind is available])
++  fi
++fi
++
++AM_CONDITIONAL(USE_LIBELOGIND, [test "$msg_libelogind" = "yes"])
++
+ dnl **************************************************
+ dnl *** Check if we should build with CDDA backend ***
+ dnl **************************************************
+@@ -937,6 +958,7 @@ echo "
+ 	Build GOA volume monitor:     $msg_goa
+         Use systemd user units:       $msg_systemd_user_units
+         Use libsystemd-login:         $msg_libsystemd_login
++        Use libelogind:               $msg_libelogind
+         Use GCR:                      $msg_gcr
+ 	GNOME Keyring support:        $msg_keyring
+ 	GTK+ support:                 $msg_gtk
+diff --git a/monitor/udisks2/Makefile.am b/monitor/udisks2/Makefile.am
+index 052fac59..690b0098 100644
+--- a/monitor/udisks2/Makefile.am
++++ b/monitor/udisks2/Makefile.am
+@@ -20,6 +20,7 @@ gvfs_udisks2_volume_monitor_CFLAGS =		\
+ 	$(UDISKS2_CFLAGS)                       \
+ 	$(GUDEV_CFLAGS)                         \
+ 	$(LIBSYSTEMD_LOGIN_CFLAGS)		\
++	$(LIBELOGIND_CFLAGS)			\
+ 	$(KEYRING_CFLAGS)			\
+ 	-DGIO_MODULE_DIR=\"$(GIO_MODULE_DIR)\"	\
+ 	-DGVFS_LOCALEDIR=\""$(localedir)"\"	\
+@@ -35,6 +36,7 @@ gvfs_udisks2_volume_monitor_LDADD  =		     			      	\
+ 	$(UDISKS2_LIBS)                                  			\
+ 	$(GUDEV_LIBS)                                  			      	\
+ 	$(LIBSYSTEMD_LOGIN_LIBS)						\
++	$(LIBELOGIND_LIBS)							\
+ 	$(KEYRING_LIBS)								\
+ 	$(top_builddir)/common/libgvfscommon.la 			      	\
+ 	$(top_builddir)/common/libgvfscommon-monitor.la			      	\
+diff --git a/monitor/udisks2/gvfsudisks2utils.c b/monitor/udisks2/gvfsudisks2utils.c
+index 26d76b99..78007ea7 100644
+--- a/monitor/udisks2/gvfsudisks2utils.c
++++ b/monitor/udisks2/gvfsudisks2utils.c
+@@ -530,7 +530,7 @@ gvfs_udisks2_utils_spawn_finish (GAsyncResult   *res,
+ 
+ /* ---------------------------------------------------------------------------------------------------- */
+ 
+-#if defined(HAVE_LIBSYSTEMD_LOGIN)
++#if defined(HAVE_LIBSYSTEMD_LOGIN) || defined(HAVE_LIBELOGIND)
+ #include <systemd/sd-login.h>
+ 
+ static const gchar *
+-- 
+2.15.1
+

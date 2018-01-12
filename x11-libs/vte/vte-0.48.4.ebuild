@@ -79,5 +79,5 @@ src_configure() {
 
 src_install() {
 	gnome2_src_install
-	mv "${D}"/etc/profile.d/vte{,-${SLOT}}.sh || die
+	mv "${ED}"/etc/profile.d/vte{,-${SLOT}}.sh || die
 }

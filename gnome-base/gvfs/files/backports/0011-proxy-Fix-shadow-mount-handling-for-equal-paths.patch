@@ -1,0 +1,35 @@
+From 3e995d2200bf733611fed64bd1be23d9f4a7a85c Mon Sep 17 00:00:00 2001
+From: Ondrej Holy <oholy@redhat.com>
+Date: Mon, 21 Aug 2017 14:33:12 +0200
+Subject: [PATCH 11/13] proxy: Fix shadow mount handling for equal paths
+
+Automatic shadow mount handling in some cases works currently only thanks
+to the bug in g_daemon_file_prefix_matches implementation, which I am going
+to fix. The problematic case is when activation_root is equal to mount_root
+(e.g. Nextcloud integration). The bug in _prefix_matches causes that it
+succeeds also if the paths are equal, but this is wrong as per the docs.
+Let's use also g_file_equal when looking for shadow mounts in order to fix
+this issue.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=786217
+---
+ monitor/proxy/gproxyvolume.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/monitor/proxy/gproxyvolume.c b/monitor/proxy/gproxyvolume.c
+index fc24f15f..c76ec556 100644
+--- a/monitor/proxy/gproxyvolume.c
++++ b/monitor/proxy/gproxyvolume.c
+@@ -265,7 +265,8 @@ update_shadow_mount (GProxyVolume *volume)
+         continue;
+ 
+       mount_root = g_mount_get_root (mount);
+-      prefix_matches = g_file_has_prefix (activation_root, mount_root);
++      prefix_matches = (g_file_has_prefix (activation_root, mount_root) ||
++                        g_file_equal (activation_root, mount_root));
+       g_object_unref (mount_root);
+       if (prefix_matches)
+         {
+-- 
+2.15.1
+

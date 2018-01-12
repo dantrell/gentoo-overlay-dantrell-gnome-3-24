@@ -13,7 +13,7 @@ LICENSE="|| ( LGPL-2 LGPL-3 ) CC-BY-SA-3.0 FDL-1.3+ OPENLDAP"
 SLOT="2.0"
 KEYWORDS="*"
 
-IUSE="archive +bogofilter crypt geolocation highlight ldap spamassassin spell ssl +weather"
+IUSE="archive +bogofilter crypt geolocation highlight ldap spamassassin spell ssl +weather ytnef"
 
 # We need a graphical pinentry frontend to be able to ask for the GPG
 # password from inside evolution, bug 160302
@@ -64,6 +64,7 @@ COMMON_DEPEND="
 		>=dev-libs/nspr-4.6.1:=
 		>=dev-libs/nss-3.11:= )
 	weather? ( >=dev-libs/libgweather-3.10:2= )
+	ytnef? ( net-mail/ytnef )
 "
 DEPEND="${COMMON_DEPEND}
 	app-text/docbook-xml-dtd:4.1.2
@@ -93,14 +94,15 @@ x-scheme-handler/https=firefox.desktop
 (replace firefox.desktop with the name of the appropriate .desktop
 file from /usr/share/applications if you use a different browser)."
 
+PATCHES=(
+	"${FILESDIR}"/${PN}-3.24.6-DESTDIR-honoring.patch
+	"${FILESDIR}"/${PN}-3.24.6-libical3-compat.patch
+)
+
 src_prepare() {
 	# Leave post-install actions to eclass
 	sed -e "s;\(find_program(GTK_UPDATE_ICON_CACHE\).*;\1 $(type -P true));" \
 		-i "${S}"/cmake/modules/IconCache.cmake || die
-
-	# From GNOME:
-	# 	https://git.gnome.org/browse/evolution/commit/?id=a9f72bd18c3b66dd7d2a98d5905af69d340ac5ab
-	eapply "${FILESDIR}"/${PN}-3.27.1-skip-gsettings-schema-compile-and-icon-cache-update-when-destdir-is-set.patch
 
 	gnome2_src_prepare
 }
@@ -117,7 +119,7 @@ src_configure() {
 		-DENABLE_AUTOAR=$(usex archive)
 		-DWITH_HELP=ON
 		-DENABLE_LIBCRYPTUI=$(usex crypt "ON" "OFF")
-		-DENABLE_YTNEF=OFF
+		-DENABLE_YTNEF=$(usex ytnef "ON" "OFF")
 		-DWITH_BOGOFILTER=$(usex bogofilter)
 		-DWITH_SPAMASSASSIN=$(usex spamassassin "ON" "OFF")
 		-DENABLE_GTKSPELL=$(usex spell)

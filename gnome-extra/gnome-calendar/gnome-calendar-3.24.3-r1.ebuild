@@ -33,6 +33,7 @@ DEPEND="${RDEPEND}
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-3.24.3-week-grid-fixes.patch # from gnome-3-24 branch
+	"${FILESDIR}"/${PN}-3.24.3-libical3-compat.patch # from master branch, https://bugzilla.gnome.org/show_bug.cgi?id=790072
 )
 
 src_configure() {

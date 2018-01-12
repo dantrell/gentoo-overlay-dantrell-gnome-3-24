@@ -1,0 +1,28 @@
+From a457579a8d1a857b531709a0446c5070e8dc2eae Mon Sep 17 00:00:00 2001
+From: Michael Terry <mike@mterry.name>
+Date: Sat, 12 Aug 2017 20:16:21 -0400
+Subject: [PATCH 08/13] client: Fix crash when calculating a relative path
+
+Fix an if condition that resulted in trying to strdup(0x1).
+
+https://bugzilla.gnome.org/show_bug.cgi?id=786217
+---
+ client/gdaemonfile.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/client/gdaemonfile.c b/client/gdaemonfile.c
+index ac24014c..2807c801 100644
+--- a/client/gdaemonfile.c
++++ b/client/gdaemonfile.c
+@@ -389,7 +389,7 @@ g_daemon_file_get_relative_path (GFile *parent,
+                                        parent_daemon->path, NULL);
+ 
+       remainder = match_prefix (full_path_descendant, full_path_parent);
+-      if (remainder == NULL || *remainder != '/')
++      if (remainder != NULL && *remainder == '/')
+         ret = g_strdup (remainder + 1);
+       else
+         ret = NULL;
+-- 
+2.15.1
+

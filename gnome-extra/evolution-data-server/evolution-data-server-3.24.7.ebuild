@@ -69,6 +69,11 @@ DEPEND="${RDEPEND}
 	vala? ( $(vala_depend) )
 "
 
+PATCHES=(
+	"${FILESDIR}"/${PN}-3.24.7-DESTDIR-honoring.patch
+	"${FILESDIR}"/${PN}-3.24.7-libical3-compat.patch
+)
+
 pkg_setup() {
 	python-any-r1_pkg_setup
 }

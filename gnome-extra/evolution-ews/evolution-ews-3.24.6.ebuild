@@ -36,6 +36,15 @@ DEPEND="${RDEPEND}
 	test? ( net-libs/uhttpmock )
 "
 
+PATCHES=(
+	"${FILESDIR}"/${PN}-3.24.6-DESTDIR-honoring.patch
+	"${FILESDIR}"/${PN}-3.24.6-libical3-compat.patch
+)
+
+src_prepare() {
+	gnome2_src_prepare # default from inherit order, but be explicit; needed for xdg_src_prepare, env_reset and co
+}
+
 src_configure() {
 	local mycmakeargs=(
 		-DWITH_MSPACK=ON

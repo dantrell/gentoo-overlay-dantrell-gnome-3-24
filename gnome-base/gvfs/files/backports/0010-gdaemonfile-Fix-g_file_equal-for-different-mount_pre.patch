@@ -1,0 +1,39 @@
+From 166b95e726eef9bf5638b791c1b6d8f242bd79d5 Mon Sep 17 00:00:00 2001
+From: Ondrej Holy <oholy@redhat.com>
+Date: Mon, 21 Aug 2017 14:22:24 +0200
+Subject: [PATCH 10/13] gdaemonfile: Fix g_file_equal for different
+ mount_prefix
+
+g_daemon_file_equal() always return FALSE for files with different
+mount_prefix even though the files can be equal. It happen when comparing
+two files from different origins, e.g. g_mount_get_root() and
+g_file_new_for_uri(). Let's do the same which is done in _prefix_matches
+and _get_relative_path in order to fix this issue.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=786217
+---
+ client/gdaemonfile.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/client/gdaemonfile.c b/client/gdaemonfile.c
+index d51c4c00..485698b2 100644
+--- a/client/gdaemonfile.c
++++ b/client/gdaemonfile.c
+@@ -289,8 +289,12 @@ g_daemon_file_equal (GFile *file1,
+   GDaemonFile *daemon_file1 = G_DAEMON_FILE (file1);
+   GDaemonFile *daemon_file2 = G_DAEMON_FILE (file2);
+ 
+-  return daemon_file1->mount_spec == daemon_file2->mount_spec && 
+-    g_str_equal (daemon_file1->path, daemon_file2->path);
++  /* See comment in g_daemon_file_prefix_matches */
++  return (daemon_file1->mount_spec == daemon_file2->mount_spec ||
++          g_mount_spec_match_with_path (daemon_file1->mount_spec,
++                                        daemon_file2->mount_spec,
++                                        daemon_file2->path)) &&
++          g_str_equal (daemon_file1->path, daemon_file2->path);
+ }
+ 
+ 
+-- 
+2.15.1
+
