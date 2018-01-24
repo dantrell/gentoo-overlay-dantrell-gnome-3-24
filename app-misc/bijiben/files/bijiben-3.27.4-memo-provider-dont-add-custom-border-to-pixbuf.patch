@@ -1,0 +1,53 @@
+From 384dd61950cf40d2a0c2f9caf9ed0cb8bd2a4029 Mon Sep 17 00:00:00 2001
+From: Mohammed Sadiq <sadiq@sadiqpk.org>
+Date: Thu, 21 Dec 2017 21:28:30 +0530
+Subject: memo-provider: Don't add custom border to pixbuf
+
+Adding a custom border with the pixbuf doesn't make any difference.
+Also, by removing this, we can remove a further dependency on libgd.
+This was also causing a segfault as some display related code was
+being run by libgd in the non-UI thread.
+
+This commit avoids the custom border along with removing the related
+libgd code, and saving from a crash
+
+https://bugzilla.gnome.org/show_bug.cgi?id=761338
+---
+ src/libbiji/provider/biji-memo-provider.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
+
+diff --git a/src/libbiji/provider/biji-memo-provider.c b/src/libbiji/provider/biji-memo-provider.c
+index bdea81b..665c18c 100644
+--- a/src/libbiji/provider/biji-memo-provider.c
++++ b/src/libbiji/provider/biji-memo-provider.c
+@@ -415,8 +415,7 @@ _get_icon (BijiMemoProvider *self,
+   ESourceExtension *ext;
+   const gchar      *color;
+   GdkRGBA           rgba;
+-  GdkPixbuf        *pix, *embed;
+-  GtkBorder         frame_slice = { 4, 3, 3, 6 };
++  GdkPixbuf        *pix;
+ 
+   ext = e_source_get_extension (self->source, E_SOURCE_EXTENSION_MEMO_LIST);
+   color = e_source_selectable_get_color (E_SOURCE_SELECTABLE (ext));
+@@ -424,13 +423,10 @@ _get_icon (BijiMemoProvider *self,
+   if (color == NULL || !gdk_rgba_parse (&rgba, color))
+     return FALSE;
+ 
+-  pix = get_pixbuf_from_color (&rgba, 48);
+-  embed = gd_embed_image_in_frame (pix, "resource:///org/gnome/bijiben/thumbnail-frame.png",
+-                                    &frame_slice, &frame_slice);
+-  *result = gtk_image_new_from_pixbuf (embed);
+-
+-  g_clear_object (&pix);
+-  g_clear_object (&embed);
++  pix = get_pixbuf_from_color (&rgba, 40);
++  *result = gtk_image_new_from_pixbuf (pix);
++  g_object_set (G_OBJECT (*result), "margin", 4, NULL);
++  g_object_unref (pix);
+ 
+   return TRUE;
+ }
+-- 
+cgit v0.12
+

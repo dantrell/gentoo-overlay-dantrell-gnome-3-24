@@ -35,6 +35,14 @@ DEPEND="${RDEPEND}
 # Needed if eautoreconf:
 # sys-devel/autoconf-archive
 
+src_prepare() {
+	# From GNOME:
+	# 	https://git.gnome.org/browse/bijiben/commit/?id=384dd61950cf40d2a0c2f9caf9ed0cb8bd2a4029
+	eapply "${FILESDIR}"/${PN}-3.27.4-memo-provider-dont-add-custom-border-to-pixbuf.patch
+
+	gnome2_src_prepare
+}
+
 src_configure() {
 	gnome2_src_configure \
 		$(use_enable zeitgeist) \
