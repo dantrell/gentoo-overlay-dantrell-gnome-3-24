@@ -11,7 +11,7 @@ LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="zeitgeist"
+IUSE=""
 
 RDEPEND="
 	>=dev-libs/glib-2.28:2
@@ -22,7 +22,6 @@ RDEPEND="
 	dev-libs/libxml2
 	>=app-misc/tracker-1:=
 	sys-apps/util-linux
-	zeitgeist? ( gnome-extra/zeitgeist )
 "
 DEPEND="${RDEPEND}
 	app-text/yelp-tools
@@ -45,6 +44,6 @@ src_prepare() {
 
 src_configure() {
 	gnome2_src_configure \
-		$(use_enable zeitgeist) \
-		--disable-update-mimedb
+		--disable-update-mimedb \
+		--disable-zeitgeist
 }

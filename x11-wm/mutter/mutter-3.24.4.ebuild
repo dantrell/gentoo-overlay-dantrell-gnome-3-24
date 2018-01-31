@@ -86,6 +86,8 @@ RDEPEND="${COMMON_DEPEND}
 PATCHES=(
 	# Fix build with >=gudev-232, bug #630312
 	"${FILESDIR}"/${PN}-3.24.4-gudev-232.patch
+	# Fix build with USE=debug, bug #645412
+	"${FILESDIR}"/${PN}-3.24.4-build-debug.patch
 )
 
 src_prepare() {

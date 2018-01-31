@@ -14,11 +14,10 @@ LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="debug +introspection lirc nautilus +python test vanilla-thumbnailer zeitgeist"
+IUSE="debug +introspection lirc nautilus +python test vanilla-thumbnailer"
 # see bug #359379
 REQUIRED_USE="
 	python? ( introspection ${PYTHON_REQUIRED_USE} )
-	zeitgeist? ( introspection )
 "
 
 # FIXME:
@@ -51,7 +50,6 @@ COMMON_DEPEND="
 	python? (
 		${PYTHON_DEPS}
 		>=dev-python/pygobject-2.90.3:3[${PYTHON_USEDEP}] )
-	zeitgeist? ( >=gnome-extra/zeitgeist-0.9.12 )
 "
 RDEPEND="${COMMON_DEPEND}
 	media-plugins/grilo-plugins:0.3
@@ -119,7 +117,6 @@ src_configure() {
 	use lirc && plugins+=",lirc"
 	use nautilus && plugins+=",save-file"
 	use python && plugins+=",dbusservice,pythonconsole,opensubtitles"
-	use zeitgeist && plugins+=",zeitgeist-dp"
 
 	# pylint is checked unconditionally, but is only used for make check
 	# appstream-util overriding necessary until upstream fixes their macro
