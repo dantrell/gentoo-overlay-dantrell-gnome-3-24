@@ -6,13 +6,28 @@ Subject: build: Require libgudev >= 232
 And remove the g_autoptr implementations in mutter itself.
 
 https://bugzilla.gnome.org/show_bug.cgi?id=760670
-
-Gentoo: stripped configure.ac part to avoid autoreconf
 ---
  configure.ac                        | 4 ++--
  src/backends/native/meta-launcher.c | 4 ----
  2 files changed, 2 insertions(+), 6 deletions(-)
 
+diff --git a/configure.ac b/configure.ac
+index af00563..8c8b686 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -225,10 +225,10 @@ AC_MSG_CHECKING([gudev])
+ if test x$with_gudev = xno ; then
+   AC_MSG_RESULT([disabled])
+ else
+-  if $PKG_CONFIG --exists gudev-1.0; then
++  if $PKG_CONFIG --exists "gudev-1.0 >= 232"; then
+     have_gudev=yes
+     AC_MSG_RESULT(yes)
+-    MUTTER_PC_MODULES="$MUTTER_PC_MODULES gudev-1.0"
++    MUTTER_PC_MODULES="$MUTTER_PC_MODULES gudev-1.0 >= 232"
+     AC_DEFINE([HAVE_LIBGUDEV], 1, [Building with gudev for device type detection])
+   else
+     AC_MSG_RESULT(no)
 diff --git a/src/backends/native/meta-launcher.c b/src/backends/native/meta-launcher.c
 index 90b4b98..eb35f88 100644
 --- a/src/backends/native/meta-launcher.c
@@ -29,5 +44,5 @@ index 90b4b98..eb35f88 100644
  {
    Login1Session *session_proxy;
 -- 
-cgit v0.12
+cgit v1.1
 

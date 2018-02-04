@@ -84,8 +84,6 @@ RDEPEND="${COMMON_DEPEND}
 "
 
 PATCHES=(
-	# Fix build with >=gudev-232, bug #630312
-	"${FILESDIR}"/${PN}-3.24.4-gudev-232.patch
 	# Fix build with USE=debug, bug #645412
 	"${FILESDIR}"/${PN}-3.24.4-build-debug.patch
 )
@@ -100,6 +98,10 @@ src_prepare() {
 		sed -e '/noinst_PROGRAMS/ s/testboxes$(EXEEXT)//' \
 			-i src/Makefile.in || die
 	fi
+
+	# From GNOME:
+	# 	https://gitlab.gnome.org/GNOME/mutter/commit/361bf847af82c7dca097302fe64c575079280c9c
+	eapply "${FILESDIR}"/${PN}-3.25.92-build-require-libgudev-232.patch
 
 	if use elogind; then
 		eapply "${FILESDIR}"/${PN}-3.24.3-support-elogind.patch
