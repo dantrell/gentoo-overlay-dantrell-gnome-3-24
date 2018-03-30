@@ -22,7 +22,6 @@ COMMON_DEPEND="
 	>=app-text/gtkspell-3.0:3
 	>=dev-cpp/glibmm-2.32:2
 	>=dev-cpp/gtkmm-3.18:3.0
-	>=dev-libs/boost-1.34:=
 	>=dev-libs/glib-2.32:2[dbus]
 	>=dev-libs/libxml2-2:2
 	dev-libs/libxslt

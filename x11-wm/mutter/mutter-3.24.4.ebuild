@@ -111,6 +111,10 @@ src_prepare() {
 		eapply "${FILESDIR}"/${PN}-3.22.3-restore-deprecated-background-code.patch
 	fi
 
+	# From GNOME:
+	# 	https://gitlab.gnome.org/GNOME/mutter/commit/31779404f0e083fba11d1d263f278154e0580374
+	eapply "${FILESDIR}"/${PN}-3.28.1-clutter-avoid-unnecessary-relayouts-in-cluttertext.patch
+
 	eautoreconf
 	gnome2_src_prepare
 

@@ -97,6 +97,7 @@ gnome-extra/gnome-documents::gentoo
 gnome-extra/gnome-documents::gnome-kit
 gnome-extra/gnome-getting-started-docs::gentoo
 gnome-extra/gnome-getting-started-docs::gnome-kit
+gnome-extra/gnome-multi-writer::gentoo
 gnome-extra/gnome-packagekit::gentoo
 gnome-extra/gnome-packagekit::gnome-kit
 gnome-extra/gnome-power-manager::gentoo

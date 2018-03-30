@@ -19,6 +19,7 @@
 	<flag name="geary">Install <pkg>mail-client/geary</pkg> (mail client)</flag>
 	<flag name="gnote">Install <pkg>app-misc/gnote</pkg> (note editor)</flag>
 	<flag name="latexila">Install <pkg>app-editors/latexila</pkg> (integrated LaTeX environment)</flag>
+	<flag name="multiwriter">Install <pkg>gnome-extra/gnome-multi-writer</pkg> (USB device writer)</flag>
 	<flag name="recipes">Install <pkg>gnome-extra/gnome-recipes</pkg> (live cookbook)</flag>
 	<flag name="share">Install <pkg>gnome-extra/gnome-user-share</pkg> (personal file sharing tool)</flag>
 	<flag name="shotwell">Install <pkg>media-gfx/shotwell</pkg> (photo manager)</flag>

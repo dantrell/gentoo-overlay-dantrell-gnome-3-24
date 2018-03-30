@@ -143,7 +143,7 @@ src_prepare() {
 	# Make some panels and dependencies optional; requires eautoreconf
 	# https://bugzilla.gnome.org/686840, 697478, 700145
 	eapply "${FILESDIR}"/${PN}-3.24.2-optional.patch
-	eapply "${FILESDIR}"/${PN}-3.24.2-optional-wayland.patch
+	eapply "${FILESDIR}"/${PN}-3.24.4-optional-wayland.patch
 	eapply "${FILESDIR}"/${PN}-3.24.2-optional-networkmanager.patch
 	eapply "${FILESDIR}"/${PN}-3.24.2-optional-cups.patch
 
