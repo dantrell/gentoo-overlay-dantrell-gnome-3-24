@@ -87,6 +87,16 @@ that are currently available with packages include:
 # autotools stuff for autotools plugin; gtkmm/autoconf-archive for C++ template
 # mono/PHPize stuff
 
+PATCHES=(
+	# From GNOME:
+	# 	https://gitlab.gnome.org/GNOME/gnome-builder/commit/294920f6b932992e9da8864ca96ae35fe2402406
+	# 	https://gitlab.gnome.org/GNOME/gnome-builder/commit/1d7c6fa60faf9e81f2fa0f93898f8e1cc68da6d4
+	# 	https://gitlab.gnome.org/GNOME/gnome-builder/commit/8bf74c787af082102958de7498a9b4f4248788cc
+	"${FILESDIR}"/${PN}-3.25.3-jedi-silence-xml-parser-warning.patch
+	"${FILESDIR}"/${PN}-3.25.4-jedi-ignore-non-gir-files.patch
+	"${FILESDIR}"/${PN}-3.25.91-jedi-adapt-to-jedi-0-10-0.patch
+)
+
 pkg_setup() {
 	python-single-r1_pkg_setup
 }

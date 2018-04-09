@@ -34,6 +34,8 @@ dev-python/pygobject::gentoo
 dev-python/pygobject::gnome-kit
 dev-util/devhelp::gentoo
 dev-util/devhelp::gnome-kit
+dev-util/gnome-builder::dev-kit
+dev-util/gnome-builder::gentoo
 dev-vcs/gitg::gentoo
 dev-vcs/gitg::gnome-kit
 games-board/gnome-chess::gentoo
@@ -81,8 +83,6 @@ gnome-extra/evolution-ews::gentoo
 gnome-extra/evolution-ews::gnome-kit
 gnome-extra/gnome-boxes::gentoo
 gnome-extra/gnome-boxes::gnome-kit
-gnome-extra/gnome-builder::gentoo
-gnome-extra/gnome-builder::gnome-kit
 gnome-extra/gnome-calculator::gentoo
 gnome-extra/gnome-calculator::gnome-kit
 gnome-extra/gnome-calendar::gentoo
