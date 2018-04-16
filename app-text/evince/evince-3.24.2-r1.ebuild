@@ -64,6 +64,12 @@ DEPEND="${COMMON_DEPEND}
 # eautoreconf needs:
 #  app-text/yelp-tools
 
+PATCHES=(
+	# From GNOME:
+	# 	https://bugzilla.gnome.org/show_bug.cgi?id=784947 (CVE-2017-1000159)
+	"${FILESDIR}"/${PN}-3.24.2-CVE-2017-1000159.patch
+)
+
 src_prepare() {
 	gnome2_src_prepare
 
