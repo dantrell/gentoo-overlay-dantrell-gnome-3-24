@@ -1,8 +1,8 @@
-From 5df9c4a71c41e9f8be498d241bf658181c659ee0 Mon Sep 17 00:00:00 2001
+From 8b5ab5d0a5d22d1dcf3962ee6910e88f241d3f14 Mon Sep 17 00:00:00 2001
 From: Sven Eden <yamakuzure@gmx.net>
 Date: Tue, 10 Oct 2017 11:54:22 +0200
-Subject: [PATCH 13/13] Enable support for elogind, substituting systemd-login
- on demand
+Subject: [PATCH 6/6] Enable support for elogind, substituting systemd-login on
+ demand
 
 Users who wish to use modern systems, but without using systemd as
 their init system, elogind might be installed.
@@ -33,7 +33,7 @@ enabled, configure now checks for libelogind and uses that instead.
  3 files changed, 25 insertions(+), 1 deletion(-)
 
 diff --git a/configure.ac b/configure.ac
-index a6f7766c..b81a6ac8 100644
+index c1b078af..41b5a1ad 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -312,6 +312,27 @@ fi
@@ -106,5 +106,5 @@ index 26d76b99..78007ea7 100644
  
  static const gchar *
 -- 
-2.15.1
+2.17.0
 

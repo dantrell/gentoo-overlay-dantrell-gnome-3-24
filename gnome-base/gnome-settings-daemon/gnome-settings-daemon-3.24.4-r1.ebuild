@@ -101,13 +101,11 @@ DEPEND="${COMMON_DEPEND}
 
 PATCHES=(
 	# Make colord and wacom optional; requires eautoreconf
-	"${FILESDIR}"/${PN}-3.24.3-optional.patch
 	# Allow specifying udevrulesdir via configure, bug 509484; requires eautoreconf
-	"${FILESDIR}"/${PN}-3.24.2-udevrulesdir-configure.patch
 	# Reduce memory usage by not initing GTK+ where not needed
-	"${FILESDIR}"/${PN}-3.24.2-remove-unneeded-gtk-init.patch
 	# Reduce memory usage by using a fake CSS theme instead of full Adwaita for GTK+ needing plugins; requires eautoreconf
-	"${FILESDIR}"/${PN}-3.24.2-reduce-memory-usage.patch
+	# Fix build system to require gudev with wayland, bug #627966
+	"${FILESDIR}"/rollup
 	# Fix build when Wayland is disabled
 	"${FILESDIR}"/${PN}-3.24.3-fix-without-gdkwayland.patch
 )

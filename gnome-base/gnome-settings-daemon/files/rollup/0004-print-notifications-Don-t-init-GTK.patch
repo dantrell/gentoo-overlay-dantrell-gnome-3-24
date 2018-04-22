@@ -1,0 +1,25 @@
+From 720a152c6e0ddee0e288fc04823fdad5dd712c60 Mon Sep 17 00:00:00 2001
+From: Bastien Nocera <hadess@hadess.net>
+Date: Mon, 27 Mar 2017 18:49:35 +0200
+Subject: [PATCH 4/7] print-notifications: Don't init GTK+
+
+We don't use it.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=780555
+---
+ plugins/print-notifications/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/plugins/print-notifications/main.c b/plugins/print-notifications/main.c
+index 57155d04..a0dd4069 100644
+--- a/plugins/print-notifications/main.c
++++ b/plugins/print-notifications/main.c
+@@ -4,4 +4,4 @@
+ #define MANAGER GsdPrintNotificationsManager
+ #include "gsd-print-notifications-manager.h"
+ 
+-#include "daemon-skeleton-gtk.h"
++#include "daemon-skeleton.h"
+-- 
+2.17.0
+

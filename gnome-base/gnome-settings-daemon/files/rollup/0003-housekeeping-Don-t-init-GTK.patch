@@ -1,0 +1,25 @@
+From 977f98b90dc68f7577a99c7b51267bb045884f2a Mon Sep 17 00:00:00 2001
+From: Bastien Nocera <hadess@hadess.net>
+Date: Mon, 27 Mar 2017 18:47:54 +0200
+Subject: [PATCH 3/7] housekeeping: Don't init GTK+
+
+We don't use it.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=780555
+---
+ plugins/housekeeping/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/plugins/housekeeping/main.c b/plugins/housekeeping/main.c
+index 5ccd83dc..89c12f7b 100644
+--- a/plugins/housekeeping/main.c
++++ b/plugins/housekeeping/main.c
+@@ -4,4 +4,4 @@
+ #define MANAGER GsdHousekeepingManager
+ #include "gsd-housekeeping-manager.h"
+ 
+-#include "daemon-skeleton-gtk.h"
++#include "daemon-skeleton.h"
+-- 
+2.17.0
+

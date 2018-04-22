@@ -83,8 +83,8 @@ DEPEND="${RDEPEND}
 # test dependencies needed per https://bugzilla.gnome.org/700162
 
 PATCHES=(
-	"${FILESDIR}"/backports #599482, 641522, gnome-3-24 backports
 	"${FILESDIR}"/${PN}-1.30.2-sysmacros.patch #580234
+	"${FILESDIR}"/rollup #599482, 641522
 )
 
 src_prepare() {

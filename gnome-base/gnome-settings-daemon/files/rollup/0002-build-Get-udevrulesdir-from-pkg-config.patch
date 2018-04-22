@@ -1,0 +1,48 @@
+From 6c81da3dbebe211ddc005ed47bed93b867c7e6f2 Mon Sep 17 00:00:00 2001
+From: Mart Raudsepp <leio@gentoo.org>
+Date: Mon, 29 May 2017 00:38:57 +0300
+Subject: [PATCH 2/7] build: Get udevrulesdir from pkg-config
+
+Use the standard way to find the udev rules directory via pkg-config by default,
+and support specifying it, should it be necessary.
+This is the same logic as in colord.
+---
+ configure.ac               | 9 +++++++++
+ plugins/rfkill/Makefile.am | 1 -
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 6fd585a9..be2e279b 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -103,6 +103,15 @@ else
+ fi
+ AM_CONDITIONAL(HAVE_GUDEV, test x$have_gudev = xyes)
+ 
++dnl ---------------------------------------------------------------------------
++dnl - Where to install udev rules
++dnl ---------------------------------------------------------------------------
++AC_ARG_WITH([udevrulesdir],
++            AS_HELP_STRING([--with-udevrulesdir=DIR], [Directory for udev rules files]),
++            [],
++            [with_udevrulesdir=$($PKG_CONFIG --variable=udevdir udev)/rules.d])
++AC_SUBST([udevrulesdir], [$with_udevrulesdir])
++
+ dnl ---------------------------------------------------------------------------
+ dnl - ALSA integration (default enabled)
+ dnl ---------------------------------------------------------------------------
+diff --git a/plugins/rfkill/Makefile.am b/plugins/rfkill/Makefile.am
+index 3c5ec473..bfc34c6a 100644
+--- a/plugins/rfkill/Makefile.am
++++ b/plugins/rfkill/Makefile.am
+@@ -30,7 +30,6 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+ org.gnome.SettingsDaemon.Rfkill.desktop: $(desktop_in_files) Makefile
+ 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
+ 
+-udevrulesdir = $(prefix)/lib/udev/rules.d
+ udevrules_DATA = 61-gnome-settings-daemon-rfkill.rules
+ 
+ EXTRA_DIST = $(udevrules_DATA) $(desktop_in_files)
+-- 
+2.17.0
+

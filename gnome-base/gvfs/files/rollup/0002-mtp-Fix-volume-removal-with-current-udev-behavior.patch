@@ -1,14 +1,13 @@
-From 1c0b94a0d8de2743a45a5b0a08bb7b785c5f655e Mon Sep 17 00:00:00 2001
+From ccc7a2467af541ffe576eb8c5d5ba1f1f80c9e20 Mon Sep 17 00:00:00 2001
 From: Ondrej Holy <oholy@redhat.com>
 Date: Wed, 25 Oct 2017 20:28:22 +0200
-Subject: [PATCH 12/13] mtp: Fix volume removal with current udev behavior
+Subject: [PATCH 2/6] mtp: Fix volume removal with current udev behavior
 
 UDev events for devices without ID_MTP_DEVICE property are ignored.
 Although ID_MTP_DEVICE seems don't have to be set for device when removing
 and thus the volume is not removed. Let's ignore ID_MTP_DEVICE when removing.
 
 https://bugzilla.gnome.org/show_bug.cgi?id=789491
-(cherry picked from commit 4fe3b0f8d24851145b5ceae10eb3181b2340466b)
 ---
  monitor/mtp/gmtpvolumemonitor.c | 17 ++++++-----------
  1 file changed, 6 insertions(+), 11 deletions(-)
@@ -42,5 +41,5 @@ index 50e37cfe..bfd9e29f 100644
  
  static void
 -- 
-2.15.1
+2.17.0
 

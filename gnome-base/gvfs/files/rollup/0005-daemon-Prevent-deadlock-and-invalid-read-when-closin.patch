@@ -1,0 +1,66 @@
+From 2712954cb6968f06b99aa2d22d490bad88d83ec1 Mon Sep 17 00:00:00 2001
+From: Ondrej Holy <oholy@redhat.com>
+Date: Tue, 10 Apr 2018 13:17:38 +0200
+Subject: [PATCH 5/6] daemon: Prevent deadlock and invalid read when closing
+ channels
+
+Commit e147e48 added missing mutex guards for job_sources, which may
+unfortunately lead to deadlock because g_vfs_channel_force_close
+synchronously calls g_vfs_job_source_closed which is also guarded by
+the same mutex.
+
+The deadlock reveals another bug which was in that code. The code
+iterates over job_sources list, but g_vfs_job_source_closed removes
+current element of the list, which leads to invalid reads and
+potentially to segfaults also.
+
+This patch tries to fix the both mentioned issues.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=794957
+---
+ daemon/gvfsdaemon.c | 28 ++++++++++++++++++++++------
+ 1 file changed, 22 insertions(+), 6 deletions(-)
+
+diff --git a/daemon/gvfsdaemon.c b/daemon/gvfsdaemon.c
+index 8305700f..f13e4e49 100644
+--- a/daemon/gvfsdaemon.c
++++ b/daemon/gvfsdaemon.c
+@@ -1127,13 +1127,29 @@ g_vfs_daemon_close_active_channels (GVfsDaemon *daemon,
+ 				    GVfsBackend *backend)
+ {
+   GList *l;
++  GVfsChannel *channel_to_close;
+ 
+-  g_mutex_lock (&daemon->lock);
++  do
++    {
++      channel_to_close = NULL;
+ 
+-  for (l = daemon->job_sources; l != NULL; l = l->next)
+-    if (G_VFS_IS_CHANNEL (l->data) &&
+-        g_vfs_channel_get_backend (G_VFS_CHANNEL (l->data)) == backend)
+-      g_vfs_channel_force_close (G_VFS_CHANNEL (l->data));
++      g_mutex_lock (&daemon->lock);
++      for (l = daemon->job_sources; l != NULL; l = l->next)
++        {
++          if (G_VFS_IS_CHANNEL (l->data) &&
++              g_vfs_channel_get_backend (G_VFS_CHANNEL (l->data)) == backend)
++            {
++              channel_to_close = g_object_ref (G_VFS_CHANNEL (l->data));
++              break;
++            }
++        }
++      g_mutex_unlock (&daemon->lock);
+ 
+-  g_mutex_unlock (&daemon->lock);
++      if (channel_to_close)
++        {
++          g_vfs_channel_force_close (channel_to_close);
++          g_object_unref (channel_to_close);
++        }
++    }
++  while (channel_to_close != NULL);
+ }
+-- 
+2.17.0
+
