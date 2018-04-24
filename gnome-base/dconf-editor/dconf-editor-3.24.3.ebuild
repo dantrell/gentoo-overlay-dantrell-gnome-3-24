@@ -18,8 +18,7 @@ COMMON_DEPEND="
 	>=x11-libs/gtk+-3.22.0:3
 "
 DEPEND="${COMMON_DEPEND}
-	>=dev-util/intltool-0.50
-	sys-devel/gettext
+	>=sys-devel/gettext-0.19.7
 	virtual/pkgconfig
 "
 RDEPEND="${COMMON_DEPEND}

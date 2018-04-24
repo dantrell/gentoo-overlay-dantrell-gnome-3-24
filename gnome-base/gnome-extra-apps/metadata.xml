@@ -6,9 +6,10 @@
 	<name>Gentoo GNOME Desktop</name>
 </maintainer>
 <use>
+	<flag name="anjuta">Install <pkg>dev-util/anjuta</pkg> (IDE)</flag>
 	<flag name="bijiben">Install <pkg>app-misc/bijiben</pkg> (note editor)</flag>
 	<flag name="boxes">Install <pkg>gnome-extra/gnome-boxes</pkg> (remote and virtual system manager)</flag>
-	<flag name="builder">Install <pkg>gnome-extra/gnome-builder</pkg> (IDE)</flag>
+	<flag name="builder">Install <pkg>dev-util/gnome-builder</pkg> (IDE)</flag>
 	<flag name="california">Install <pkg>gnome-extra/california</pkg> (calendar)</flag>
 	<flag name="empathy">Install <pkg>net-im/empathy</pkg> (chat client)</flag>
 	<flag name="epiphany">Install <pkg>www-client/epiphany</pkg> (web browser)</flag>
@@ -26,5 +27,6 @@
 	<flag name="simple-scan">Install <pkg>media-gfx/simple-scan</pkg> (document scanning utility)</flag>
 	<flag name="todo">Install <pkg>gnome-extra/gnome-todo</pkg> (task manager)</flag>
 	<flag name="tracker">Install <pkg>app-misc/tracker</pkg> (search engine, search tool and metadata storage system)</flag>
+	<flag name="usage">Install <pkg>gnome-extra/gnome-usage</pkg> (system resources)</flag>
 </use>
 </pkgmetadata>
