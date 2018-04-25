@@ -3,7 +3,7 @@
 EAPI="6"
 GNOME2_LA_PUNT="yes"
 
-inherit gnome2 readme.gentoo-r1
+inherit autotools gnome2 readme.gentoo-r1
 
 DESCRIPTION="Archive manager for GNOME"
 HOMEPAGE="https://wiki.gnome.org/Apps/FileRoller"
@@ -74,6 +74,8 @@ src_prepare() {
 
 	# File providing Gentoo package names for various archivers
 	cp -f "${FILESDIR}"/3.22-packages.match data/packages.match || die
+
+	eautoreconf
 	gnome2_src_prepare
 }
 
