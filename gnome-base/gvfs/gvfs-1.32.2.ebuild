@@ -1,8 +1,8 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
-GNOME2_LA_PUNT="yes"
 GNOME2_EAUTORECONF="yes"
+GNOME2_LA_PUNT="yes"
 
 inherit gnome2 systemd
 
