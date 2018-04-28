@@ -79,15 +79,11 @@ pkg_setup() {
 }
 
 src_prepare() {
+	# Make CMakeLists versioned vala enabled
 	eapply "${FILESDIR}"/${PN}-3.24.2-assume-vala-bindings.patch
 
 	use vala && vala_src_prepare
-	gnome2_src_prepare
-
-	# Make CMakeLists versioned vala enabled
-	sed -e "s;\(find_program(VALAC\) valac);\1 ${VALAC});" \
-	    -e "s;\(find_program(VAPIGEN\) vapigen);\1 ${VAPIGEN});" \
-		-i "${S}"/CMakeLists.txt || die
+	cmake-utils_src_prepare
 }
 
 src_configure() {
@@ -102,7 +98,6 @@ src_configure() {
 		google_auth_enable="OFF"
 	fi
 
-	# phonenumber does not exist in tree
 	local mycmakeargs=(
 		-DWITH_SYSTEMDUSERUNITDIR="$(systemd_get_userunitdir)"
 		-DENABLE_GTK_DOC=$(usex api-doc-extras)
@@ -121,7 +116,6 @@ src_configure() {
 		-DENABLE_GOA=$(usex gnome-online-accounts)
 		-DENABLE_UOA=OFF
 		-DWITH_LIBDB=$(usex berkdb "${EPREFIX}"/usr "OFF")
-		# ENABLE_BACKTRACES requires libdwarf ?
 		-DENABLE_IPV6=$(usex ipv6)
 		-DENABLE_WEATHER=$(usex weather)
 		-DENABLE_GOOGLE=$(usex google)
