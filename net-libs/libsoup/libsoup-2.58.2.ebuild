@@ -21,7 +21,7 @@ RDEPEND="
 	>=dev-libs/glib-2.34.3:2[${MULTILIB_USEDEP}]
 	>=dev-libs/libxml2-2.9.1-r4:2[${MULTILIB_USEDEP}]
 	>=dev-db/sqlite-3.8.2:3[${MULTILIB_USEDEP}]
-	>=net-libs/glib-networking-2.38.2[ssl?,${MULTILIB_USEDEP}]
+	>=net-libs/glib-networking-2.38.2[ssl(+)?,${MULTILIB_USEDEP}]
 	gssapi? ( virtual/krb5[${MULTILIB_USEDEP}] )
 	introspection? ( >=dev-libs/gobject-introspection-0.9.5:= )
 	samba? ( net-fs/samba )
