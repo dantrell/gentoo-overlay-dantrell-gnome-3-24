@@ -1,0 +1,13 @@
+diff '--exclude=.git' -urN a/src/gtd-task.c b/src/gtd-task.c
+--- a/src/gtd-task.c	2017-10-30 22:29:28.000000000 -0400
++++ b/src/gtd-task.c	2018-05-08 23:16:06.818414984 -0400
+@@ -777,8 +777,7 @@
+           dt->hour = g_date_time_get_hour (now);
+           dt->minute = g_date_time_get_minute (now);
+           dt->second = g_date_time_get_seconds (now);
+-          dt->is_date = 0;
+-          dt->is_utc = 1;
++          dt->zone = icaltimezone_get_utc_timezone ();
+ 
+           /* convert timezone
+            *
