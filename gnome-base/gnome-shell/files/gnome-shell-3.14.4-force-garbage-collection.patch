@@ -1,0 +1,25 @@
+diff '--exclude=.git' -urN a/js/ui/main.js b/js/ui/main.js
+--- a/js/ui/main.js	2015-03-23 14:09:14.000000000 -0400
++++ b/js/ui/main.js	2018-05-18 01:36:12.276708030 -0400
+@@ -97,6 +97,13 @@
+     }
+ }
+ 
++function _forceGarbageCollection () {
++    Mainloop.timeout_add_seconds(120, Lang.bind(this, function() {
++        imports.system.gc();
++        _forceGarbageCollection();
++    }));
++}
++
+ function start() {
+     // These are here so we don't break compatibility.
+     global.logError = window.log;
+@@ -115,6 +122,7 @@
+     shellMountOpDBusService = new ShellMountOperation.GnomeShellMountOpHandler();
+ 
+     _sessionUpdated();
++    _forceGarbageCollection();
+ }
+ 
+ function _initializeUI() {
