@@ -42,9 +42,7 @@ DEPEND="${RDEPEND}
 	dev-util/itstool
 	virtual/pkgconfig
 	test? ( app-text/docbook-xml-dtd:4.5 )
-	xinerama? ( x11-proto/xineramaproto )
-	x11-proto/xextproto
-	x11-proto/xproto
+	xinerama? ( x11-base/xorg-proto )
 "
 
 src_configure() {
