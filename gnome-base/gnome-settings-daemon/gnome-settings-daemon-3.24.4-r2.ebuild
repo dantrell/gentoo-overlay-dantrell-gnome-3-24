@@ -1,11 +1,10 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
-GNOME2_EAUTORECONF="yes"
 GNOME2_LA_PUNT="yes"
 PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} )
 
-inherit gnome2 python-any-r1 systemd udev virtualx
+inherit autotools gnome2 python-any-r1 systemd udev virtualx
 
 DESCRIPTION="Gnome Settings Daemon"
 HOMEPAGE="https://git.gnome.org/browse/gnome-settings-daemon"
@@ -96,19 +95,6 @@ DEPEND="${COMMON_DEPEND}
 	x11-base/xorg-proto
 "
 
-PATCHES=(
-	# Make colord and wacom optional; requires eautoreconf
-	"${FILESDIR}"/${PN}-3.24.3-optional.patch
-	# Allow specifying udevrulesdir via configure, bug 509484; requires eautoreconf
-	"${FILESDIR}"/${PN}-3.24.2-udevrulesdir-configure.patch
-	# Reduce memory usage by not initing GTK+ where not needed
-	"${FILESDIR}"/${PN}-3.24.2-remove-unneeded-gtk-init.patch
-	# Reduce memory usage by using a fake CSS theme instead of full Adwaita for GTK+ needing plugins; requires eautoreconf
-	"${FILESDIR}"/${PN}-3.24.2-reduce-memory-usage.patch
-	# Fix build when Wayland is disabled
-	"${FILESDIR}"/${PN}-3.24.3-fix-without-gdkwayland.patch
-)
-
 python_check_deps() {
 	if use test; then
 		has_version "dev-python/pygobject:3[${PYTHON_USEDEP}]" &&
@@ -118,6 +104,24 @@ python_check_deps() {
 
 pkg_setup() {
 	use test && python-any-r1_pkg_setup
+}
+
+src_prepare() {
+	# Make colord and wacom optional; requires eautoreconf
+	# Allow specifying udevrulesdir via configure, bug 509484; requires eautoreconf
+	# Reduce memory usage by not initing GTK+ where not needed
+	# Reduce memory usage by using a fake CSS theme instead of full Adwaita for GTK+ needing plugins; requires eautoreconf
+	# Fix build system to require gudev with wayland, bug #627966
+	eapply "${FILESDIR}"/rollup
+	# Fix build when Wayland is disabled
+	eapply "${FILESDIR}"/${PN}-3.24.3-fix-without-gdkwayland.patch
+
+	# From Ben Wolsieffer:
+	# 	https://bugzilla.gnome.org/show_bug.cgi?id=734964
+	eapply "${FILESDIR}"/${PN}-3.12.0-optionally-allow-suspending-with-multiple-monitors-on-lid-close.patch
+
+	eautoreconf
+	gnome2_src_prepare
 }
 
 src_configure() {

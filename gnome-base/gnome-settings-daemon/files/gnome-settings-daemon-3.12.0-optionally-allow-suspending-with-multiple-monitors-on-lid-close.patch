@@ -1,0 +1,46 @@
+diff --git a/data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in b/data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in
+index 1fd60e7..37fb978 100644
+--- a/data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in
++++ b/data/org.gnome.settings-daemon.plugins.power.gschema.xml.in.in
+@@ -66,5 +66,10 @@
+       <summary>Battery critical low action</summary>
+       <description>The action to take when the battery is critically low.</description>
+     </key>
++    <key name="lid-close-suspend-with-external-monitor" type="b">
++      <default>false</default>
++      <summary>Laptop lid, when closed, will suspend even if there is an external monitor plugged in</summary>
++      <description>By default, closing the lid when an external monitor is present the machine will not suspending, so that one can keep working on that monitor (e.g. for docking stations or media viewers).  Set this key to False to keep the default behavior, or to True to suspend the laptop whenever the lid is closed and regardless of external monitors.</description>
++    </key>
+   </schema>
+ </schemalist>
+diff --git a/plugins/power/gsd-power-manager.c b/plugins/power/gsd-power-manager.c
+index 26ba2c1..c48e9ae 100644
+--- a/plugins/power/gsd-power-manager.c
++++ b/plugins/power/gsd-power-manager.c
+@@ -2195,12 +2195,21 @@ on_randr_event (GnomeRRScreen *screen, gpointer user_data)
+ 
+         g_debug ("Screen configuration changed");
+ 
+-        /* Uninhibiting is done in inhibit_lid_switch_timer_cb,
+-         * since we want to give users a few seconds when unplugging
+-         * and replugging an external monitor, not suspend right away.
++        /* If the user wants to suspend irregardless of monitor state,
++         * then don't register the inhibitor.
+          */
+-        inhibit_lid_switch (manager);
+-        restart_inhibit_lid_switch_timer (manager);
++        if (g_settings_get_boolean (manager->priv->settings,
++                "lid-close-suspend-with-external-monitor")) {
++                g_debug ("Not inhibiting suspend on lid close");
++        } else {
++                /* Uninhibiting is done in inhibit_lid_switch_timer_cb,
++                 * since we want to give users a few seconds when 
++                 * unplugging and replugging an external monitor, not 
++                 * suspend right away.
++                 */
++                inhibit_lid_switch (manager);
++                restart_inhibit_lid_switch_timer (manager);
++        }
+ }
+ 
+ static void
