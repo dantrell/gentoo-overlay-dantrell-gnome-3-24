@@ -128,6 +128,10 @@ src_prepare() {
 	# Gentoo does not have a fingerprint-auth pam stack
 	eapply "${FILESDIR}"/${PN}-3.8.4-fingerprint-auth.patch
 
+	# CVE-2018-14424, bug #662782
+	eapply "${FILESDIR}"/${PN}-3.24.3-CVE-2018-14424.patch
+	eapply "${FILESDIR}"/${PN}-3.24.3-display-object-lifetime-fix.patch
+
 	# Show logo when branding is enabled
 	use branding && eapply "${FILESDIR}"/${PN}-3.8.4-logo.patch
 

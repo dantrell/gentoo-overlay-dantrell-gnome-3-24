@@ -32,10 +32,8 @@ COMMON_DEPEND="
 	>=app-text/iso-codes-0.35
 	>=gnome-base/gsettings-desktop-schemas-0.0.1
 "
-# epiphany-extensions support was removed in 3.7; let's not pretend it still works
 RDEPEND="${COMMON_DEPEND}
 	x11-themes/adwaita-icon-theme
-	!www-client/epiphany-extensions
 "
 # paxctl needed for bug #407085
 DEPEND="${COMMON_DEPEND}
