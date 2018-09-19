@@ -73,7 +73,7 @@ DEPEND="${RDEPEND}
 	dev-util/gdbus-codegen
 	dev-util/gtk-doc-am
 	test? (
-		>=dev-python/twisted-core-12.3.0
+		>=dev-python/twisted-16
 		|| (
 			net-analyzer/netcat
 			net-analyzer/netcat6 ) )

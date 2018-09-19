@@ -82,6 +82,10 @@ src_prepare() {
 	# Make CMakeLists versioned vala enabled
 	eapply "${FILESDIR}"/${PN}-3.24.2-assume-vala-bindings.patch
 
+	# From GNOME:
+	# 	https://bugzilla.gnome.org/show_bug.cgi?id=795295
+	eapply "${FILESDIR}"/${PN}-3.29.2-bug-795295-fails-to-compile-after-icu-61-1-upgrade-icuunicodestring.patch
+
 	use vala && vala_src_prepare
 	cmake-utils_src_prepare
 }
