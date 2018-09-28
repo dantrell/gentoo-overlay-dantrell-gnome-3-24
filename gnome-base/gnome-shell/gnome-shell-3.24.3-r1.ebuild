@@ -216,6 +216,6 @@ pkg_postinst() {
 	if ! use systemd; then
 		ewarn "You have emerged ${PN} without systemd,"
 		ewarn "if you experience any issues please use the support thread:"
-		ewarn "https://forums.gentoo.org/viewtopic-t-1022050.html"
+		ewarn "https://forums.gentoo.org/viewtopic-t-1082226.html"
 	fi
 }

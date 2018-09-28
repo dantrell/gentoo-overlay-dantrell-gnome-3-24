@@ -9,7 +9,7 @@ HOMEPAGE="https://wiki.gnome.org/Apps/MultiWriter"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="*"
 
 IUSE="introspection"
 

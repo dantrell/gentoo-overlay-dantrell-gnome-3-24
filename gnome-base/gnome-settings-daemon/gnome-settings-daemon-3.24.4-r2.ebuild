@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6,3_7} )
 inherit autotools gnome2 python-any-r1 systemd udev virtualx
 
 DESCRIPTION="Gnome Settings Daemon"
-HOMEPAGE="https://git.gnome.org/browse/gnome-settings-daemon"
+HOMEPAGE="https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
 
 LICENSE="GPL-2+"
 SLOT="0"
@@ -155,6 +155,6 @@ pkg_postinst() {
 	if ! use systemd; then
 		ewarn "You have emerged ${PN} without systemd,"
 		ewarn "if you experience any issues please use the support thread:"
-		ewarn "https://forums.gentoo.org/viewtopic-t-1022050.html"
+		ewarn "https://forums.gentoo.org/viewtopic-t-1082226.html"
 	fi
 }

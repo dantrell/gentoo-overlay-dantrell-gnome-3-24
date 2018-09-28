@@ -62,10 +62,10 @@ zoo     - app-arch/zoo"
 src_prepare() {
 	if use nautilus; then
 		# From GNOME:
-		# 	https://git.gnome.org/browse/file-roller/commit/?id=fad2372ccbbfd40013b4225002f4a737d67928bc
-		# 	https://git.gnome.org/browse/file-roller/commit/?id=aab1b7335c40b8b0e3d5a00cf8305dc53d48f3c8
-		# 	https://git.gnome.org/browse/file-roller/commit/?id=366a5147bd097a877d85295a36fb062213355a36
-		# 	https://git.gnome.org/browse/file-roller/commit/?id=da09ee41ca7c9b63082cf2a35ae19701c34adca7
+		# 	https://gitlab.gnome.org/GNOME/file-roller/commit/fad2372ccbbfd40013b4225002f4a737d67928bc
+		# 	https://gitlab.gnome.org/GNOME/file-roller/commit/aab1b7335c40b8b0e3d5a00cf8305dc53d48f3c8
+		# 	https://gitlab.gnome.org/GNOME/file-roller/commit/366a5147bd097a877d85295a36fb062213355a36
+		# 	https://gitlab.gnome.org/GNOME/file-roller/commit/da09ee41ca7c9b63082cf2a35ae19701c34adca7
 		eapply -R "${FILESDIR}"/${PN}-3.23.92-nautilus-fileroller-remove-compress-support.patch
 		eapply -R "${FILESDIR}"/${PN}-3.23.91-nautilus-fileroller-remove-mime-types-already-supported-by-nautilus.patch
 		eapply -R "${FILESDIR}"/${PN}-3.23.91-revert-remove-nautilus-extension.patch

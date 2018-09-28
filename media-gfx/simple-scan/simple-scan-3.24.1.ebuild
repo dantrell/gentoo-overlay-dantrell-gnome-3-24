@@ -4,10 +4,10 @@ EAPI="6"
 
 inherit gnome2 vala versionator
 
+MY_PV=$(get_version_component_range 1-2)
+
 DESCRIPTION="Simple document scanning utility"
 HOMEPAGE="https://launchpad.net/simple-scan"
-
-MY_PV=$(get_version_component_range 1-2)
 SRC_URI="https://launchpad.net/${PN}/${MY_PV}/${PV}/+download/${P}.tar.xz"
 
 LICENSE="GPL-3"

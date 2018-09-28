@@ -49,7 +49,7 @@ src_prepare() {
 		eapply "${FILESDIR}"/${PN}-3.24.2-transparency.patch
 
 		# From GNOME:
-		# 	https://git.gnome.org/browse/gnome-terminal/commit/?id=b3c270b3612acd45f309521cf1167e1abd561c09
+		# 	https://gitlab.gnome.org/GNOME/gnome-terminal/commit/b3c270b3612acd45f309521cf1167e1abd561c09
 		eapply "${FILESDIR}"/${PN}-3.14.3-fix-broken-transparency-on-startup.patch
 	fi
 

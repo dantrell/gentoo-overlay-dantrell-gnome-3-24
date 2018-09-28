@@ -124,8 +124,8 @@ src_prepare() {
 	create_version_script "mail-client/thunderbird" "Mozilla Thunderbird" thunderbird-version.sh
 
 	eautoreconf # See bug #367975
-	gnome2_src_prepare
 	vala_src_prepare
+	gnome2_src_prepare
 }
 
 src_configure() {

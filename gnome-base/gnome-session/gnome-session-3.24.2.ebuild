@@ -5,7 +5,7 @@ EAPI="6"
 inherit autotools gnome2
 
 DESCRIPTION="Gnome session manager"
-HOMEPAGE="https://git.gnome.org/browse/gnome-session"
+HOMEPAGE="https://gitlab.gnome.org/GNOME/gnome-session"
 
 LICENSE="GPL-2 LGPL-2 FDL-1.1"
 SLOT="0"

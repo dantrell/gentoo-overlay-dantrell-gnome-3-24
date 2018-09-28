@@ -5,7 +5,7 @@ EAPI="6"
 inherit gnome2
 
 DESCRIPTION="GNOME Flashback session and helper application"
-HOMEPAGE="https://git.gnome.org/browse/gnome-flashback"
+HOMEPAGE="https://gitlab.gnome.org/GNOME/gnome-flashback"
 
 LICENSE="GPL-3"
 SLOT="0"

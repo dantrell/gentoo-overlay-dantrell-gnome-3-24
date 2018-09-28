@@ -43,8 +43,8 @@ pkg_setup() {
 src_prepare() {
 	sed 's/print \(.*\)/print(\1)/' -i "${S}"/tests/smoke_test.py || die
 
-	gnome2_src_prepare
 	vala_src_prepare
+	gnome2_src_prepare
 }
 
 src_configure() {
