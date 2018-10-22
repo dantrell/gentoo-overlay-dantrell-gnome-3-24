@@ -19,7 +19,7 @@ RDEPEND="
 
 	sys-libs/readline:0=
 	dev-lang/spidermonkey:38
-	virtual/libffi
+	virtual/libffi:=
 	cairo? ( x11-libs/cairo[X] )
 	gtk? ( >=x11-libs/gtk+-3.20:3 )
 "

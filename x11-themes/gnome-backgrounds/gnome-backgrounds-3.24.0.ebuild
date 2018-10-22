@@ -7,7 +7,7 @@ inherit gnome2
 DESCRIPTION="A set of backgrounds packaged with the GNOME desktop"
 HOMEPAGE="https://gitlab.gnome.org/GNOME/gnome-backgrounds"
 
-LICENSE="GPL-2"
+LICENSE="CC-BY-SA-2.0 CC-BY-SA-3.0 CC-BY-2.0"
 SLOT="0"
 KEYWORDS="*"
 
