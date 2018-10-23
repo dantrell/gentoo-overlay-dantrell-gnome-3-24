@@ -153,6 +153,11 @@ src_prepare() {
 	# 	https://bugzilla.gnome.org/show_bug.cgi?id=780544
 	eapply "${FILESDIR}"/${PN}-3.24.2-fix-without-gdkwayland.patch
 
+	# From GNOME:
+	# 	https://bugzilla.gnome.org/show_bug.cgi?id=780544
+	# 	https://gitlab.gnome.org/GNOME/gnome-control-center/commit/103d814d2fb8019e45b5777f2908a809f68b24e8
+	eapply "${FILESDIR}"/${PN}-3.24.4-common-dont-check-for-wayland-before-building-gsdudevdevicemanager.patch
+
 	if ! use vanilla-datetime; then
 		# From Funtoo:
 		# 	https://bugs.funtoo.org/browse/FL-1389

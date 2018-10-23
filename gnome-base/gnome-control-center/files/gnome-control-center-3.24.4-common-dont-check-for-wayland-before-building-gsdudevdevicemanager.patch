@@ -1,0 +1,23 @@
+diff '--exclude=.git' -urN a/configure.ac b/configure.ac
+--- a/configure.ac	2018-10-22 20:41:40.452486200 -0500
++++ b/configure.ac	2018-10-22 20:41:51.605430138 -0500
+@@ -200,7 +200,6 @@
+ 
+         PKG_CHECK_MODULES(WAYLAND, gdk-wayland-3.0)
+ ])
+-AM_CONDITIONAL(HAVE_WAYLAND, [test "x$have_wayland" = "xyes"])
+ 
+ # Panels that must be built on Linux systems
+ linux_error_or_warn()
+diff '--exclude=.git' -urN a/panels/common/Makefile.am b/panels/common/Makefile.am
+--- a/panels/common/Makefile.am	2018-03-21 13:44:19.000000000 -0500
++++ b/panels/common/Makefile.am	2018-10-22 20:25:13.199453065 -0500
+@@ -62,7 +62,7 @@
+ libdevice_la_LIBADD =			\
+ 	$(DEVICES_LIBS)
+ 
+-if HAVE_WAYLAND
++if HAVE_UDEV
+ AM_CPPFLAGS += $(UDEV_CFLAGS)
+ libdevice_la_LIBADD += $(UDEV_LIBS)
+ libdevice_la_SOURCES +=			\
