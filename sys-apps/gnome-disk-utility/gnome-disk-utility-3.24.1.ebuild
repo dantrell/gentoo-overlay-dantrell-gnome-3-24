@@ -6,7 +6,7 @@ GNOME2_LA_PUNT="yes"
 inherit gnome2
 
 DESCRIPTION="Disk Utility for GNOME using udisks"
-HOMEPAGE="https://gitlab.gnome.org/GNOME/gnome-disk-utility"
+HOMEPAGE="https://wiki.gnome.org/Apps/Disks"
 
 LICENSE="GPL-2+"
 SLOT="0"

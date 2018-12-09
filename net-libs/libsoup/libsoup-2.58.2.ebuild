@@ -28,8 +28,8 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	${PYTHON_DEPS}
-	>=dev-util/intltool-0.35
 	>=dev-util/gtk-doc-am-1.20
+	>=dev-util/intltool-0.35
 	sys-devel/gettext
 	>=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}]
 	test? ( >=dev-libs/glib-2.40:2[${MULTILIB_USEDEP}] )
@@ -41,6 +41,11 @@ DEPEND="${RDEPEND}
 #		dev-lang/php[apache2,xmlrpc]
 #		net-misc/curl
 #		net-libs/glib-networking[ssl])"
+
+PATCHES=(
+	# https://bugs.gentoo.org/630516
+	"${FILESDIR}"/${PN}-2.58.2-sparc-unaligned.patch
+)
 
 src_prepare() {
 	if ! use test; then

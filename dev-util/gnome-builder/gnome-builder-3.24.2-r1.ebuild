@@ -79,7 +79,7 @@ that are currently available with packages include:
   autocompletion support.
 * dev-util/valgrind for integration with valgrind.
 * dev-util/meson for integration with the Meson build system.
-* dev-util/cargo for integration with the Rust Cargo build system.
+* virtual/cargo for integration with the Rust Cargo build system.
 '
 # FIXME: Package gnome-code-assistance and mention here, or maybe USE flag and default enable because it's rather important
 # eslint for additional diagnostics in JavaScript files

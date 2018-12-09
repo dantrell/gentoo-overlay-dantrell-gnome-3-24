@@ -1,0 +1,13 @@
+diff '--exclude=.git' -urN a/js/ui/messageList.js b/js/ui/messageList.js
+--- a/js/ui/messageList.js	2017-11-02 11:05:55.000000000 -0500
++++ b/js/ui/messageList.js	2018-12-08 10:27:13.582954920 -0600
+@@ -363,7 +363,8 @@
+         this.setBody(body);
+ 
+         this._closeButton.connect('clicked', Lang.bind(this, this.close));
+-        this.actor.connect('notify::hover', Lang.bind(this, this._sync));
++        let actorHoverId = this.actor.connect('notify::hover', Lang.bind(this, this._sync));
++        this._closeButton.connect('destroy', Lang.bind(this, function() { this.actor.disconnect(actorHoverId); }));
+         this.actor.connect('clicked', Lang.bind(this, this._onClicked));
+         this.actor.connect('destroy', Lang.bind(this, this._onDestroy));
+         this._sync();

@@ -17,5 +17,5 @@ IUSE=""
 RESTRICT="binchecks strip"
 
 RDEPEND="gnome-extra/gnome-user-docs"
-DEPEND="app-text/yelp-tools"
+DEPEND="dev-util/itstool"
 

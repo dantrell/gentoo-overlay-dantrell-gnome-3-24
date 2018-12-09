@@ -13,7 +13,7 @@ LICENSE="LGPL-2.1+"
 SLOT="3"
 KEYWORDS="*"
 
-IUSE="+cairo test +threads"
+IUSE="+cairo examples test +threads"
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
 	test? ( cairo )
@@ -103,5 +103,5 @@ src_test() {
 src_install() {
 	python_foreach_impl run_in_build_dir gnome2_src_install
 
-	dodoc -r examples
+	use examples && dodoc -r examples
 }

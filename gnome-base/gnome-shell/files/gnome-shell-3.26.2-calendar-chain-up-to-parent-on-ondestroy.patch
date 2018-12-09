@@ -1,0 +1,12 @@
+diff '--exclude=.git' -urN a/js/ui/calendar.js b/js/ui/calendar.js
+--- a/js/ui/calendar.js	2017-11-02 11:05:55.000000000 -0500
++++ b/js/ui/calendar.js	2018-12-08 10:31:56.704428689 -0600
+@@ -807,6 +807,8 @@
+     },
+ 
+     _onDestroy: function() {
++        this.parent();
++
+         if (this._updatedId)
+             this.notification.disconnect(this._updatedId);
+         this._updatedId = 0;
