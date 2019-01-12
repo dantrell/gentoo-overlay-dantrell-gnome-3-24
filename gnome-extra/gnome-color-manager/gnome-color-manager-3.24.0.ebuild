@@ -40,6 +40,11 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 "
 
+PATCHES=(
+	# https://gitlab.gnome.org/GNOME/gnome-color-manager/issues/4
+	"${FILESDIR}"/${PN}-3.24.0-exiv2-0.27.patch # bug 674086
+)
+
 src_configure() {
 	# Always enable tests since they are check_PROGRAMS anyway
 	# appstream does not want to be relax by default !
