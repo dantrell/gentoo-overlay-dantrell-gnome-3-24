@@ -28,12 +28,14 @@ REQUIRED_USE="
 # nspr used by smartcard extension
 # dconf, dbus and g-s-d are needed at install time for dconf update
 # We need either systemd or >=openrc-0.12 to restart gdm properly, bug #463784
+# Requires org.gnome.SettingsDaemon.A11yKeyboard component which doesn't exist in 3.28
 COMMON_DEPEND="
 	app-text/iso-codes
 	>=dev-libs/glib-2.36:2[dbus]
 	>=x11-libs/gtk+-2.91.1:3
 	>=gnome-base/dconf-0.20
 	>=gnome-base/gnome-settings-daemon-3.1.4
+	<gnome-base/gnome-settings-daemon-3.27
 	gnome-base/gsettings-desktop-schemas
 	>=media-libs/fontconfig-2.5.0:1.0
 	>=media-libs/libcanberra-0.4[gtk3]

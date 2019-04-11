@@ -1,13 +1,14 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
+GNOME_ORG_MODULE="gnome-tweak-tool"
 GNOME2_LA_PUNT="yes"
 PYTHON_COMPAT=( python2_7 )
 
 inherit gnome2 python-r1
 
 DESCRIPTION="Tool to customize GNOME 3 options"
-HOMEPAGE="https://wiki.gnome.org/action/show/Apps/GnomeTweakTool"
+HOMEPAGE="https://wiki.gnome.org/Apps/Tweaks"
 
 LICENSE="GPL-2+"
 SLOT="0"
@@ -24,7 +25,7 @@ COMMON_DEPEND="
 "
 # g-s-d, gnome-desktop, gnome-shell etc. needed at runtime for the gsettings schemas
 RDEPEND="${COMMON_DEPEND}
-	>=gnome-base/gnome-desktop-3.6.0.1:3=[introspection]
+	>=gnome-base/gnome-desktop-3.6.0.1:3[introspection]
 	>=x11-libs/gtk+-3.12:3[introspection]
 
 	net-libs/libsoup:2.4[introspection]
@@ -41,7 +42,7 @@ DEPEND="${COMMON_DEPEND}
 
 src_prepare() {
 	# Add contents of Gentoo's cursor theme directory to cursor theme list
-	eapply "${FILESDIR}"/${PN}-3.10.1-gentoo-cursor-themes.patch
+	eapply "${FILESDIR}"/${GNOME_ORG_MODULE}-3.10.1-gentoo-cursor-themes.patch
 
 	gnome2_src_prepare
 	python_copy_sources

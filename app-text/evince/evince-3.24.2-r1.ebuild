@@ -13,7 +13,7 @@ LICENSE="GPL-2+ CC-BY-SA-3.0"
 SLOT="0/evd3.4-evv3.3"
 KEYWORDS="*"
 
-IUSE="djvu dvi gstreamer gnome gnome-keyring +introspection nautilus nsplugin +postscript t1lib tiff xps"
+IUSE="djvu dvi gstreamer gnome gnome-keyring +introspection nautilus nsplugin postscript t1lib tiff xps"
 
 # atk used in libview
 # gdk-pixbuf used all over the place

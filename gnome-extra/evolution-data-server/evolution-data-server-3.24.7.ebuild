@@ -18,14 +18,13 @@ KEYWORDS="*"
 IUSE="api-doc-extras +berkdb +gnome-online-accounts +gtk google +introspection ipv6 ldap kerberos vala +weather"
 REQUIRED_USE="vala? ( introspection )"
 
-# Some tests fail due to missings locales.
-# Also, dbus tests are flacky, bugs #397975 #501834
+# Some tests fail due to missing locales.
+# Also, dbus tests are flaky, bugs #397975 #501834
 # It looks like a nightmare to disable those for now.
 RESTRICT="test"
 
-# sys-libs/db is only required for migrating from <3.13 versions
 # gdata-0.17.7 soft required for google tasks (more than 100)
-# berkdb needed only for migrating old calendar data, bug #519512
+# berkdb needed only for migrating old addressbook data from <3.13 versions, bug #519512
 RDEPEND="
 	>=app-crypt/gcr-3.4
 	>=app-crypt/libsecret-0.5[crypt]
@@ -152,6 +151,6 @@ pkg_postinst() {
 	gnome2_pkg_postinst
 	if ! use berkdb; then
 		ewarn "You will need to enable berkdb USE for migrating old"
-		ewarn "(pre-3.12 evolution versions) addressbook data"
+		ewarn "(pre-3.13 evolution versions) addressbook data"
 	fi
 }
