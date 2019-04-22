@@ -31,7 +31,6 @@ RDEPEND="
 	x11-libs/libX11
 
 	systemd? ( >=sys-apps/systemd-42 )
-	!systemd? ( sys-auth/consolekit )
 	udev? ( virtual/libgudev:= )
 "
 DEPEND="${RDEPEND}
