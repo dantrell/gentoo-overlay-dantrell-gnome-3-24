@@ -120,6 +120,10 @@ src_prepare() {
 	# 	https://bugzilla.gnome.org/show_bug.cgi?id=734964
 	eapply "${FILESDIR}"/${PN}-3.12.0-optionally-allow-suspending-with-multiple-monitors-on-lid-close.patch
 
+	# From GNOME:
+	# 	https://gitlab.gnome.org/GNOME/gnome-settings-daemon/commit/3110457f72f70b2d283c1ad2f27b91b95d75d92f
+	eapply "${FILESDIR}"/${PN}-3.29.90-housekeeping-fix-improper-notify-notification-close-usage.patch
+
 	eautoreconf
 	gnome2_src_prepare
 }
