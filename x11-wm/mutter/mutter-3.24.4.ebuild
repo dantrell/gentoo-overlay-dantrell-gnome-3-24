@@ -52,7 +52,7 @@ COMMON_DEPEND="
 	x11-misc/xkeyboard-config
 
 	gnome-extra/zenity
-	media-libs/mesa[egl]
+	media-libs/mesa[X(+),egl,gles2?]
 
 	gles2? ( media-libs/mesa[gles2] )
 	input_devices_wacom? ( >=dev-libs/libwacom-0.13 )

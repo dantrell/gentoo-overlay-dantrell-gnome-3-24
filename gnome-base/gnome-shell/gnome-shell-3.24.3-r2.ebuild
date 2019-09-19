@@ -2,7 +2,7 @@
 
 EAPI="6"
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python{3_4,3_5,3_6,3_7} )
+PYTHON_COMPAT=( python{3_5,3_6,3_7} )
 
 inherit autotools gnome2 multilib pax-utils python-r1 systemd
 
@@ -13,7 +13,7 @@ LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"
 KEYWORDS="~*"
 
-IUSE="+bluetooth browser-extension deprecated-background elogind +ibus +networkmanager nsplugin systemd vanilla-gc vanilla-motd vanilla-screen"
+IUSE="+bluetooth browser-extension deprecated-background elogind +ibus +networkmanager nsplugin systemd vanilla-gc vanilla-motd vanilla-screen wayland"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	?? ( elogind systemd )
 "
@@ -49,7 +49,8 @@ COMMON_DEPEND="
 	dev-libs/dbus-glib
 	dev-libs/libxml2:2
 	media-libs/libcanberra[gtk3]
-	media-libs/mesa
+	wayland? ( media-libs/mesa )
+	!wayland? ( media-libs/mesa[X(+)] )
 	>=media-sound/pulseaudio-2
 	>=net-libs/libsoup-2.40:2.4[introspection]
 	x11-libs/libX11

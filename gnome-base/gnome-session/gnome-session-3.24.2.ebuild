@@ -30,7 +30,7 @@ COMMON_DEPEND="
 	elibc_FreeBSD? ( || ( dev-libs/libexecinfo >=sys-freebsd/freebsd-lib-10.0 ) )
 	gconf? ( >=gnome-base/gconf-2:2 )
 	wayland? ( media-libs/mesa[egl,gles2] )
-	!wayland? ( media-libs/mesa[gles2] )
+	!wayland? ( media-libs/mesa[gles2,X(+)] )
 
 	media-libs/libepoxy
 	x11-libs/libSM
