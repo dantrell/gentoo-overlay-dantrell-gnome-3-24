@@ -63,7 +63,7 @@ RDEPEND="
 		>=virtual/libgudev-147:=
 		virtual/libudev:= )
 	udisks? ( >=sys-fs/udisks-1.97:2 )
-	zeroconf? ( >=net-dns/avahi-0.6 )
+	zeroconf? ( >=net-dns/avahi-0.6[dbus] )
 "
 DEPEND="${RDEPEND}
 	app-text/docbook-xsl-stylesheets

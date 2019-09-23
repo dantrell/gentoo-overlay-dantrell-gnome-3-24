@@ -36,10 +36,6 @@ RDEPEND="
 	>=media-libs/gst-plugins-base-1.8:1.0
 	>=media-libs/gst-plugins-good-1.8:1.0
 
-	dev-lang/vala:0.$(echo $(( ${VALA_MAX_API_VERSION/0./} - 4 )))
-	dev-lang/vala:0.$(echo $(( ${VALA_MAX_API_VERSION/0./} - 2 )))
-	dev-lang/vala:${VALA_MAX_API_VERSION}
-
 	python? ( >=dev-python/pygobject-${PV}:3 )
 "
 DEPEND=""
