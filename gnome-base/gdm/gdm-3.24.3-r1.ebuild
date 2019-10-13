@@ -53,7 +53,7 @@ COMMON_DEPEND="
 	x11-libs/libxcb
 	>=x11-misc/xdg-utils-1.0.2-r3
 
-	virtual/pam
+	sys-libs/pam
 
 	elogind? ( sys-auth/elogind )
 	systemd? ( >=sys-apps/systemd-186:0=[pam] )
