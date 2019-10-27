@@ -47,7 +47,7 @@ COMMON_DEPEND="
 	>=sys-auth/polkit-0.97
 	>=sys-power/upower-0.99:=
 
-	virtual/libgudev
+	dev-libs/libgudev
 	x11-apps/xmodmap
 	x11-libs/cairo
 	x11-libs/libX11

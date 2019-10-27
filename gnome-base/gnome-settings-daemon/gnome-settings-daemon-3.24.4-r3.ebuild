@@ -61,10 +61,10 @@ COMMON_DEPEND="
 		>=dev-libs/libwacom-0.7
 		>=x11-libs/pango-1.20
 		x11-drivers/xf86-input-wacom
-		virtual/libgudev:= )
+		dev-libs/libgudev:= )
 	networkmanager? ( >=net-misc/networkmanager-1.0:= )
 	smartcard? ( >=dev-libs/nss-3.11.2 )
-	udev? ( virtual/libgudev:= )
+	udev? ( dev-libs/libgudev:= )
 	wayland? ( dev-libs/wayland )
 "
 # Themes needed by g-s-d, gnome-shell, gtk+:3 apps to work properly

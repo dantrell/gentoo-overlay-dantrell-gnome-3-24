@@ -31,7 +31,7 @@ RDEPEND="
 	x11-libs/libX11
 
 	systemd? ( >=sys-apps/systemd-42 )
-	udev? ( virtual/libgudev:= )
+	udev? ( dev-libs/libgudev:= )
 "
 DEPEND="${RDEPEND}
 	app-text/docbook-sgml-utils

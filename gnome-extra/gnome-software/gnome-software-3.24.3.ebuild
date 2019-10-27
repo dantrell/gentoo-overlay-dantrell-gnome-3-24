@@ -28,7 +28,7 @@ RDEPEND="
 	>=x11-libs/gtk+-3.20:3
 	gnome? ( >=gnome-base/gnome-desktop-3.17.92:3= )
 	spell? ( app-text/gtkspell:3 )
-	udev? ( virtual/libgudev )
+	udev? ( dev-libs/libgudev )
 "
 DEPEND="${RDEPEND}
 	app-text/docbook-xml-dtd:4.2
