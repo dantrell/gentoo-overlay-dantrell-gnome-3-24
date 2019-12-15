@@ -1,0 +1,46 @@
+diff '--exclude=.git' -urN a/cogl/configure.ac b/cogl/configure.ac
+--- a/cogl/configure.ac	2017-04-10 19:41:18.000000000 -0500
++++ b/cogl/configure.ac	2019-12-03 19:10:22.189514683 -0600
+@@ -759,7 +759,8 @@
+           )
+ 
+         COGL_EGL_INCLUDES="#include <EGL/egl.h>
+-#include <EGL/eglext.h>"
++#include <EGL/eglext.h>
++#include <EGL/eglmesaext.h>"
+         AC_SUBST([COGL_EGL_INCLUDES])
+       ])
+ 
+diff '--exclude=.git' -urN a/src/backends/meta-egl-ext.h b/src/backends/meta-egl-ext.h
+--- a/src/backends/meta-egl-ext.h	2017-04-10 19:41:18.000000000 -0500
++++ b/src/backends/meta-egl-ext.h	2019-12-03 19:10:22.189514683 -0600
+@@ -29,6 +29,7 @@
+ 
+ #include <EGL/egl.h>
+ #include <EGL/eglext.h>
++#include <EGL/eglmesaext.h>
+ 
+ /*
+  * This is a little different to the tests shipped with EGL implementations,
+diff '--exclude=.git' -urN a/src/backends/meta-egl.c b/src/backends/meta-egl.c
+--- a/src/backends/meta-egl.c	2017-04-10 19:41:18.000000000 -0500
++++ b/src/backends/meta-egl.c	2019-12-03 19:10:22.189514683 -0600
+@@ -31,6 +31,7 @@
+ 
+ #include <EGL/egl.h>
+ #include <EGL/eglext.h>
++#include <EGL/eglmesaext.h>
+ #include <gio/gio.h>
+ #include <glib.h>
+ #include <glib-object.h>
+diff '--exclude=.git' -urN a/src/backends/meta-egl.h b/src/backends/meta-egl.h
+--- a/src/backends/meta-egl.h	2017-04-10 19:41:18.000000000 -0500
++++ b/src/backends/meta-egl.h	2019-12-03 19:10:22.189514683 -0600
+@@ -27,6 +27,7 @@
+ 
+ #include <EGL/egl.h>
+ #include <EGL/eglext.h>
++#include <EGL/eglmesaext.h>
+ #include <glib-object.h>
+ 
+ #define META_EGL_ERROR meta_egl_error_quark ()

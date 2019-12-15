@@ -14,7 +14,7 @@ KEYWORDS="*"
 IUSE="test"
 
 # This ebuild does not install any binaries
-RESTRICT="binchecks strip"
+RESTRICT="binchecks strip !test? ( test )"
 
 RDEPEND=""
 DEPEND="

@@ -19,6 +19,8 @@ REQUIRED_USE="
 	test? ( cairo )
 "
 
+RESTRICT="!test? ( test )"
+
 # virtual/pkgconfig needed at runtime, bug #505408
 # We force glib and g-i to be in sync by this way as explained in bug #518424
 RDEPEND="

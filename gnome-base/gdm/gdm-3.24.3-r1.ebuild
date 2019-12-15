@@ -24,6 +24,8 @@ REQUIRED_USE="
 	wayland? ( || ( elogind systemd ) )
 "
 
+RESTRICT="!test? ( test )"
+
 # NOTE: x11-base/xorg-server dep is for X_SERVER_PATH etc, bug #295686
 # nspr used by smartcard extension
 # dconf, dbus and g-s-d are needed at install time for dconf update

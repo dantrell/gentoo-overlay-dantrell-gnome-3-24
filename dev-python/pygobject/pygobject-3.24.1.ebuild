@@ -19,6 +19,8 @@ REQUIRED_USE="
 	test? ( cairo )
 "
 
+RESTRICT="!test? ( test )"
+
 COMMON_DEPEND="${PYTHON_DEPS}
 	>=dev-libs/glib-2.38:2
 	>=dev-libs/gobject-introspection-1.46.0:=

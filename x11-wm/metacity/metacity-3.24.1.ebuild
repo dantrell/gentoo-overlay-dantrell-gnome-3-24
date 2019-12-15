@@ -14,6 +14,8 @@ KEYWORDS="*"
 
 IUSE="test xinerama"
 
+RESTRICT="!test? ( test )"
+
 # XXX: libgtop is automagic, hard-enabled instead
 RDEPEND="
 	>=x11-libs/gtk+-3.20.0:3

@@ -17,6 +17,8 @@ REQUIRED_USE="
 	wayland? ( || ( elogind systemd ) )
 "
 
+RESTRICT="!test? ( test )"
+
 # libXi-1.7.4 or newer needed per:
 # https://bugzilla.gnome.org/show_bug.cgi?id=738944
 COMMON_DEPEND="
@@ -118,6 +120,8 @@ src_prepare() {
 	# From GNOME:
 	# 	https://gitlab.gnome.org/GNOME/mutter/commit/31779404f0e083fba11d1d263f278154e0580374
 	eapply "${FILESDIR}"/${PN}-3.28.1-clutter-avoid-unnecessary-relayouts-in-cluttertext.patch
+
+	eapply "${FILESDIR}"/${PN}-3.24.4-eglmesaext-include.patch
 
 	eautoreconf
 	gnome2_src_prepare

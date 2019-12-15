@@ -1,8 +1,6 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
-
-inherit vala
+EAPI="7"
 
 DESCRIPTION="Sub-meta package for the core libraries of GNOME 3"
 HOMEPAGE="https://www.gnome.org/"
@@ -36,12 +34,12 @@ RDEPEND="
 	>=media-libs/gst-plugins-base-1.8:1.0
 	>=media-libs/gst-plugins-good-1.8:1.0
 
+	dev-lang/vala:0.42
+	dev-lang/vala:0.44
+
 	python? ( >=dev-python/pygobject-${PV}:3 )
 "
 DEPEND=""
+BDEPEND=""
 
 S="${WORKDIR}"
-
-src_prepare() {
-	default
-}

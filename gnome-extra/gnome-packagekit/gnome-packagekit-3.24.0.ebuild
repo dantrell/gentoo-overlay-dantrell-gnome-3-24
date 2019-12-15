@@ -11,7 +11,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="systemd udev" # test
+IUSE="systemd udev"
 
 # XXX: test, upstream managed to break gpk-self-test beyond repair
 # gdk-pixbuf used in gpk-animated-icon

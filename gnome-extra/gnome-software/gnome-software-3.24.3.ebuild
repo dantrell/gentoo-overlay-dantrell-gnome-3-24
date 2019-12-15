@@ -14,6 +14,8 @@ KEYWORDS="*"
 
 IUSE="gnome spell test udev"
 
+RESTRICT="!test? ( test )"
+
 RDEPEND="
 	>=app-admin/packagekit-base-1.1.0
 	app-crypt/libsecret
