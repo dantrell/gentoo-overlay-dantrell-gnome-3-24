@@ -26,8 +26,10 @@ COMMON_DEPEND="
 RDEPEND="${COMMON_DEPEND}
 	gedit? (
 		${PYTHON_DEPS}
-		app-editors/gedit[introspection,python,${PYTHON_USEDEP}]
-		dev-python/pygobject:3[${PYTHON_USEDEP}]
+		$(python_gen_cond_dep '
+			app-editors/gedit[introspection,python,${PYTHON_SINGLE_USEDEP}]
+			dev-python/pygobject:3[${PYTHON_MULTI_USEDEP}]
+		')
 		x11-libs/gtk+[introspection] )
 	gnome-base/gsettings-desktop-schemas
 "

@@ -10,7 +10,7 @@ FORCE_PRINT_ELOG=1
 
 inherit gnome2 python-single-r1 vala virtualx readme.gentoo-r1
 
-DESCRIPTION="Builder attempts to be an IDE for writing software for GNOME"
+DESCRIPTION="An IDE for writing GNOME-based software"
 HOMEPAGE="https://wiki.gnome.org/Apps/Builder"
 
 # FIXME: Review licenses at some point
@@ -44,7 +44,7 @@ RDEPEND="
 	>=dev-python/pygobject-3.22.0:3
 	>=dev-libs/libxml2-2.9.0
 	>=x11-libs/pango-1.38.0
-	>=dev-libs/libpeas-1.18.0[python,${PYTHON_USEDEP}]
+	>=dev-libs/libpeas-1.18.0[python,${PYTHON_SINGLE_USEDEP}]
 	>=dev-libs/json-glib-1.2.0
 	>=app-text/gspell-1.2.0
 	>=app-text/enchant-1.6.0:0=
@@ -79,7 +79,6 @@ that are currently available with packages include:
   autocompletion support.
 * dev-util/valgrind for integration with valgrind.
 * dev-util/meson for integration with the Meson build system.
-* virtual/cargo for integration with the Rust Cargo build system.
 '
 # FIXME: Package gnome-code-assistance and mention here, or maybe USE flag and default enable because it's rather important
 # eslint for additional diagnostics in JavaScript files

@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit gnome2 python-r1
 
-DESCRIPTION="Tool to customize GNOME 3 options"
+DESCRIPTION="Customize advanced GNOME 3 options"
 HOMEPAGE="https://wiki.gnome.org/Apps/Tweaks"
 
 LICENSE="GPL-2+"
