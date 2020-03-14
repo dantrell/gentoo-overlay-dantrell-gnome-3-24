@@ -2,7 +2,7 @@
 
 EAPI="6"
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python{2_7,3_6,3_7,3_8} )
+PYTHON_COMPAT=( python{3_6,3_7,3_8} )
 
 inherit autotools gnome2 python-any-r1 systemd udev virtualx
 
@@ -67,18 +67,14 @@ COMMON_DEPEND="
 	udev? ( dev-libs/libgudev:= )
 	wayland? ( dev-libs/wayland )
 "
-# Themes needed by g-s-d, gnome-shell, gtk+:3 apps to work properly
-# <gnome-color-manager-3.1.1 has file collisions with g-s-d-3.1.x
-# <gnome-power-manager-3.1.3 has file collisions with g-s-d-3.1.x
+# consolekit or logind needed for power and session management, bug #464944
+# dbus[user-session] for user services support (functional screen sharing setup)
 RDEPEND="${COMMON_DEPEND}
 	gnome-base/dconf
-	!<gnome-base/gnome-control-center-2.22
-	!<gnome-extra/gnome-color-manager-3.1.1
-	!<gnome-extra/gnome-power-manager-3.1.3
-	!<gnome-base/gnome-session-3.23.2
-
 	elogind? ( sys-auth/elogind )
-	systemd? ( >=sys-apps/systemd-186:0= )
+	systemd? ( >=sys-apps/systemd-186:0=
+		sys-apps/dbus[user-session] )
+	!<gnome-base/gnome-session-3.23.2
 "
 # xproto-7.0.15 needed for power plugin
 DEPEND="${COMMON_DEPEND}

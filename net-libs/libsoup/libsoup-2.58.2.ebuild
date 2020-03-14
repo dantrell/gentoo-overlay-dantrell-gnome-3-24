@@ -2,7 +2,7 @@
 
 EAPI="6"
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python{2_7,3_6,3_7,3_8} )
+PYTHON_COMPAT=( python{3_6,3_7,3_8} )
 VALA_USE_DEPEND="vapigen"
 
 inherit gnome2 multilib-minimal python-any-r1 vala
@@ -23,7 +23,7 @@ RDEPEND="
 	>=dev-libs/glib-2.34.3:2[${MULTILIB_USEDEP}]
 	>=dev-libs/libxml2-2.9.1-r4:2[${MULTILIB_USEDEP}]
 	>=dev-db/sqlite-3.8.2:3[${MULTILIB_USEDEP}]
-	>=net-libs/glib-networking-2.38.2[ssl(+)?,${MULTILIB_USEDEP}]
+	>=net-libs/glib-networking-2.38.2[ssl?,${MULTILIB_USEDEP}]
 	gssapi? ( virtual/krb5[${MULTILIB_USEDEP}] )
 	introspection? ( >=dev-libs/gobject-introspection-0.9.5:= )
 	samba? ( net-fs/samba )

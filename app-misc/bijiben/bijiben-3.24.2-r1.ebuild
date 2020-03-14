@@ -5,7 +5,7 @@ EAPI="6"
 inherit gnome2
 
 DESCRIPTION="Note editor designed to remain simple to use"
-HOMEPAGE="https://wiki.gnome.org/Apps/Bijiben"
+HOMEPAGE="https://wiki.gnome.org/Apps/Notes"
 
 LICENSE="GPL-3+"
 SLOT="0"

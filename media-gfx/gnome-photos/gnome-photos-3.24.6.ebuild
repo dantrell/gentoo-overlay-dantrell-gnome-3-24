@@ -1,9 +1,8 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
-PYTHON_COMPAT=( python2_7 )
 
-inherit gnome2 python-any-r1 virtualx
+inherit gnome2
 
 DESCRIPTION="Access, organize and share your photos on GNOME"
 HOMEPAGE="https://wiki.gnome.org/Apps/Photos"
@@ -12,9 +11,9 @@ LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="flickr test upnp-av"
+IUSE="flickr upnp-av"
 
-RESTRICT="!test? ( test )"
+RESTRICT="test"
 
 COMMON_DEPEND="
 	>=app-misc/tracker-1:=[miner-fs]
@@ -46,23 +45,8 @@ DEPEND="${COMMON_DEPEND}
 	dev-util/desktop-file-utils
 	>=dev-util/intltool-0.50.1
 	virtual/pkgconfig
-	test? ( $(python_gen_any_dep 'dev-util/dogtail[${PYTHON_USEDEP}]') )
 "
 
-python_check_deps() {
-	use test && has_version "dev-util/dogtail[${PYTHON_USEDEP}]"
-}
-
-pkg_setup() {
-	use test && python-any-r1_pkg_setup
-}
-
 src_configure() {
-	# XXX: how to deal with rdtscp support, x86intrin
-	gnome2_src_configure \
-		$(use_enable test dogtail)
-}
-
-src_test() {
-	virtx emake check
+	gnome2_src_configure --disable-dogtail
 }

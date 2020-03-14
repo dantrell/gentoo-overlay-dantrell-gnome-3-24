@@ -1,7 +1,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
-PYTHON_COMPAT=( python{2_7,3_6,3_7,3_8} )
+PYTHON_COMPAT=( python{3_6,3_7,3_8} )
 PYTHON_REQ_USE="xml"
 
 inherit gnome2 python-single-r1 toolchain-funcs versionator
@@ -31,7 +31,7 @@ RDEPEND="
 			dev-python/mako[${PYTHON_MULTI_USEDEP}]
 		')
 	)
-	virtual/libffi:=
+	dev-libs/libffi:=
 	virtual/pkgconfig
 	!<dev-lang/vala-0.20.0
 	${PYTHON_DEPS}
