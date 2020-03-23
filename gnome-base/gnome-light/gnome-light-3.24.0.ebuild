@@ -1,25 +1,17 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI="7"
 
-inherit versionator
-
-DESCRIPTION="Meta package for GNOME-Light, merge this package to install"
+DESCRIPTION="Metapackage for GNOME 3 (Light)"
 HOMEPAGE="https://www.gnome.org/"
 
 LICENSE="metapackage"
 SLOT="2.0"
-# when unmasking for an arch
-# double check none of the deps are still masked !
 KEYWORDS="*"
 
 IUSE="cups +gnome-shell"
 
-# XXX: Note to developers:
-# This is a wrapper for the 'light' GNOME 3 desktop, and should only consist of
-# the bare minimum of libs/apps needed. It is basically gnome-base/gnome without
-# any apps, but shouldn't be used by users unless they know what they are doing.
-RDEPEND="!gnome-base/gnome
+RDEPEND="
 	>=gnome-base/gnome-core-libs-${PV}[cups?]
 
 	>=gnome-base/gnome-session-${PV}
@@ -34,26 +26,26 @@ RDEPEND="!gnome-base/gnome
 		>=gnome-base/gnome-shell-${PV}
 		gnome-base/gnome-shell-common )
 
-	>=x11-themes/adwaita-icon-theme-$(get_version_component_range 1-2)
+	>=x11-themes/adwaita-icon-theme-$(ver_cut 1-2)
 	>=x11-themes/gnome-themes-standard-3.22
-	>=x11-themes/gnome-backgrounds-$(get_version_component_range 1-2)
+	>=x11-themes/gnome-backgrounds-$(ver_cut 1-2)
 
 	>=x11-terms/gnome-terminal-${PV}
 "
 DEPEND=""
 PDEPEND=">=gnome-base/gvfs-1.32.0"
+
 S="${WORKDIR}"
 
 pkg_pretend() {
 	if ! use gnome-shell; then
-		# Users probably want to use e16, sawfish, etc
-		ewarn "You're not installing GNOME Shell"
-		ewarn "You will have to install and manage a window manager by yourself"
+		ewarn "Don't forget to install a window manager since you didn't choose GNOME Shell."
+		ewarn "For a list of available packages, see: https://wiki.gentoo.org/wiki/Window_manager"
 	fi
 }
 
 pkg_postinst() {
-	# Remember people where to find our project information
-	elog "Please remember to look at https://wiki.gentoo.org/wiki/Project:GNOME"
-	elog "for information about the project and documentation."
+	elog "This version of GNOME was sourced from Dantrell's GNOME Without Systemd Project."
+	elog "To keep apprised of changes, watch: https://github.com/dantrell/gentoo-project-gnome-without-systemd#overview"
+	elog "To report issues and contribute, see: https://github.com/dantrell/gentoo-project-gnome-without-systemd/blob/master/CONTRIBUTING.md"
 }

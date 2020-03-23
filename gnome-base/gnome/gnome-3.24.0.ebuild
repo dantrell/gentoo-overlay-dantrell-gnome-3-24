@@ -1,23 +1,16 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI="7"
 
-inherit versionator
-
-DESCRIPTION="Meta package for GNOME 3, merge this package to install"
+DESCRIPTION="Metapackage for GNOME 3"
 HOMEPAGE="https://www.gnome.org/"
 
 LICENSE="metapackage"
-SLOT="2.0" # Cannot be installed at the same time as gnome-2
-# when unmasking for an arch
-# double check none of the deps are still masked !
+SLOT="2.0"
 KEYWORDS="*"
 
 IUSE="accessibility +bluetooth +classic +cdr cups +extras"
 
-S=${WORKDIR}
-
-# TODO: check accessibility completeness
 RDEPEND="
 	>=gnome-base/gnome-core-libs-${PV}[cups?]
 	>=gnome-base/gnome-core-apps-${PV}[cups?,bluetooth?,cdr?]
@@ -28,7 +21,7 @@ RDEPEND="
 	>=gnome-base/gnome-shell-${PV}[bluetooth?]
 	gnome-base/gnome-shell-common
 
-	>=x11-themes/gnome-backgrounds-$(get_version_component_range 1-2)
+	>=x11-themes/gnome-backgrounds-$(ver_cut 1-2)
 	x11-themes/sound-theme-freedesktop
 
 	accessibility? (
@@ -40,13 +33,13 @@ RDEPEND="
 	classic? ( >=gnome-extra/gnome-shell-extensions-${PV} )
 	extras? ( >=gnome-base/gnome-extra-apps-${PV} )
 "
-
 DEPEND=""
-
 PDEPEND=">=gnome-base/gvfs-1.32[udisks]"
 
+S="${WORKDIR}"
+
 pkg_postinst() {
-	# Remember people where to find our project information
-	elog "Please remember to look at https://wiki.gentoo.org/wiki/Project:GNOME"
-	elog "for information about the project and documentation."
+	elog "This version of GNOME was sourced from Dantrell's GNOME Without Systemd Project."
+	elog "To keep apprised of changes, watch: https://github.com/dantrell/gentoo-project-gnome-without-systemd#overview"
+	elog "To report issues and contribute, see: https://github.com/dantrell/gentoo-project-gnome-without-systemd/blob/master/CONTRIBUTING.md"
 }

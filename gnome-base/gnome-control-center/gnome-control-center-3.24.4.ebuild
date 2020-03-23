@@ -6,7 +6,7 @@ GNOME2_LA_PUNT="yes"
 inherit autotools bash-completion-r1 gnome2
 
 DESCRIPTION="GNOME's main interface to configure various aspects of the desktop"
-HOMEPAGE="https://gitlab.gnome.org/GNOME/gnome-control-center/"
+HOMEPAGE="https://gitlab.gnome.org/GNOME/gnome-control-center"
 
 LICENSE="GPL-2+"
 SLOT="2"

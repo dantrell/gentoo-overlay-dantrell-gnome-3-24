@@ -16,7 +16,7 @@ IUSE="examples"
 COMMON_DEPEND="
 	>=dev-libs/glib-2.26:2
 	>=gnome-base/libgtop-2.28.3[introspection]
-	>=app-eselect/eselect-gnome-shell-extensions-20111211
+	>=app-eselect/eselect-gnome-shell-extensions-20180306
 "
 RDEPEND="${COMMON_DEPEND}
 	>=dev-libs/gjs-1.29

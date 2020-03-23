@@ -5,7 +5,7 @@ EAPI="6"
 inherit gnome2
 
 DESCRIPTION="GNOME default icon theme"
-HOMEPAGE="https://gitlab.gnome.org/GNOME/adwaita-icon-theme/"
+HOMEPAGE="https://gitlab.gnome.org/GNOME/adwaita-icon-theme"
 SRC_URI="${SRC_URI}
 	branding? ( https://www.mail-archive.com/tango-artists@lists.freedesktop.org/msg00043/tango-gentoo-v1.1.tar.gz )
 "
@@ -26,7 +26,7 @@ RESTRICT="binchecks strip"
 # librsvg is needed for gtk-encode-symbolic-svg to be able to read the source SVG via its pixbuf loader and at runtime for rendering scalable icons shipped by the theme
 COMMON_DEPEND="
 	>=x11-themes/hicolor-icon-theme-0.10
-	gnome-base/librsvg:2
+	<gnome-base/librsvg-2.41.0:2
 "
 RDEPEND="${COMMON_DEPEND}
 	!<x11-themes/gnome-themes-standard-3.14

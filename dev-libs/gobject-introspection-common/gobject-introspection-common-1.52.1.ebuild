@@ -1,6 +1,6 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI="7"
 GNOME_ORG_MODULE="gobject-introspection"
 
 inherit gnome.org
@@ -14,7 +14,7 @@ KEYWORDS="*"
 
 IUSE=""
 
-RDEPEND="!<${CATEGORY}/${PN/-common}-${PV}"
+RDEPEND="!<${CATEGORY}/${GNOME_ORG_MODULE}-${PV}"
 # Use !<${PV} because mixing gobject-introspection with different version of -common can cause issues like:
 # https://forums.gentoo.org/viewtopic-p-7421930.html
 

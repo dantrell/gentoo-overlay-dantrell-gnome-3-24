@@ -32,15 +32,8 @@ DEPEND="${RDEPEND}
 	test? ( sys-apps/dbus )
 "
 
-#PATCHES=(
-	# Disable unittest failing without pt_BR locale, upstream bug #????
-#	"${FILESDIR}"/${PN}-1.48.6-disable-unittest.patch
-#)
-
 src_configure() {
-	# FIXME: add systemtap/dtrace support, like in glib:2
-	# FIXME: --enable-systemtap installs files in ${D}/${D} for some reason
-	# XXX: Do NOT enable coverage, completely useless for portage installs
+	# Code Coverage support is completely useless for portage installs
 	gnome2_src_configure \
 		--disable-systemtap \
 		--disable-dtrace \
@@ -52,7 +45,7 @@ src_configure() {
 }
 
 src_install() {
-	# installation sometimes fails in parallel, bug #???
+	# Installation sometimes fails in parallel
 	gnome2_src_install -j1
 
 	if use examples; then

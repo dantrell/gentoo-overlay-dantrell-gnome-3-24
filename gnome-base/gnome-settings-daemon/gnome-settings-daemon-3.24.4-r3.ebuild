@@ -147,14 +147,13 @@ pkg_postinst() {
 	gnome2_pkg_postinst
 
 	if use systemd && ! systemd_is_booted; then
-		ewarn "${PN} needs Systemd to be *running* for working"
-		ewarn "properly. Please follow the this guide to migrate:"
-		ewarn "https://wiki.gentoo.org/wiki/Systemd"
+		ewarn "You have installed GNOME Settings Daemon *with* systemd support"
+		ewarn "but the system was not booted using systemd."
+		ewarn "To correct this, reference: https://wiki.gentoo.org/wiki/Systemd"
 	fi
 
 	if ! use systemd; then
-		ewarn "You have emerged ${PN} without systemd,"
-		ewarn "if you experience any issues please use the support thread:"
-		ewarn "https://forums.gentoo.org/viewtopic-t-1082226.html"
+		ewarn "You have installed GNOME Settings Daemon *without* systemd support."
+		ewarn "To report issues, see: https://github.com/dantrell/gentoo-project-gnome-without-systemd/blob/master/GOVERNANCE.md#bugs-and-other-issues"
 	fi
 }

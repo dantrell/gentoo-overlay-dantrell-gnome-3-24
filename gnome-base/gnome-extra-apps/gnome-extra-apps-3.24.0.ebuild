@@ -1,25 +1,19 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI="7"
 
-DESCRIPTION="Sub-meta package for the applications of GNOME 3"
+DESCRIPTION="Metapackage for GNOME 3 applications"
 HOMEPAGE="https://www.gnome.org/"
 
 LICENSE="metapackage"
 SLOT="3.0"
-# when unmasking for an arch
-# double check none of the deps are still masked !
 KEYWORDS="*"
 
 IUSE="anjuta +bijiben boxes builder california empathy epiphany +evolution flashback +fonts +games geary gnote latexila multiwriter +recipes +share +shotwell simple-scan +todo +tracker"
 
-# Note to developers:
+# Cantarell doesn't provide support for modern emojis so we pair it with Noto,.Symbola, and Unifont:
 #
-# This is a wrapper for the extra apps integrated with GNOME 3
-#
-# cantarell upstream relies on noto, unifont and symbola fonts for
-# the fonts they cannot handle due to lack of enough manpower:
-# https://bugzilla.gnome.org/show_bug.cgi?id=762890
+# 	https://bugzilla.gnome.org/show_bug.cgi?id=762890
 RDEPEND="
 	>=gnome-base/gnome-core-libs-${PV}
 
@@ -38,7 +32,7 @@ RDEPEND="
 	>=gnome-extra/gnome-system-monitor-${PV}
 	>=gnome-extra/gnome-tweaks-${PV}
 	>=gnome-extra/gnome-weather-3.20.0
-	>=gnome-extra/gucharmap-${PV}:2.90
+	>=gnome-extra/gucharmap-11.0.0:2.90
 	>=gnome-extra/nautilus-sendto-3.8.5
 	>=gnome-extra/sushi-3.21.91
 	>=media-gfx/gnome-font-viewer-${PV}
@@ -63,7 +57,7 @@ RDEPEND="
 	evolution? ( >=mail-client/evolution-${PV} )
 	flashback? ( >=gnome-base/gnome-flashback-${PV} )
 	fonts? (
-		>=media-fonts/noto-20170403
+		>=media-fonts/noto-20181024
 		>=media-fonts/symbola-9.17
 		>=media-fonts/unifont-10.0.06 )
 	games? (
@@ -103,4 +97,5 @@ RDEPEND="
 		>=media-sound/gnome-music-${PV} )
 "
 DEPEND=""
-S=${WORKDIR}
+
+S="${WORKDIR}"

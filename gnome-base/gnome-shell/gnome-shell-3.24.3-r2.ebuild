@@ -11,16 +11,14 @@ HOMEPAGE="https://wiki.gnome.org/Projects/GnomeShell"
 
 LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS="*"
 
 IUSE="+bluetooth browser-extension deprecated-background elogind +ibus +networkmanager nsplugin systemd vanilla-gc vanilla-motd vanilla-screen wayland"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	?? ( elogind systemd )
 "
 
-# libXfixes-5.0 needed for pointer barriers
-# FIXME:
-#  * gstreamer support is currently automagic
+# libXfixes-5.0 needed for pointer barriers and #include <X11/extensions/Xfixes.h>
 COMMON_DEPEND="
 	>=app-accessibility/at-spi2-atk-2.5.3
 	>=dev-libs/atk-2[introspection]
@@ -219,14 +217,13 @@ pkg_postinst() {
 	fi
 
 	if use systemd && ! systemd_is_booted; then
-		ewarn "${PN} needs Systemd to be *running* for working"
-		ewarn "properly. Please follow this guide to migrate:"
-		ewarn "https://wiki.gentoo.org/wiki/Systemd"
+		ewarn "You have installed GNOME Shell *with* systemd support"
+		ewarn "but the system was not booted using systemd."
+		ewarn "To correct this, reference: https://wiki.gentoo.org/wiki/Systemd"
 	fi
 
 	if ! use systemd; then
-		ewarn "You have emerged ${PN} without systemd,"
-		ewarn "if you experience any issues please use the support thread:"
-		ewarn "https://forums.gentoo.org/viewtopic-t-1082226.html"
+		ewarn "You have installed GNOME Shell *without* systemd support."
+		ewarn "To report issues, see: https://github.com/dantrell/gentoo-project-gnome-without-systemd/blob/master/GOVERNANCE.md#bugs-and-other-issues"
 	fi
 }
