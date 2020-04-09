@@ -146,7 +146,7 @@ src_test() {
 pkg_postinst() {
 	gnome2_pkg_postinst
 
-	if use systemd && ! systemd_is_booted; then
+	if use systemd && [[ ! -d /run/systemd/system ]]; then
 		ewarn "You have installed GNOME Settings Daemon *with* systemd support"
 		ewarn "but the system was not booted using systemd."
 		ewarn "To correct this, reference: https://wiki.gentoo.org/wiki/Systemd"

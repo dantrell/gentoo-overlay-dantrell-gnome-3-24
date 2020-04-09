@@ -89,7 +89,7 @@ RDEPEND="
 	share? ( >=gnome-extra/gnome-user-share-3.18.1 )
 	shotwell? ( >=media-gfx/shotwell-0.24 )
 	simple-scan? ( >=media-gfx/simple-scan-${PV} )
-	todo? ( >=gnome-extra/gnome-todo-${PV} )
+	todo? ( >=app-office/gnome-todo-${PV} )
 	tracker? (
 		>=app-misc/tracker-1.12
 		>=gnome-extra/gnome-documents-${PV}
