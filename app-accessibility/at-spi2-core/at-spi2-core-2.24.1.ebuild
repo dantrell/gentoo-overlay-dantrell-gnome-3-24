@@ -34,7 +34,7 @@ DEPEND="${RDEPEND}
 	>=dev-util/gtk-doc-am-1.9
 	>=dev-util/intltool-0.40
 	sys-devel/gettext
-	virtual/pkgconfig[${MULTILIB_USEDEP}]
+	virtual/pkgconfig
 "
 
 PATCHES=(

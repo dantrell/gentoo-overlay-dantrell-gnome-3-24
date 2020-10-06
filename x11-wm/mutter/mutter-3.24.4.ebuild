@@ -152,7 +152,7 @@ src_configure() {
 		--with-default-driver=gl \
 		--with-libcanberra \
 		$(usex debug --enable-debug=yes "") \
-		$(use_enable gles2)        \
+		$(use_enable gles2) \
 		$(use_enable gles2 cogl-gles2) \
 		$(use_enable introspection) \
 		$(use_enable wayland) \

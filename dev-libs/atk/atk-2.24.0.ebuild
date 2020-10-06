@@ -22,7 +22,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	>=dev-lang/perl-5
 	dev-util/gtk-doc-am
-	>=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}]
+	virtual/pkgconfig
 	nls? ( >=sys-devel/gettext-0.19.2 )
 "
 

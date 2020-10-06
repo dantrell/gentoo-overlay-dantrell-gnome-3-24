@@ -2,12 +2,12 @@
 
 EAPI="6"
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python{2_7,3_6,3_7,3_8} )
+PYTHON_COMPAT=( python{2_7,3_6,3_7,3_8,3_9} )
 
 inherit gnome2 python-r1 virtualx
 
 DESCRIPTION="Python bindings for GObject Introspection"
-HOMEPAGE="https://wiki.gnome.org/Projects/PyGObject"
+HOMEPAGE="https://pygobject.readthedocs.io/"
 
 LICENSE="LGPL-2.1+"
 SLOT="3"

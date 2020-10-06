@@ -23,9 +23,9 @@
 #
 # src_configure() {
 # 	local emesonargs=(
-# 		-Dqt4=$(usex qt4 true false)
-# 		-Dthreads=$(usex threads true false)
-# 		-Dtiff=$(usex tiff true false)
+# 		$(meson_use qt4)
+# 		$(meson_feature threads)
+# 		$(meson_use bindist official_branding)
 # 	)
 # 	meson_src_configure
 # }
@@ -43,6 +43,10 @@ if [[ -z ${_MESON_ECLASS} ]]; then
 
 inherit multiprocessing ninja-utils python-utils-r1 toolchain-funcs
 
+if [[ ${EAPI} == 6 ]]; then
+	inherit eapi7-ver
+fi
+
 fi
 
 EXPORT_FUNCTIONS src_configure src_compile src_test src_install
@@ -50,7 +54,7 @@ EXPORT_FUNCTIONS src_configure src_compile src_test src_install
 if [[ -z ${_MESON_ECLASS} ]]; then
 _MESON_ECLASS=1
 
-MESON_DEPEND=">=dev-util/meson-0.45.2
+MESON_DEPEND=">=dev-util/meson-0.47.2
 	>=dev-util/ninja-1.8.2"
 
 if [[ ${EAPI:-0} == [6] ]]; then

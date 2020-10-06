@@ -28,9 +28,7 @@ COMMON_DEPEND="
 		sys-apps/hwids
 		virtual/libudev:= )
 "
-RDEPEND="${COMMON_DEPEND}
-	!<gnome-base/gnome-desktop-2.32.1-r1:2[doc]
-"
+RDEPEND="${COMMON_DEPEND}"
 DEPEND="${COMMON_DEPEND}
 	app-text/docbook-xml-dtd:4.1.2
 	dev-util/gdbus-codegen
