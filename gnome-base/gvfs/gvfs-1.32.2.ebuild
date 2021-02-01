@@ -6,7 +6,7 @@ GNOME2_LA_PUNT="yes"
 
 inherit gnome2 systemd
 
-DESCRIPTION="Virtual filesystem implementation for gio"
+DESCRIPTION="Virtual filesystem implementation for GIO"
 HOMEPAGE="https://wiki.gnome.org/Projects/gvfs"
 
 LICENSE="LGPL-2+"
@@ -56,7 +56,9 @@ RDEPEND="
 	policykit? (
 		sys-auth/polkit
 		sys-libs/libcap )
-	samba? ( >=net-fs/samba-4[client] )
+	samba? (
+		sys-libs/libunwind:=
+		>=net-fs/samba-4[client] )
 	systemd? ( >=sys-apps/systemd-206:0= )
 	udev? (
 		cdda? ( dev-libs/libcdio-paranoia )

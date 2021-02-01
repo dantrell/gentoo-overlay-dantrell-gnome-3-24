@@ -3,7 +3,7 @@
 EAPI="6"
 GNOME2_LA_PUNT="yes"
 
-inherit autotools gnome2 readme.gentoo-r1
+inherit autotools gnome2 readme.gentoo-r1 vala
 
 DESCRIPTION="The Gnome Terminal"
 HOMEPAGE="https://wiki.gnome.org/Apps/Terminal/"
@@ -60,6 +60,7 @@ src_prepare() {
 	fi
 
 	eautoreconf
+	vala_src_prepare
 	gnome2_src_prepare
 }
 
@@ -69,8 +70,7 @@ src_configure() {
 		--disable-migration \
 		$(use_enable debug) \
 		$(use_enable gnome-shell search-provider) \
-		$(use_with nautilus nautilus-extension) \
-		VALAC=$(type -P true)
+		$(use_with nautilus nautilus-extension)
 }
 
 src_install() {

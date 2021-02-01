@@ -5,7 +5,7 @@ GNOME2_LA_PUNT="yes" # plugins are dlopened
 PYTHON_COMPAT=( python{3_6,3_7,3_8,3_9} )
 PYTHON_REQ_USE="threads(+)"
 
-inherit autotools gnome2 python-single-r1
+inherit autotools gnome2 python-single-r1 vala
 
 DESCRIPTION="Media player for GNOME"
 HOMEPAGE="https://wiki.gnome.org/Apps/Videos"
@@ -105,6 +105,7 @@ src_prepare() {
 	fi
 
 	eautoreconf
+	vala_src_prepare
 	gnome2_src_prepare
 
 	# FIXME: upstream should provide a way to set GST_INSPECT, bug #358755 & co.
@@ -136,7 +137,6 @@ src_configure() {
 		$(use_enable nautilus) \
 		$(use_enable python) \
 		PYLINT=$(type -P true) \
-		VALAC=$(type -P true) \
 		APPSTREAM_UTIL=$(type -P true) \
 		--with-plugins=${plugins}
 }
