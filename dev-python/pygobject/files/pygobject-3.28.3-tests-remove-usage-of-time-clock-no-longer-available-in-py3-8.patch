@@ -1,0 +1,98 @@
+diff '--exclude=.git' -urN a/tests/test_everything.py b/tests/test_everything.py
+--- a/tests/test_everything.py	2018-05-31 09:39:04.000000000 -0500
++++ b/tests/test_everything.py	2021-06-05 10:36:24.073119949 -0500
+@@ -1185,44 +1185,44 @@
+ 
+ class TestTortureProfile(unittest.TestCase):
+     def test_torture_profile(self):
+-        import time
++        import timeit
+         total_time = 0
+         print("")
+         object_ = Everything.TestObj()
+         sys.stdout.write("\ttorture test 1 (10000 iterations): ")
+ 
+-        start_time = time.clock()
++        start_time = timeit.default_timer()
+         for i in range(10000):
+             (y, z, q) = object_.torture_signature_0(5000,
+                                                     "Torture Test 1",
+                                                     12345)
+ 
+-        end_time = time.clock()
++        end_time = timeit.default_timer()
+         delta_time = end_time - start_time
+         total_time += delta_time
+         print("%f secs" % delta_time)
+ 
+         sys.stdout.write("\ttorture test 2 (10000 iterations): ")
+ 
+-        start_time = time.clock()
++        start_time = timeit.default_timer()
+         for i in range(10000):
+             (y, z, q) = Everything.TestObj().torture_signature_0(
+                 5000, "Torture Test 2", 12345)
+ 
+-        end_time = time.clock()
++        end_time = timeit.default_timer()
+         delta_time = end_time - start_time
+         total_time += delta_time
+         print("%f secs" % delta_time)
+ 
+         sys.stdout.write("\ttorture test 3 (10000 iterations): ")
+-        start_time = time.clock()
++        start_time = timeit.default_timer()
+         for i in range(10000):
+             try:
+                 (y, z, q) = object_.torture_signature_1(
+                     5000, "Torture Test 3", 12345)
+             except:
+                 pass
+-        end_time = time.clock()
++        end_time = timeit.default_timer()
+         delta_time = end_time - start_time
+         total_time += delta_time
+         print("%f secs" % delta_time)
+@@ -1233,11 +1233,11 @@
+             return 0
+ 
+         userdata = [1, 2, 3, 4]
+-        start_time = time.clock()
++        start_time = timeit.default_timer()
+         for i in range(10000):
+             (y, z, q) = Everything.test_torture_signature_2(
+                 5000, callback, userdata, "Torture Test 4", 12345)
+-        end_time = time.clock()
++        end_time = timeit.default_timer()
+         delta_time = end_time - start_time
+         total_time += delta_time
+         print("%f secs" % delta_time)
+diff '--exclude=.git' -urN a/tests/test_overrides_gtk.py b/tests/test_overrides_gtk.py
+--- a/tests/test_overrides_gtk.py	2018-05-31 09:39:04.000000000 -0500
++++ b/tests/test_overrides_gtk.py	2021-06-05 10:36:24.954126883 -0500
+@@ -6,9 +6,9 @@
+ 
+ import contextlib
+ import unittest
+-import time
+ import sys
+ import warnings
++import timeit
+ 
+ from .helper import ignore_gi_deprecation_warnings, capture_glib_warnings
+ 
+@@ -1732,12 +1732,12 @@
+         model = Gtk.ListStore(int, str)
+ 
+         iterations = 2000
+-        start = time.clock()
++        start = timeit.default_timer()
+         i = iterations
+         while i > 0:
+             model.append([1, 'hello'])
+             i -= 1
+-        end = time.clock()
++        end = timeit.default_timer()
+         sys.stderr.write('[%.0f µs/append] ' % ((end - start) * 1000000 / iterations))
+ 
+     def test_filter_new_default(self):

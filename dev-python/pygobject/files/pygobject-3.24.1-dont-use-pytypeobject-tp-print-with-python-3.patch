@@ -1,0 +1,15 @@
+diff '--exclude=.git' -urN a/gi/pygobject-object.c b/gi/pygobject-object.c
+--- a/gi/pygobject-object.c	2017-04-10 05:32:36.000000000 -0500
++++ b/gi/pygobject-object.c	2021-06-05 10:43:25.922580873 -0500
+@@ -846,7 +846,10 @@
+                                   offsetof(PyTypeObject, tp_iter),
+                                   offsetof(PyTypeObject, tp_repr),
+                                   offsetof(PyTypeObject, tp_str),
+-                                  offsetof(PyTypeObject, tp_print) };
++#if PY_VERSION_HEX < 0x03000000
++                                  offsetof(PyTypeObject, tp_print),
++#endif
++    };
+     int i;
+ 
+     /* Happens when registering gobject.GObject itself, at least. */

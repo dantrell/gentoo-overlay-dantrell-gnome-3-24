@@ -2,7 +2,7 @@
 
 EAPI="6"
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python{2_7,3_7,3_8,3_9} )
+PYTHON_COMPAT=( python{2_7,3_8,3_9,3_10} )
 
 inherit gnome2 python-r1 virtualx
 
@@ -33,6 +33,12 @@ DEPEND="${COMMON_DEPEND}
 # gnome-base/gnome-common required by eautoreconf
 
 src_prepare() {
+	# From GNOME:
+	# 	https://gitlab.gnome.org/GNOME/pygobject/commit/e4e241d2bdd470ade220d412f3b58fb40fdedc16
+	# 	https://gitlab.gnome.org/GNOME/pygobject/commit/bbe2e94bb66b5e263655083dd6ed6bb878e21b74
+	eapply "${FILESDIR}"/${PN}-3.28.3-tests-remove-usage-of-time-clock-no-longer-available-in-py3-8.patch
+	eapply "${FILESDIR}"/${PN}-3.24.1-dont-use-pytypeobject-tp-print-with-python-3.patch
+
 	gnome2_src_prepare
 	python_copy_sources
 }
