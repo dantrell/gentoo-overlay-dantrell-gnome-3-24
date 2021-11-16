@@ -2,7 +2,7 @@
 
 EAPI="6"
 
-DESCRIPTION="Unofficial extension pack providing GNOME 2-like features for GNOME 3"
+DESCRIPTION="Unofficial extension pack providing GNOME 2-like features for GNOME"
 HOMEPAGE="http://frippery.org/extensions/index.html"
 SRC_URI="http://frippery.org/extensions/${P}.tgz"
 

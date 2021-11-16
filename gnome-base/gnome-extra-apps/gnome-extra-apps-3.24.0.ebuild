@@ -2,7 +2,7 @@
 
 EAPI="7"
 
-DESCRIPTION="Metapackage for GNOME 3 applications"
+DESCRIPTION="Metapackage for GNOME applications"
 HOMEPAGE="https://www.gnome.org/"
 
 LICENSE="metapackage"

@@ -82,7 +82,7 @@ DEPEND="${COMMON_DEPEND}
 	test? (
 		${PYTHON_DEPS}
 		$(python_gen_any_dep 'dev-python/pygobject:3[${PYTHON_USEDEP}]')
-		$(python_gen_any_dep 'dev-python/dbusmock[${PYTHON_USEDEP}]')
+		$(python_gen_any_dep 'dev-python/python-dbusmock[${PYTHON_USEDEP}]')
 		gnome-base/gnome-session )
 	dev-libs/libxml2:2
 	sys-devel/gettext
@@ -94,7 +94,7 @@ DEPEND="${COMMON_DEPEND}
 python_check_deps() {
 	if use test; then
 		has_version "dev-python/pygobject:3[${PYTHON_USEDEP}]" &&
-		has_version "dev-python/dbusmock[${PYTHON_USEDEP}]"
+		has_version "dev-python/python-dbusmock[${PYTHON_USEDEP}]"
 	fi
 }
 

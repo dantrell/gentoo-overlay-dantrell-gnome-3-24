@@ -2,9 +2,9 @@
 
 EAPI="6"
 
-inherit autotools gnome2 virtualx
+inherit autotools flag-o-matic gnome2 virtualx
 
-DESCRIPTION="GNOME 3 compositing window manager based on Clutter"
+DESCRIPTION="GNOME compositing window manager based on Clutter"
 HOMEPAGE="https://gitlab.gnome.org/GNOME/mutter"
 
 LICENSE="GPL-2+"
@@ -54,7 +54,7 @@ COMMON_DEPEND="
 	x11-misc/xkeyboard-config
 
 	gnome-extra/zenity
-	media-libs/mesa[X(+),egl,gles2?]
+	media-libs/mesa[X(+),egl(+),gles2?]
 
 	gles2? ( media-libs/mesa[gles2] )
 	input_devices_wacom? ( >=dev-libs/libwacom-0.13 )
@@ -64,7 +64,7 @@ COMMON_DEPEND="
 		>=dev-libs/libinput-1.4
 		>=dev-libs/wayland-1.6.90
 		>=dev-libs/wayland-protocols-1.7
-		>=media-libs/mesa-10.3[egl,gbm,wayland]
+		>=media-libs/mesa-10.3[egl(+),gbm(+),wayland]
 		|| ( sys-auth/elogind sys-apps/systemd )
 		>=dev-libs/libgudev-232:=
 		>=virtual/libudev-136:=
@@ -136,6 +136,9 @@ src_prepare() {
 }
 
 src_configure() {
+	# Work around -fno-common (GCC 10 default)
+	append-flags -fcommon
+
 	# Prefer gl driver by default
 	# GLX is forced by mutter but optional in clutter
 	# xlib-egl-platform required by mutter x11 backend

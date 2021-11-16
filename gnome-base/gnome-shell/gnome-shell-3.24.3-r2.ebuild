@@ -4,9 +4,9 @@ EAPI="6"
 GNOME2_LA_PUNT="yes"
 PYTHON_COMPAT=( python{3_8,3_9,3_10} )
 
-inherit autotools gnome2 multilib pax-utils python-r1 systemd
+inherit autotools flag-o-matic gnome2 multilib pax-utils python-r1 systemd
 
-DESCRIPTION="Provides core UI functions for the GNOME 3 desktop"
+DESCRIPTION="Provides core UI functions for the GNOME desktop"
 HOMEPAGE="https://wiki.gnome.org/Projects/GnomeShell"
 
 LICENSE="GPL-2+ LGPL-2+"
@@ -163,6 +163,9 @@ src_prepare() {
 }
 
 src_configure() {
+	# Work around -fno-common (GCC 10 default)
+	append-flags -fcommon
+
 	# Do not error out on warnings
 	gnome2_src_configure \
 		--enable-man \

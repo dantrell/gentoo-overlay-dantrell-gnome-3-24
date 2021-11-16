@@ -2,7 +2,7 @@
 
 EAPI="7"
 
-DESCRIPTION="Metapackage for GNOME 3 (Light)"
+DESCRIPTION="Metapackage for GNOME (Light)"
 HOMEPAGE="https://www.gnome.org/"
 
 LICENSE="metapackage"

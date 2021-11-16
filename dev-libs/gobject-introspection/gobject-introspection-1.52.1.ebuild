@@ -28,7 +28,7 @@ RDEPEND="
 	>=dev-libs/glib-2.$(get_version_component_range 2):2
 	doctool? (
 		$(python_gen_cond_dep '
-			dev-python/mako[${PYTHON_MULTI_USEDEP}]
+			dev-python/mako[${PYTHON_USEDEP}]
 		')
 	)
 	dev-libs/libffi:=
@@ -44,6 +44,12 @@ DEPEND="${RDEPEND}
 "
 # PDEPEND to avoid circular dependencies, bug #391213
 PDEPEND="cairo? ( x11-libs/cairo[glib] )"
+
+PATCHES=(
+	# From GNOME:
+	# 	https://gitlab.gnome.org/GNOME/gobject-introspection/commit/1f9284228092b2a7200e8a78bc0ea6702231c6db
+	"${FILESDIR}"/${PN}-1.63.2-drop-deprecated-xml-etree-elementtree-element-getchildren-calls.patch
+)
 
 pkg_setup() {
 	python-single-r1_pkg_setup

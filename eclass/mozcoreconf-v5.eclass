@@ -1,7 +1,7 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 #
-# @ECLASS: mozcoreconf-v4.eclass
+# @ECLASS: mozcoreconf-v5.eclass
 # @MAINTAINER:
 # Mozilla team <mozilla@gentoo.org>
 # @BLURB: core options and configuration functions for mozilla
@@ -17,7 +17,7 @@
 if [[ ! ${_MOZCORECONF} ]]; then
 
 PYTHON_COMPAT=( python2_7 )
-PYTHON_REQ_USE='ncurses,sqlite,ssl,threads'
+PYTHON_REQ_USE='ncurses,sqlite,ssl,threads(+)'
 
 inherit multilib toolchain-funcs flag-o-matic python-any-r1 versionator
 
@@ -124,6 +124,7 @@ mozconfig_init() {
 	declare FF=$([[ ${PN} == firefox ]] && echo true || echo false)
 	declare SM=$([[ ${PN} == seamonkey ]] && echo true || echo false)
 	declare TB=$([[ ${PN} == thunderbird ]] && echo true || echo false)
+	declare WF=$([[ ${PN} == waterfox* ]] && echo true || echo false)
 
 	####################################
 	#
@@ -136,7 +137,7 @@ mozconfig_init() {
 		*xulrunner)
 			cp xulrunner/config/mozconfig .mozconfig \
 				|| die "cp xulrunner/config/mozconfig failed" ;;
-		*firefox)
+		*firefox|waterfox*)
 			cp browser/config/mozconfig .mozconfig \
 				|| die "cp browser/config/mozconfig failed" ;;
 		seamonkey)
@@ -156,7 +157,9 @@ mozconfig_init() {
 	####################################
 
 	# Set optimization level
-	if [[ ${ARCH} == hppa ]]; then
+	if [[ $(gcc-major-version) -ge 7 ]]; then
+		mozconfig_annotate "Workaround known breakage" --enable-optimize=-O2
+	elif [[ ${ARCH} == hppa ]]; then
 		mozconfig_annotate "more than -O0 causes a segfault on hppa" --enable-optimize=-O0
 	elif [[ ${ARCH} == x86 ]]; then
 		mozconfig_annotate "less then -O2 causes a segfault on x86" --enable-optimize=-O2
@@ -190,20 +193,24 @@ mozconfig_init() {
 
 	# Additional ARCH support
 	case "${ARCH}" in
+	arm)
+		# Reduce the memory requirements for linking
+		append-ldflags -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
+		;;
 	alpha)
 		# Historically we have needed to add -fPIC manually for 64-bit.
 		# Additionally, alpha should *always* build with -mieee for correct math
 		# operation
 		append-flags -fPIC -mieee
 		;;
-
 	ia64)
 		# Historically we have needed to add this manually for 64-bit
 		append-flags -fPIC
 		;;
-
 	ppc64)
 		append-flags -fPIC -mminimal-toc
+		# Reduce the memory requirements for linking
+		append-ldflags -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
 		;;
 	esac
 
@@ -234,11 +241,21 @@ mozconfig_init() {
 
 # @FUNCTION: mozconfig_final
 # @DESCRIPTION:
+# Apply EXTRA_ECONF values to .mozconfig
 # Display a table describing all configuration options paired
 # with reasons, then clean up extensions list.
 # This should be called in src_configure at the end of all other mozconfig_* functions.
 mozconfig_final() {
 	declare ac opt hash reason
+
+	# Apply EXTRA_ECONF entries to .mozconfig
+	if [[ -n ${EXTRA_ECONF} ]]; then
+		IFS=\! read -a ac <<<${EXTRA_ECONF// --/\!}
+		for opt in "${ac[@]}"; do
+			mozconfig_annotate "EXTRA_ECONF" --${opt#--}
+		done
+	fi
+
 	echo
 	echo "=========================================================="
 	echo "Building ${PF} with the following configuration"
