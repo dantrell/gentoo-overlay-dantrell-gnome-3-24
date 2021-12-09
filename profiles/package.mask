@@ -27,6 +27,7 @@ games-puzzle/lightsoff::gentoo
 games-puzzle/swell-foop::gentoo
 gnome-base/dconf-editor::gentoo
 gnome-base/gdm::gentoo
+gnome-base/gnome-applets::gentoo
 gnome-base/gnome-control-center::gentoo
 gnome-base/gnome-core-apps::gentoo
 gnome-base/gnome-core-libs::gentoo
@@ -34,6 +35,7 @@ gnome-base/gnome-desktop::gentoo
 gnome-base/gnome-extra-apps::gentoo
 gnome-base/gnome-flashback::gentoo
 gnome-base/gnome-light::gentoo
+gnome-base/gnome-panel::gentoo
 gnome-base/gnome-session::gentoo
 gnome-base/gnome-settings-daemon::gentoo
 gnome-base/gnome-shell::gentoo
@@ -51,7 +53,6 @@ gnome-extra/gnome-color-manager::gentoo
 gnome-extra/gnome-documents::gentoo
 gnome-extra/gnome-getting-started-docs::gentoo
 gnome-extra/gnome-multi-writer::gentoo
-gnome-extra/gnome-packagekit::gentoo
 gnome-extra/gnome-power-manager::gentoo
 gnome-extra/gnome-shell-extensions::gentoo
 gnome-extra/gnome-shell-frippery::gentoo
@@ -75,7 +76,6 @@ net-libs/libsoup-gnome::gentoo
 net-libs/libsoup::gentoo
 net-misc/gnome-online-miners::gentoo
 net-misc/rygel::gentoo
-sci-geosciences/geocode-glib::gentoo
 sci-geosciences/gnome-maps::gentoo
 sys-apps/baobab::gentoo
 sys-apps/gnome-disk-utility::gentoo

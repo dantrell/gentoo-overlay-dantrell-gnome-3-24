@@ -12,7 +12,7 @@ LICENSE="GPL-2+ LGPL-2+ FDL-1.1"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="exif gnome +introspection packagekit +previewer selinux sendto tracker vanilla-menu vanilla-menu-compress vanilla-rename vanilla-search vanilla-thumbnailer xmp"
+IUSE="exif gnome +introspection +previewer selinux sendto tracker vanilla-menu vanilla-menu-compress vanilla-rename vanilla-search vanilla-thumbnailer xmp"
 
 # FIXME: tests fails under Xvfb, but pass when building manually
 # "FAIL: check failed in nautilus-file.c, line 8307"
@@ -38,7 +38,7 @@ COMMON_DEPEND="
 	exif? ( >=media-libs/libexif-0.6.20 )
 	introspection? ( >=dev-libs/gobject-introspection-0.6.4:= )
 	selinux? ( >=sys-libs/libselinux-2 )
-	tracker? ( >=app-misc/tracker-1:= )
+	tracker? ( >=app-misc/tracker-1:0= )
 	xmp? ( >=media-libs/exempi-2.1.0:2 )
 "
 DEPEND="${COMMON_DEPEND}
@@ -50,7 +50,6 @@ DEPEND="${COMMON_DEPEND}
 	x11-base/xorg-proto
 "
 RDEPEND="${COMMON_DEPEND}
-	packagekit? ( app-admin/packagekit-base )
 	sendto? ( !<gnome-extra/nautilus-sendto-3.0.1 )
 "
 
@@ -107,7 +106,7 @@ src_configure() {
 		--disable-update-mimedb \
 		$(use_enable exif libexif) \
 		$(use_enable introspection) \
-		$(use_enable packagekit) \
+		--disable-packagekit \
 		$(use_enable sendto nst-extension) \
 		$(use_enable selinux) \
 		$(use_enable tracker) \

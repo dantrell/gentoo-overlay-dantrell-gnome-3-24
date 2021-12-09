@@ -1,0 +1,32 @@
+From 5201d77b0bcc3d790f13bbdfb8e6cd08e53eec83 Mon Sep 17 00:00:00 2001
+From: Sergey Zigachev <s.zi@outlook.com>
+Date: Thu, 30 Apr 2020 18:34:38 +0500
+Subject: [PATCH] keybindings: Use current monitor for move-to-center
+
+Move to center uses all monitors for calculating work area.
+
+This can lead to an unexpected behaviour on some monitor
+configurations resulting in current window being split between
+monitors. We should move window to the center of the active display.
+
+Closes https://gitlab.gnome.org/GNOME/mutter/-/issues/1073
+---
+ src/core/keybindings.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/core/keybindings.c b/src/core/keybindings.c
+index 957c77a8f8..445b80d016 100644
+--- a/src/core/keybindings.c
++++ b/src/core/keybindings.c
+@@ -3112,7 +3112,7 @@ handle_move_to_center  (MetaDisplay     *display,
+   MetaRectangle work_area;
+   MetaRectangle frame_rect;
+ 
+-  meta_window_get_work_area_all_monitors (window, &work_area);
++  meta_window_get_work_area_current_monitor (window, &work_area);
+   meta_window_get_frame_rect (window, &frame_rect);
+ 
+   meta_window_move_frame (window,
+-- 
+GitLab
+

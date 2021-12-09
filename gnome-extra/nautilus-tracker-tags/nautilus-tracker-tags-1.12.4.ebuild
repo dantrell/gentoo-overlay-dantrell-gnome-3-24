@@ -15,15 +15,12 @@ KEYWORDS="*"
 IUSE=""
 
 COMMON_DEPEND="
-	~app-misc/tracker-${PV}
+	~app-misc/tracker-${PV}:0=
 	>=dev-libs/glib-2.44:2
 	>=gnome-base/nautilus-2.90
 	x11-libs/gtk+:3
 "
-RDEPEND="${COMMON_DEPEND}
-	!<app-misc/tracker-0.12.5-r1[nautilus]
-"
-# Before tracker-0.12.5-r1, nautilus-tracker-tags was part of tracker
+RDEPEND="${COMMON_DEPEND}"
 DEPEND="${COMMON_DEPEND}"
 
 S="${S}/src/plugins/nautilus"

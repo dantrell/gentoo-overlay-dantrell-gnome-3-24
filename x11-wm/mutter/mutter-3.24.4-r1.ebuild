@@ -123,6 +123,20 @@ src_prepare() {
 
 	eapply "${FILESDIR}"/${PN}-3.24.4-eglmesaext-include.patch
 
+	# From GNOME:
+	# 	https://gitlab.gnome.org/GNOME/mutter/commit/6c5baf89ede6ea4e52724194003aae4f70427677
+	# 	https://gitlab.gnome.org/GNOME/mutter/commit/5201d77b0bcc3d790f13bbdfb8e6cd08e53eec83
+	eapply "${FILESDIR}"/${PN}-3.31.4-keybindings-limit-corner-move-to-current-monitor.patch
+	eapply "${FILESDIR}"/${PN}-3.37.2-keybindings-use-current-monitor-for-move-to-center.patch
+
+	# From GNOME:
+	# 	https://gitlab.gnome.org/GNOME/mutter/commit/3df4348f236f6bd8e2f37e633885dfde841fc988
+	# 	https://gitlab.gnome.org/GNOME/mutter/commit/033f0d11bfd87f82cbd3ffc56b97574bb3ffb691
+	# 	https://gitlab.gnome.org/GNOME/mutter/commit/64ced1632e277e4fc0b1f4de3f5bf229c6cf885b
+	eapply "${FILESDIR}"/${PN}-3.34.2-window-reset-tile-monitor-number-when-untiling.patch
+	eapply "${FILESDIR}"/${PN}-3.37.2-window-set-fall-back-tile-monitor-if-not-set.patch
+	eapply "${FILESDIR}"/${PN}-3.38.2-window-dont-override-tile-monitor.patch
+
 	eautoreconf
 	gnome2_src_prepare
 

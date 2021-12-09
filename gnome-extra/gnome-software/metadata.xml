@@ -7,6 +7,5 @@
 	</maintainer>
 	<use>
 		<flag name="firmware">Enable firmware update support through <pkg>sys-apps/fwupd</pkg></flag>
-		<flag name="packagekit">Enable module for package manager integration</flag>
 	</use>
 </pkgmetadata>

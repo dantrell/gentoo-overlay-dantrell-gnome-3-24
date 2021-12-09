@@ -1,0 +1,36 @@
+From 6c5baf89ede6ea4e52724194003aae4f70427677 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C4=81nis=20D=C5=BEeri=C5=86=C5=A1?=
+ <smuglispweenie@gmail.com>
+Date: Tue, 25 Sep 2018 20:59:43 +0300
+Subject: [PATCH] keybindings: Limit corner move to current monitor
+
+Moving windows using `move-to-side-X` and `move-corner-XX` keybindings
+should keep windows within the confines of current screen.
+
+`move-to-monitor-XXX` keybindings can be used to move windows to other
+monitors.
+
+Closes: https://gitlab.gnome.org/GNOME/mutter/issues/320
+---
+ src/core/keybindings.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/core/keybindings.c b/src/core/keybindings.c
+index 968754938b..3830492a98 100644
+--- a/src/core/keybindings.c
++++ b/src/core/keybindings.c
+@@ -2839,7 +2839,10 @@ handle_move_to_corner_backend (MetaDisplay           *display,
+   MetaRectangle frame_rect;
+   int new_x, new_y;
+ 
+-  meta_window_get_work_area_all_monitors (window, &work_area);
++  if (!window->monitor)
++    return;
++
++  meta_window_get_work_area_current_monitor (window, &work_area);
+   meta_window_get_frame_rect (window, &frame_rect);
+ 
+   switch (gravity)
+-- 
+GitLab
+

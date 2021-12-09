@@ -24,9 +24,7 @@ COMMON_DEPEND="
 	x11-misc/xkeyboard-config
 	>=gnome-base/gsettings-desktop-schemas-3.5.91
 	introspection? ( >=dev-libs/gobject-introspection-0.9.7:= )
-	udev? (
-		sys-apps/hwids
-		virtual/libudev:= )
+	udev? ( virtual/libudev:= )
 "
 RDEPEND="${COMMON_DEPEND}"
 DEPEND="${COMMON_DEPEND}

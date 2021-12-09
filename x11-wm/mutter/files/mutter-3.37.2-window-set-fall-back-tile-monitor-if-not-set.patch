@@ -1,0 +1,35 @@
+From 033f0d11bfd87f82cbd3ffc56b97574bb3ffb691 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@gmail.com>
+Date: Thu, 2 Apr 2020 19:05:21 +0200
+Subject: [PATCH] window: Set fall-back tile monitor if not set
+
+When tiling, we want to set the tile monitor. To not have to do this
+from the call site, make meta_window_tile() fall back to the current
+monitor if nothing set it prior to the call.
+
+This will make it more convenient for test cases to test tiling
+behavior.
+
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1171
+---
+ src/core/window.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/core/window.c b/src/core/window.c
+index a6b3110e1..75012ed6c 100644
+--- a/src/core/window.c
++++ b/src/core/window.c
+@@ -3156,6 +3156,10 @@ meta_window_tile (MetaWindow   *window,
+       window->tile_monitor_number = -1;
+       return;
+     }
++  else
++    {
++      window->tile_monitor_number = window->monitor->number;
++    }
+ 
+   if (window->tile_mode == META_TILE_MAXIMIZED)
+     directions = META_MAXIMIZE_BOTH;
+-- 
+GitLab
+

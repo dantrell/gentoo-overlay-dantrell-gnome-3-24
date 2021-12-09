@@ -17,7 +17,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 COMMON_DEPEND="
 	${PYTHON_DEPS}
-	>=app-misc/tracker-1.11.1[introspection(+)]
+	>=app-misc/tracker-1.11.1:0=[introspection(+)]
 	$(python_gen_cond_dep '
 		>=dev-python/pygobject-3.21.1:3[cairo,${PYTHON_USEDEP}]
 	')
@@ -31,8 +31,8 @@ COMMON_DEPEND="
 # https://bugzilla.gnome.org/show_bug.cgi?id=731613
 RDEPEND="${COMMON_DEPEND}
 	|| (
-		app-misc/tracker[gstreamer]
-		app-misc/tracker[ffmpeg]
+		app-misc/tracker:0=[gstreamer]
+		app-misc/tracker:0=[ffmpeg]
 	)
 	x11-libs/libnotify[introspection]
 	$(python_gen_cond_dep '

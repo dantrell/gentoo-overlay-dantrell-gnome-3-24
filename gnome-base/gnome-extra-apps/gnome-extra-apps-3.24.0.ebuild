@@ -91,7 +91,7 @@ RDEPEND="
 	simple-scan? ( >=media-gfx/simple-scan-${PV} )
 	todo? ( >=app-office/gnome-todo-${PV} )
 	tracker? (
-		>=app-misc/tracker-1.12
+		>=app-misc/tracker-1.12:0=
 		>=gnome-extra/gnome-documents-${PV}
 		>=media-gfx/gnome-photos-${PV}
 		>=media-sound/gnome-music-${PV} )

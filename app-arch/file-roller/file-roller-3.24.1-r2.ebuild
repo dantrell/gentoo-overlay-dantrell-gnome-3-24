@@ -12,7 +12,7 @@ LICENSE="GPL-2+ CC-BY-SA-3.0"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="libnotify nautilus packagekit"
+IUSE="libnotify nautilus"
 
 # gdk-pixbuf used extensively in the source
 # cairo used in eggtreemultidnd.c
@@ -28,7 +28,6 @@ RDEPEND="
 	x11-libs/pango
 	libnotify? ( >=x11-libs/libnotify-0.4.3:= )
 	nautilus? ( >=gnome-base/nautilus-3[-vanilla-menu-compress] )
-	packagekit? ( app-admin/packagekit-base )
 "
 DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.50.1
@@ -72,6 +71,12 @@ src_prepare() {
 		eapply -R "${FILESDIR}"/${PN}-3.21.91-remove-nautilus-extension.patch
 	fi
 
+	# From GNOME (CVE-2020-11736):
+	# 	https://gitlab.gnome.org/GNOME/file-roller/commit/45b2e76e25648961db621f898b4a9eb7c75ef4c0
+	# 	https://gitlab.gnome.org/GNOME/file-roller/commit/8572946d3ebe25f392f110ee838ff5abc7a3e78e
+	eapply "${FILESDIR}"/${PN}-3.32.5-libarchive-do-not-follow-external-links-when-extracting-files.patch
+	eapply "${FILESDIR}"/${PN}-3.32.5-libarchive-overwrite-the-symbolic-link-as-well.patch
+
 	# File providing Gentoo package names for various archivers
 	cp -f "${FILESDIR}"/3.22-packages.match data/packages.match || die
 
@@ -92,7 +97,7 @@ src_configure() {
 		--enable-libarchive \
 		$(use_enable libnotify notification) \
 		$(use_enable nautilus nautilus-actions) \
-		$(use_enable packagekit)
+		--disable-packagekit
 }
 
 src_install() {

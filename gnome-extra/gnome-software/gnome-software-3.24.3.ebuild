@@ -1,22 +1,20 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI="7"
 
 inherit gnome2 virtualx
 
-DESCRIPTION="Gnome install & update software"
+DESCRIPTION="GNOME utility for installing and updating applications"
 HOMEPAGE="https://wiki.gnome.org/Apps/Software"
 
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="gnome spell udev"
-
-RESTRICT="test"
+IUSE="firmware gnome spell udev"
 
 RDEPEND="
-	>=app-admin/packagekit-base-1.1.0
+	dev-util/valgrind
 	app-crypt/libsecret
 	dev-db/sqlite:3
 	>=dev-libs/appstream-glib-0.6.7:0
@@ -25,13 +23,18 @@ RDEPEND="
 	>=gnome-base/gsettings-desktop-schemas-3.11.5
 	>=net-libs/libsoup-2.51.92:2.4
 	sys-auth/polkit
+	firmware? (
+		>=sys-apps/fwupd-0.7.0
+		<sys-apps/fwupd-1.0
+	)
 	>=x11-libs/gdk-pixbuf-2.31.5
 	>=x11-libs/gtk+-3.20:3
 	gnome? ( >=gnome-base/gnome-desktop-3.17.92:3= )
 	spell? ( app-text/gtkspell:3 )
 	udev? ( dev-libs/libgudev )
 "
-DEPEND="${RDEPEND}
+DEPEND="${RDEPEND}"
+BDEPEND="
 	app-text/docbook-xml-dtd:4.2
 	dev-libs/libxslt
 	>=dev-util/intltool-0.35
@@ -39,19 +42,25 @@ DEPEND="${RDEPEND}
 "
 
 src_configure() {
-	# FIXME: investigate limba and firmware update support
 	gnome2_src_configure \
 		--enable-man \
-		--enable-packagekit \
+		--disable-packagekit \
 		--enable-polkit \
-		--disable-firmware \
+		$(use_enable firmware) \
 		--disable-limba \
 		--disable-ostree \
-		--disable-rpm \
 		--disable-steam \
-		--disable-xdg-app \
 		$(use_enable spell gtkspell) \
 		--disable-dogtail \
 		--disable-tests \
 		$(use_enable udev gudev)
+}
+
+src_install() {
+	default
+
+	# From AppStream (the /usr/share/appdata location is deprecated):
+	# 	https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#spec-component-location
+	# 	https://bugs.gentoo.org/709450
+	mv "${ED}"/usr/share/{appdata,metainfo} || die
 }

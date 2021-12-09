@@ -7,7 +7,7 @@ VALA_USE_DEPEND="vapigen"
 
 inherit gnome2 multilib-minimal python-any-r1 vala
 
-DESCRIPTION="An HTTP library implementation in C"
+DESCRIPTION="HTTP client/server library for GNOME"
 HOMEPAGE="https://wiki.gnome.org/Projects/libsoup"
 
 LICENSE="LGPL-2+"

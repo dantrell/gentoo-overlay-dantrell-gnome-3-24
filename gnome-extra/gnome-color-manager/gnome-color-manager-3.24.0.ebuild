@@ -1,36 +1,36 @@
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI="7"
 
 inherit gnome2 virtualx
 
-DESCRIPTION="Color profile manager for the GNOME desktop"
+DESCRIPTION="GNOME color profile tools"
 HOMEPAGE="https://gitlab.gnome.org/GNOME/gnome-color-manager"
 
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="packagekit raw"
+IUSE="raw"
 
 # Need gtk+-3.3.8 for https://bugzilla.gnome.org/show_bug.cgi?id=673331
 RDEPEND="
 	>=dev-libs/glib-2.31.10:2
+	>=x11-libs/gtk+-3.3.8:3
+	>=x11-misc/colord-1.3.1:0=
 	>=media-libs/lcms-2.2:2
-	>=media-libs/libcanberra-0.10[gtk3]
+
 	media-libs/libexif
 	media-libs/tiff:0=
-
-	>=x11-libs/gtk+-3.3.8:3
-	>=x11-libs/vte-0.25.1:2.91
-	>=x11-misc/colord-1.3.1:0=
 	>=x11-libs/colord-gtk-0.1.20
+	>=media-libs/libcanberra-0.10[gtk3]
+	>=x11-libs/vte-0.25.1:2.91
 
-	packagekit? ( app-admin/packagekit-base )
 	raw? ( media-gfx/exiv2:0= )
 "
+DEPEND="${RDEPEND}"
 # docbook-sgml-{utils,dtd:4.1} needed to generate man pages
-DEPEND="${RDEPEND}
+BDEPEND="
 	app-text/docbook-sgml-dtd:4.1
 	app-text/docbook-sgml-utils
 	dev-libs/appstream-glib
@@ -47,17 +47,25 @@ PATCHES=(
 
 src_configure() {
 	# Always enable tests since they are check_PROGRAMS anyway
-	# appstream does not want to be relax by default !
 	gnome2_src_configure \
 		--disable-static \
 		--enable-tests \
-		$(use_enable packagekit) \
-		$(use_enable raw exiv)
-#		APPSTREAM_UTIL=$(type -P true)
+		--disable-packagekit \
+		$(use_enable raw exiv) \
+		APPSTREAM_UTIL=$(type -P true)
 }
 
 src_test() {
 	virtx emake check
+}
+
+src_install() {
+	default
+
+	# From AppStream (the /usr/share/appdata location is deprecated):
+	# 	https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#spec-component-location
+	# 	https://bugs.gentoo.org/709450
+	mv "${ED}"/usr/share/{appdata,metainfo} || die
 }
 
 pkg_postinst() {
