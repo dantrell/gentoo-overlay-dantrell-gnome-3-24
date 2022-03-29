@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: python-single-r1.eclass
@@ -8,6 +8,7 @@
 # Author: Michał Górny <mgorny@gentoo.org>
 # Based on work of: Krzysztof Pawlik <nelchael@gentoo.org>
 # @SUPPORTED_EAPIS: 6 7 8
+# @PROVIDES: python-utils-r1
 # @BLURB: An eclass for Python packages not installed for multiple implementations.
 # @DESCRIPTION:
 # An extension of the python-r1 eclass suite for packages which
@@ -34,7 +35,7 @@
 # to inherit both.
 #
 # For more information, please see the Python Guide:
-# https://dev.gentoo.org/~mgorny/python-guide/
+# https://projects.gentoo.org/python/guide/
 
 case "${EAPI:-0}" in
 	[0-5])
@@ -61,7 +62,7 @@ fi
 
 EXPORT_FUNCTIONS pkg_setup
 
-# @ECLASS-VARIABLE: PYTHON_COMPAT
+# @ECLASS_VARIABLE: PYTHON_COMPAT
 # @REQUIRED
 # @DESCRIPTION:
 # This variable contains a list of Python implementations the package
@@ -78,7 +79,7 @@ EXPORT_FUNCTIONS pkg_setup
 # PYTHON_COMPAT=( python2_7 python3_{3,4} )
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_COMPAT_OVERRIDE
+# @ECLASS_VARIABLE: PYTHON_COMPAT_OVERRIDE
 # @USER_VARIABLE
 # @DEFAULT_UNSET
 # @DESCRIPTION:
@@ -98,7 +99,7 @@ EXPORT_FUNCTIONS pkg_setup
 # PYTHON_COMPAT_OVERRIDE='pypy' emerge -1v dev-python/bar
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_REQ_USE
+# @ECLASS_VARIABLE: PYTHON_REQ_USE
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # The list of USEflags required to be enabled on the chosen Python
@@ -118,7 +119,7 @@ EXPORT_FUNCTIONS pkg_setup
 # python_single_target_pythonX_Y? ( dev-lang/python:X.Y[gdbm,ncurses(-)?] )
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_DEPS
+# @ECLASS_VARIABLE: PYTHON_DEPS
 # @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # This is an eclass-generated Python dependency string for all
@@ -140,7 +141,7 @@ EXPORT_FUNCTIONS pkg_setup
 # python_single_target_pypy? ( dev-python/pypy[gdbm] )
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_SINGLE_USEDEP
+# @ECLASS_VARIABLE: PYTHON_SINGLE_USEDEP
 # @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # This is an eclass-generated USE-dependency string which can be used to
@@ -160,7 +161,7 @@ EXPORT_FUNCTIONS pkg_setup
 # python_single_target_python3_4(-)?
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_USEDEP
+# @ECLASS_VARIABLE: PYTHON_USEDEP
 # @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # This is a placeholder variable supported by python_gen_cond_dep,
@@ -179,13 +180,7 @@ EXPORT_FUNCTIONS pkg_setup
 # python_targets_python3_4(-)
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_MULTI_USEDEP
-# @OUTPUT_VARIABLE
-# @DESCRIPTION:
-# This is a backwards-compatibility placeholder.  Use PYTHON_USEDEP
-# instead.
-
-# @ECLASS-VARIABLE: PYTHON_REQUIRED_USE
+# @ECLASS_VARIABLE: PYTHON_REQUIRED_USE
 # @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # This is an eclass-generated required-use expression which ensures
@@ -394,6 +389,12 @@ python_gen_cond_dep() {
 				dep=${dep//\$\{PYTHON_SINGLE_USEDEP\}/${usedep}}
 			fi
 			local multi_usedep="python_targets_${impl}(-)"
+
+			if [[ ${EAPI} != [67] ]]; then
+				if [[ ${dep} == *\$\{PYTHON_MULTI_USEDEP\}* ]]; then
+					die "Replace PYTHON_MULTI_USEDEP with PYTHON_USEDEP in EAPI ${EAPI}"
+				fi
+			fi
 
 			local subdep=${dep//\$\{PYTHON_MULTI_USEDEP\}/${multi_usedep}}
 			matches+=( "python_single_target_${impl}? (

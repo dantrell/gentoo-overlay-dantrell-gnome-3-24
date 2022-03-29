@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: python-utils-r1.eclass
@@ -17,7 +17,7 @@
 # functions. It can be inherited safely.
 #
 # For more information, please see the Python Guide:
-# https://dev.gentoo.org/~mgorny/python-guide/
+# https://projects.gentoo.org/python/guide/
 
 # NOTE: When dropping support for EAPIs here, we need to update
 # metadata/install-qa-check.d/60python-pyc
@@ -37,7 +37,7 @@ if [[ ! ${_PYTHON_UTILS_R1} ]]; then
 [[ ${EAPI} == [67] ]] && inherit eapi8-dosym
 inherit toolchain-funcs
 
-# @ECLASS-VARIABLE: _PYTHON_ALL_IMPLS
+# @ECLASS_VARIABLE: _PYTHON_ALL_IMPLS
 # @INTERNAL
 # @DESCRIPTION:
 # All supported Python implementations, most preferred last.
@@ -48,7 +48,7 @@ _PYTHON_ALL_IMPLS=(
 )
 readonly _PYTHON_ALL_IMPLS
 
-# @ECLASS-VARIABLE: _PYTHON_HISTORICAL_IMPLS
+# @ECLASS_VARIABLE: _PYTHON_HISTORICAL_IMPLS
 # @INTERNAL
 # @DESCRIPTION:
 # All historical Python implementations that are no longer supported.
@@ -60,7 +60,7 @@ _PYTHON_HISTORICAL_IMPLS=(
 )
 readonly _PYTHON_HISTORICAL_IMPLS
 
-# @ECLASS-VARIABLE: PYTHON_COMPAT_NO_STRICT
+# @ECLASS_VARIABLE: PYTHON_COMPAT_NO_STRICT
 # @INTERNAL
 # @DESCRIPTION:
 # Set to a non-empty value in order to make eclass tolerate (ignore)
@@ -211,7 +211,7 @@ _python_impl_matches() {
 	return 1
 }
 
-# @ECLASS-VARIABLE: PYTHON
+# @ECLASS_VARIABLE: PYTHON
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # The absolute path to the current Python interpreter.
@@ -230,7 +230,7 @@ _python_impl_matches() {
 # /usr/bin/python2.7
 # @CODE
 
-# @ECLASS-VARIABLE: EPYTHON
+# @ECLASS_VARIABLE: EPYTHON
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # The executable name of the current Python interpreter.
@@ -1276,6 +1276,16 @@ build_sphinx() {
 	HTML_DOCS+=( "${dir}/_build/html/." )
 }
 
+# @FUNCTION: _python_check_EPYTHON
+# @INTERNAL
+# @DESCRIPTION:
+# Check if EPYTHON is set, die if not.
+_python_check_EPYTHON() {
+	if [[ -z ${EPYTHON} ]]; then
+		die "EPYTHON unset, invalid call context"
+	fi
+}
+
 # @FUNCTION: epytest
 # @USAGE: [<args>...]
 # @DESCRIPTION:
@@ -1286,7 +1296,7 @@ build_sphinx() {
 epytest() {
 	debug-print-function ${FUNCNAME} "${@}"
 
-	[[ -n ${EPYTHON} ]] || die "EPYTHON unset, invalid call context"
+	_python_check_EPYTHON
 
 	local args=(
 		# verbose progress reporting and tracebacks
@@ -1314,7 +1324,7 @@ epytest() {
 eunittest() {
 	debug-print-function ${FUNCNAME} "${@}"
 
-	[[ -n ${EPYTHON} ]] || die "EPYTHON unset, invalid call context"
+	_python_check_EPYTHON
 
 	set -- "${EPYTHON}" -m unittest_or_fail discover -v "${@}"
 

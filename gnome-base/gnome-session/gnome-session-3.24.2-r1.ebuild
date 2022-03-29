@@ -11,7 +11,7 @@ LICENSE="GPL-2 LGPL-2 FDL-1.1"
 SLOT="0"
 KEYWORDS="*"
 
-IUSE="consolekit doc elibc_FreeBSD elogind gconf ipv6 systemd wayland"
+IUSE="consolekit doc elogind gconf ipv6 systemd wayland"
 REQUIRED_USE="
 	?? ( consolekit elogind systemd )
 	wayland? ( || ( elogind systemd ) )
@@ -27,7 +27,6 @@ COMMON_DEPEND="
 	>=x11-libs/gtk+-3.18.0:3
 	>=dev-libs/json-glib-0.10
 	>=gnome-base/gnome-desktop-3.18:3=
-	elibc_FreeBSD? ( || ( dev-libs/libexecinfo >=sys-freebsd/freebsd-lib-10.0 ) )
 	gconf? ( >=gnome-base/gconf-2:2 )
 	wayland? ( media-libs/mesa[egl(+),gles2] )
 	!wayland? ( media-libs/mesa[gles2,X(+)] )

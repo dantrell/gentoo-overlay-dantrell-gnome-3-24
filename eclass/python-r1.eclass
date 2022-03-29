@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: python-r1.eclass
@@ -8,6 +8,7 @@
 # Author: Michał Górny <mgorny@gentoo.org>
 # Based on work of: Krzysztof Pawlik <nelchael@gentoo.org>
 # @SUPPORTED_EAPIS: 6 7 8
+# @PROVIDES: multibuild python-utils-r1
 # @BLURB: A common, simple eclass for Python packages.
 # @DESCRIPTION:
 # A common eclass providing helper functions to build and install
@@ -27,7 +28,7 @@
 # both.
 #
 # For more information, please see the Python Guide:
-# https://dev.gentoo.org/~mgorny/python-guide/
+# https://projects.gentoo.org/python/guide/
 
 case "${EAPI:-0}" in
 	[0-5])
@@ -52,7 +53,7 @@ inherit multibuild python-utils-r1
 
 fi
 
-# @ECLASS-VARIABLE: PYTHON_COMPAT
+# @ECLASS_VARIABLE: PYTHON_COMPAT
 # @REQUIRED
 # @DESCRIPTION:
 # This variable contains a list of Python implementations the package
@@ -69,7 +70,7 @@ fi
 # PYTHON_COMPAT=( python2_7 python3_{3,4} )
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_COMPAT_OVERRIDE
+# @ECLASS_VARIABLE: PYTHON_COMPAT_OVERRIDE
 # @USER_VARIABLE
 # @DEFAULT_UNSET
 # @DESCRIPTION:
@@ -89,7 +90,7 @@ fi
 # PYTHON_COMPAT_OVERRIDE='pypy python3_3' emerge -1v dev-python/foo
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_REQ_USE
+# @ECLASS_VARIABLE: PYTHON_REQ_USE
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # The list of USEflags required to be enabled on the chosen Python
@@ -109,7 +110,7 @@ fi
 # python_targets_pythonX_Y? ( dev-lang/python:X.Y[gdbm,ncurses(-)?] )
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_DEPS
+# @ECLASS_VARIABLE: PYTHON_DEPS
 # @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # This is an eclass-generated Python dependency string for all
@@ -129,7 +130,7 @@ fi
 # python_targets_pypy? ( dev-python/pypy[gdbm] )
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_USEDEP
+# @ECLASS_VARIABLE: PYTHON_USEDEP
 # @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # This is an eclass-generated USE-dependency string which can be used to
@@ -150,7 +151,7 @@ fi
 # python_targets_python2_7(-)?,python_targets_python3_4(-)?
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_SINGLE_USEDEP
+# @ECLASS_VARIABLE: PYTHON_SINGLE_USEDEP
 # @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # An eclass-generated USE-dependency string for the currently tested
@@ -172,7 +173,7 @@ fi
 # python_single_target_python3_7(-)
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_REQUIRED_USE
+# @ECLASS_VARIABLE: PYTHON_REQUIRED_USE
 # @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # This is an eclass-generated required-use expression which ensures at
@@ -370,6 +371,7 @@ python_gen_usedep() {
 	if [[ ${EBUILD_PHASE} == setup ]]; then
 		eqawarn "python_gen_usedep() is deprecated. Please use python_gen_cond_dep instead."
 	fi
+	[[ ${EAPI} == [67] ]] || die "${FUNCNAME} banned in EAPI ${EAPI}"
 	_python_gen_usedep "${@}"
 }
 
@@ -606,7 +608,7 @@ python_gen_any_dep() {
 	echo "|| ( ${out})"
 }
 
-# @ECLASS-VARIABLE: BUILD_DIR
+# @ECLASS_VARIABLE: BUILD_DIR
 # @OUTPUT_VARIABLE
 # @DEFAULT_UNSET
 # @DESCRIPTION:
@@ -862,7 +864,9 @@ python_replicate_script() {
 	# install the wrappers
 	local f
 	for f; do
-		_python_ln_rel "${ED%/}/usr/lib/python-exec/python-exec2" "${f}" || die
+		local dosym=dosym
+		[[ ${EAPI} == [67] ]] && dosym=dosym8
+		"${dosym}" -r /usr/lib/python-exec/python-exec2 "${f#${ED}}"
 	done
 }
 

@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: python-any-r1.eclass
@@ -8,6 +8,7 @@
 # Author: Michał Górny <mgorny@gentoo.org>
 # Based on work of: Krzysztof Pawlik <nelchael@gentoo.org>
 # @SUPPORTED_EAPIS: 6 7 8
+# @PROVIDES: python-utils-r1
 # @BLURB: An eclass for packages having build-time dependency on Python.
 # @DESCRIPTION:
 # A minimal eclass for packages which need any Python interpreter
@@ -35,7 +36,7 @@
 # both.
 #
 # For more information, please see the Python Guide:
-# https://dev.gentoo.org/~mgorny/python-guide/
+# https://projects.gentoo.org/python/guide/
 
 case "${EAPI:-0}" in
 	[0-5]) die "Unsupported EAPI=${EAPI:-0} (too old) for ${ECLASS}" ;;
@@ -57,7 +58,7 @@ fi
 
 EXPORT_FUNCTIONS pkg_setup
 
-# @ECLASS-VARIABLE: PYTHON_COMPAT
+# @ECLASS_VARIABLE: PYTHON_COMPAT
 # @REQUIRED
 # @DESCRIPTION:
 # This variable contains a list of Python implementations the package
@@ -69,7 +70,7 @@ EXPORT_FUNCTIONS pkg_setup
 # PYTHON_COMPAT=( python{2_5,2_6,2_7} )
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_COMPAT_OVERRIDE
+# @ECLASS_VARIABLE: PYTHON_COMPAT_OVERRIDE
 # @USER_VARIABLE
 # @DEFAULT_UNSET
 # @DESCRIPTION:
@@ -88,7 +89,7 @@ EXPORT_FUNCTIONS pkg_setup
 # PYTHON_COMPAT_OVERRIDE='pypy' emerge -1v dev-python/bar
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_REQ_USE
+# @ECLASS_VARIABLE: PYTHON_REQ_USE
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # The list of USEflags required to be enabled on the Python
@@ -106,7 +107,7 @@ EXPORT_FUNCTIONS pkg_setup
 # || ( dev-lang/python:X.Y[gdbm,ncurses(-)?] ... )
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_DEPS
+# @ECLASS_VARIABLE: PYTHON_DEPS
 # @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # This is an eclass-generated Python dependency string for all
@@ -125,7 +126,7 @@ EXPORT_FUNCTIONS pkg_setup
 # 	dev-lang/python:2.6[gdbm] )
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_USEDEP
+# @ECLASS_VARIABLE: PYTHON_USEDEP
 # @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # An eclass-generated USE-dependency string for the currently tested
@@ -147,7 +148,7 @@ EXPORT_FUNCTIONS pkg_setup
 # python_targets_python3_7(-),-python_single_target_python3_7(-)
 # @CODE
 
-# @ECLASS-VARIABLE: PYTHON_SINGLE_USEDEP
+# @ECLASS_VARIABLE: PYTHON_SINGLE_USEDEP
 # @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # An eclass-generated USE-dependency string for the currently tested
