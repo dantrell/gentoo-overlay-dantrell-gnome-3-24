@@ -5,7 +5,7 @@ EAPI="7"
 inherit gnome2 virtualx
 
 DESCRIPTION="GNOME utility for installing and updating applications"
-HOMEPAGE="https://wiki.gnome.org/Apps/Software"
+HOMEPAGE="https://wiki.gnome.org/Apps/Software https://gitlab.gnome.org/GNOME/gnome-software"
 
 LICENSE="GPL-2+"
 SLOT="0"

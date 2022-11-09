@@ -6,7 +6,7 @@ GNOME2_LA_PUNT="yes"
 inherit cmake-utils gnome2
 
 DESCRIPTION="Evolution module for connecting to Microsoft Exchange Web Services"
-HOMEPAGE="https://wiki.gnome.org/Apps/Evolution"
+HOMEPAGE="https://wiki.gnome.org/Apps/Evolution https://gitlab.gnome.org/GNOME/evolution-ews"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
@@ -33,7 +33,7 @@ DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35.5
 	>=sys-devel/gettext-0.18.3
 	virtual/pkgconfig
-	test? ( net-libs/uhttpmock )
+	test? ( net-libs/uhttpmock:0 )
 "
 
 PATCHES=(

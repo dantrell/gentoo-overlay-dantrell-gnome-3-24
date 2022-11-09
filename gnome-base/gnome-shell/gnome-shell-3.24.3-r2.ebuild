@@ -2,12 +2,12 @@
 
 EAPI="6"
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python{3_8,3_9,3_10} )
+PYTHON_COMPAT=( python{3_8,3_9,3_10,3_11} )
 
 inherit autotools flag-o-matic gnome2 multilib pax-utils python-r1 systemd
 
 DESCRIPTION="Provides core UI functions for the GNOME desktop"
-HOMEPAGE="https://wiki.gnome.org/Projects/GnomeShell"
+HOMEPAGE="https://wiki.gnome.org/Projects/GnomeShell https://gitlab.gnome.org/GNOME/gnome-shell"
 
 LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"
@@ -22,7 +22,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}
 COMMON_DEPEND="
 	>=app-accessibility/at-spi2-atk-2.5.3
 	>=dev-libs/atk-2[introspection]
-	>=app-crypt/gcr-3.7.5[introspection]
+	>=app-crypt/gcr-3.7.5:0=[introspection]
 	>=dev-libs/glib-2.45.3:2[dbus]
 	>=dev-libs/gjs-1.47.0
 	>=dev-libs/gobject-introspection-1.49.1:=
@@ -104,7 +104,7 @@ RDEPEND="${COMMON_DEPEND}
 PDEPEND="
 	>=gnome-base/gdm-3.5[introspection(+)]
 	>=gnome-base/gnome-control-center-3.8.3[bluetooth(+)?,networkmanager(+)?]
-	browser-extension? ( gnome-extra/chrome-gnome-shell )
+	browser-extension? ( gnome-extra/gnome-browser-connector )
 "
 DEPEND="${COMMON_DEPEND}
 	dev-libs/libxslt

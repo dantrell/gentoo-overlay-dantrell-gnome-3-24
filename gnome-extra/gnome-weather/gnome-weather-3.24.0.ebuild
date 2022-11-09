@@ -1,7 +1,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
-PYTHON_COMPAT=( python{3_8,3_9,3_10} )
+PYTHON_COMPAT=( python{3_8,3_9,3_10,3_11} )
 
 inherit gnome2 python-any-r1 virtualx
 
@@ -21,7 +21,7 @@ RDEPEND="
 	>=dev-libs/gjs-1.43.3
 	>=dev-libs/glib-2.32:2
 	>=dev-libs/gobject-introspection-1.35.9:=
-	>=dev-libs/libgweather-3.17.2:=
+	>=dev-libs/libgweather-3.17.2:2=
 	gnome-base/gsettings-desktop-schemas
 	>=x11-libs/gtk+-3.11.4:3
 "

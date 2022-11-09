@@ -5,7 +5,7 @@ EAPI="7"
 inherit gnome2
 
 DESCRIPTION="GNOME Flashback session"
-HOMEPAGE="https://gitlab.gnome.org/GNOME/gnome-flashback/"
+HOMEPAGE="https://gitlab.gnome.org/GNOME/gnome-flashback"
 
 LICENSE="GPL-3+"
 SLOT="0"
@@ -27,7 +27,7 @@ RDEPEND="
 	x11-libs/libXrandr
 	x11-libs/libxcb
 	x11-libs/libX11
-	net-wireless/gnome-bluetooth
+	net-wireless/gnome-bluetooth:2=
 	x11-libs/libXext
 	>=x11-libs/libXi-1.6.0
 	x11-libs/pango

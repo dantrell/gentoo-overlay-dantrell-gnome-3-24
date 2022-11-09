@@ -5,4 +5,10 @@
     <email>gnome@gentoo.org</email>
     <name>Gentoo GNOME Desktop</name>
   </maintainer>
+  <use>
+    <flag name="sysprof">Enable profiling data capture support using <pkg>dev-util/sysprof-capture</pkg></flag>
+  </use>
+  <upstream>
+    <remote-id type="gnome-gitlab">GNOME/gjs</remote-id>
+  </upstream>
 </pkgmetadata>

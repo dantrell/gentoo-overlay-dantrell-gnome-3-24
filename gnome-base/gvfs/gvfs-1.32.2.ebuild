@@ -29,7 +29,7 @@ REQUIRED_USE="
 RESTRICT="test"
 
 RDEPEND="
-	app-crypt/gcr:=
+	app-crypt/gcr:0=
 	>=dev-libs/glib-2.51:2
 	dev-libs/libxml2:2
 	net-misc/openssh
@@ -52,7 +52,7 @@ RDEPEND="
 	mtp? (
 		>=dev-libs/libusb-1.0.21
 		>=media-libs/libmtp-1.1.12 )
-	nfs? ( >=net-fs/libnfs-1.9.8 )
+	nfs? ( >=net-fs/libnfs-1.9.8:= )
 	policykit? (
 		sys-auth/polkit
 		sys-libs/libcap )

@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python2_7 )
 inherit autotools bash-completion-r1 gnome2 linux-info python-any-r1 vala versionator virtualx
 
 DESCRIPTION="A tagging metadata database, search tool and indexer"
-HOMEPAGE="https://wiki.gnome.org/Projects/Tracker"
+HOMEPAGE="https://wiki.gnome.org/Projects/Tracker https://gitlab.gnome.org/GNOME/tracker"
 
 LICENSE="GPL-2+ LGPL-2.1+"
 SLOT="0/100"
@@ -60,7 +60,7 @@ RDEPEND="
 		>=x11-libs/gtk+-3:3 )
 	iptc? ( media-libs/libiptcdata )
 	iso? ( >=sys-libs/libosinfo-0.2.9:= )
-	jpeg? ( virtual/jpeg:0 )
+	jpeg? ( media-libs/libjpeg-turbo:0= )
 	upower? ( >=sys-power/upower-0.9:= )
 	mp3? ( >=media-libs/taglib-1.6 )
 	networkmanager? ( >=net-misc/networkmanager-0.8:= )

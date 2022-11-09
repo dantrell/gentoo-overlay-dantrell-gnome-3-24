@@ -27,7 +27,7 @@ COMMON_DEPEND="
 	>=media-libs/libpng-1.6:0=
 	>=net-libs/gnome-online-accounts-3.8:=
 	>=net-libs/libgfbgraph-0.2.1:0.2
-	sci-geosciences/geocode-glib
+	sci-geosciences/geocode-glib:0
 	>=x11-libs/cairo-1.14
 	x11-libs/gdk-pixbuf:2
 	>=x11-libs/gtk+-3.22.15:3

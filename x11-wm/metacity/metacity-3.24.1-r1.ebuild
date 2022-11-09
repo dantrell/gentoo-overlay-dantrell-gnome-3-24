@@ -5,7 +5,7 @@ EAPI="7"
 inherit gnome2
 
 DESCRIPTION="GNOME Flashback window manager"
-HOMEPAGE="https://gitlab.gnome.org/GNOME/metacity/"
+HOMEPAGE="https://gitlab.gnome.org/GNOME/metacity"
 
 LICENSE="GPL-2+"
 SLOT="0"

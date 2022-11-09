@@ -6,7 +6,7 @@ GNOME2_LA_PUNT="yes"
 inherit flag-o-matic gnome2 virtualx
 
 DESCRIPTION="GNOME webbrowser based on Webkit"
-HOMEPAGE="https://wiki.gnome.org/Apps/Web"
+HOMEPAGE="https://wiki.gnome.org/Apps/Web https://gitlab.gnome.org/GNOME/epiphany"
 
 LICENSE="GPL-3+"
 SLOT="0"
@@ -21,7 +21,7 @@ COMMON_DEPEND="
 	>=x11-libs/gtk+-3.22.13:3
 	>=net-libs/webkit-gtk-2.15.90:4=
 	>=x11-libs/cairo-1.2
-	>=app-crypt/gcr-3.5.5:=[gtk]
+	>=app-crypt/gcr-3.5.5:0=[gtk]
 	>=x11-libs/gdk-pixbuf-2.36.5:2
 	>=gnome-base/gnome-desktop-2.91.2:3=
 	dev-libs/icu:=

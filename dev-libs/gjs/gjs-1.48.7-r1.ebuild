@@ -5,7 +5,7 @@ EAPI="6"
 inherit gnome2 pax-utils virtualx
 
 DESCRIPTION="Javascript bindings for GNOME"
-HOMEPAGE="https://wiki.gnome.org/Projects/Gjs"
+HOMEPAGE="https://wiki.gnome.org/Projects/Gjs https://gitlab.gnome.org/GNOME/gjs"
 
 LICENSE="MIT || ( MPL-1.1 LGPL-2+ GPL-2+ )"
 SLOT="0"

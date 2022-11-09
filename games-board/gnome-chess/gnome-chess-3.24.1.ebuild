@@ -6,7 +6,7 @@ VALA_MIN_API_VERSION="0.36"
 inherit gnome2 vala
 
 DESCRIPTION="Play the classic two-player boardgame of chess"
-HOMEPAGE="https://wiki.gnome.org/Apps/Chess"
+HOMEPAGE="https://wiki.gnome.org/Apps/Chess https://gitlab.gnome.org/GNOME/gnome-chess"
 
 LICENSE="GPL-3+"
 SLOT="0"

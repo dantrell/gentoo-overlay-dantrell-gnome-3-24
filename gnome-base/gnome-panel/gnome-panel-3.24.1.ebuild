@@ -5,7 +5,7 @@ EAPI="7"
 inherit gnome2 toolchain-funcs
 
 DESCRIPTION="GNOME Flashback panel"
-HOMEPAGE="https://gitlab.gnome.org/GNOME/gnome-panel/"
+HOMEPAGE="https://gitlab.gnome.org/GNOME/gnome-panel"
 
 LICENSE="GPL-2+ FDL-1.1 LGPL-2.1+"
 SLOT="0"

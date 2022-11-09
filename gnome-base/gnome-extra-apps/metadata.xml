@@ -11,10 +11,13 @@
 	<flag name="boxes">Install <pkg>gnome-extra/gnome-boxes</pkg> (remote and virtual system manager)</flag>
 	<flag name="builder">Install <pkg>dev-util/gnome-builder</pkg> (IDE)</flag>
 	<flag name="california">Install <pkg>gnome-extra/california</pkg> (calendar)</flag>
+	<flag name="celluloid">Install <pkg>media-video/celluloid</pkg> (media player)</flag>
+	<flag name="dino">Install <pkg>net-im/dino</pkg> (chat client)</flag>
 	<flag name="empathy">Install <pkg>net-im/empathy</pkg> (chat client)</flag>
 	<flag name="epiphany">Install <pkg>www-client/epiphany</pkg> (web browser)</flag>
 	<flag name="evolution">Install <pkg>mail-client/evolution</pkg> (mail client)</flag>
 	<flag name="flashback">Install <pkg>gnome-base/gnome-flashback</pkg> (session and helper application)</flag>
+	<flag name="foliate">Install <pkg>app-text/foliate </pkg> (ebook viewer)</flag>
 	<flag name="fonts">Install media-fonts/{noto,symbola,unifont} to complement <pkg>media-fonts/cantarell</pkg></flag>
 	<flag name="games">Install GNOME Games (a collection of small five-minute games in a variety of styles and genres)</flag>
 	<flag name="geary">Install <pkg>mail-client/geary</pkg> (mail client)</flag>

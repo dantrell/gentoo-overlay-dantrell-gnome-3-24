@@ -20,7 +20,7 @@ RDEPEND="
 	>=dev-libs/libgweather-3.13.91:2=
 	>=gnome-base/gnome-desktop-3.7.90:3=
 	>=media-libs/gsound-0.98
-	>=sci-geosciences/geocode-glib-0.99.4
+	>=sci-geosciences/geocode-glib-0.99.4:0
 	>=x11-libs/gtk+-3.19.8:3
 "
 DEPEND="${RDEPEND}
