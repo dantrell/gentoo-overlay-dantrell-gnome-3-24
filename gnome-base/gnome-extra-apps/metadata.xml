@@ -12,6 +12,8 @@
 	<flag name="builder">Install <pkg>dev-util/gnome-builder</pkg> (IDE)</flag>
 	<flag name="california">Install <pkg>gnome-extra/california</pkg> (calendar)</flag>
 	<flag name="celluloid">Install <pkg>media-video/celluloid</pkg> (media player)</flag>
+	<flag name="connections">Install <pkg>net-misc/gnome-connections</pkg> (remote desktop client)</flag>
+	<flag name="console">Install <pkg>gui-apps/gnome-console</pkg> (terminal emulator)</flag>
 	<flag name="dino">Install <pkg>net-im/dino</pkg> (chat client)</flag>
 	<flag name="empathy">Install <pkg>net-im/empathy</pkg> (chat client)</flag>
 	<flag name="epiphany">Install <pkg>www-client/epiphany</pkg> (web browser)</flag>

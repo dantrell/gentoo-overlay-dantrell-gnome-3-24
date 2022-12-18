@@ -50,7 +50,7 @@ RDEPEND="
 		>=app-pda/libimobiledevice-1.2:=
 		>=app-pda/libplist-1:= )
 	mtp? (
-		>=dev-libs/libusb-1.0.21
+		virtual/libusb:1
 		>=media-libs/libmtp-1.1.12 )
 	nfs? ( >=net-fs/libnfs-1.9.8:= )
 	policykit? (

@@ -1,0 +1,12 @@
+diff '--exclude=.git' -urN a/gi/pyglib-python-compat.h b/gi/pyglib-python-compat.h
+--- a/gi/pyglib-python-compat.h	2014-09-10 17:10:32.000000000 -0500
++++ b/gi/pyglib-python-compat.h	2022-11-28 08:13:23.795485607 -0600
+@@ -157,7 +157,7 @@
+ #define PYGLIB_PyUnicode_Check PyUnicode_Check
+ #define PYGLIB_PyUnicode_AsString _PyUnicode_AsString
+ #define PYGLIB_PyUnicode_AsStringAndSize(obj, buf, size) \
+-    (((*(buf) = _PyUnicode_AsStringAndSize(obj, size)) != NULL) ? 0 : -1) 
++    (((*(buf) = PyUnicode_AsUTF8AndSize(obj, size)) != NULL) ? 0 : -1) 
+ #define PYGLIB_PyUnicode_FromString PyUnicode_FromString
+ #define PYGLIB_PyUnicode_FromStringAndSize PyUnicode_FromStringAndSize
+ #define PYGLIB_PyUnicode_FromFormat PyUnicode_FromFormat

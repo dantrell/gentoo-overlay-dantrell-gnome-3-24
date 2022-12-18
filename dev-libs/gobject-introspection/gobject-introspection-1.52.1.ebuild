@@ -2,7 +2,7 @@
 
 EAPI="6"
 PYTHON_COMPAT=( python{3_8,3_9,3_10,3_11} )
-PYTHON_REQ_USE="xml"
+PYTHON_REQ_USE="xml(+)"
 
 inherit gnome2 python-single-r1 toolchain-funcs versionator
 
@@ -36,7 +36,7 @@ RDEPEND="
 	!<dev-lang/vala-0.20.0
 	${PYTHON_DEPS}
 "
-# Wants real bison, not virtual/yacc
+# Wants real bison, not app-alternatives/yacc
 DEPEND="${RDEPEND}
 	>=dev-util/gtk-doc-am-1.19
 	sys-devel/bison

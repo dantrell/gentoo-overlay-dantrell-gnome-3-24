@@ -57,10 +57,12 @@ src_compile() {
 }
 
 src_install() {
-	default
+	gnome2_src_install
 
 	# From AppStream (the /usr/share/appdata location is deprecated):
 	# 	https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#spec-component-location
 	# 	https://bugs.gentoo.org/709450
 	mv "${ED}"/usr/share/{appdata,metainfo} || die
+
+	find "${ED}" -type f -name "*.la" -delete || die
 }

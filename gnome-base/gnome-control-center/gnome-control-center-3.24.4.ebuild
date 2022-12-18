@@ -53,7 +53,6 @@ COMMON_DEPEND="
 	x11-apps/xmodmap
 	x11-libs/cairo
 	x11-libs/libX11
-	x11-libs/libXxf86misc
 	>=x11-libs/libXi-1.2
 
 	bluetooth? ( >=net-wireless/gnome-bluetooth-3.18.2:= )

@@ -21,7 +21,7 @@ RDEPEND="
 	>=media-libs/lcms-2.2:2
 
 	media-libs/libexif
-	media-libs/tiff:0=
+	media-libs/tiff:=
 	>=x11-libs/colord-gtk-0.1.20
 	>=media-libs/libcanberra-0.10[gtk3]
 	>=x11-libs/vte-0.25.1:2.91
@@ -60,12 +60,14 @@ src_test() {
 }
 
 src_install() {
-	default
+	gnome2_src_install
 
 	# From AppStream (the /usr/share/appdata location is deprecated):
 	# 	https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#spec-component-location
 	# 	https://bugs.gentoo.org/709450
 	mv "${ED}"/usr/share/{appdata,metainfo} || die
+
+	find "${ED}" -type f -name "*.la" -delete || die
 }
 
 pkg_postinst() {

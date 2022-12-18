@@ -39,6 +39,10 @@ src_prepare() {
 	eapply "${FILESDIR}"/${PN}-3.28.3-tests-remove-usage-of-time-clock-no-longer-available-in-py3-8.patch
 	eapply "${FILESDIR}"/${PN}-3.24.1-dont-use-pytypeobject-tp-print-with-python-3.patch
 
+	# From Red Hat:
+	# 	https://bugzilla.redhat.com/show_bug.cgi?id=1900494
+	eapply "${FILESDIR}"/${PN}-3.14.0-remove-usage-of-pyunicode-asstringandsize-no-longer-available-in-py3-10.patch
+
 	gnome2_src_prepare
 	python_copy_sources
 }
