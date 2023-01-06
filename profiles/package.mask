@@ -1,5 +1,5 @@
 app-accessibility/at-spi2-atk::gentoo
-app-accessibility/at-spi2-core::gentoo
+app-accessibility/at-spi2-core-base::gentoo
 app-accessibility/orca::gentoo
 app-arch/file-roller::gentoo
 app-dicts/gnome-dictionary::gentoo
