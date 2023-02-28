@@ -2,7 +2,7 @@
 
 EAPI="6"
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python{3_8,3_9,3_10,3_11} )
+PYTHON_COMPAT=( python{3_9,3_10,3_11} )
 
 inherit autotools flag-o-matic gnome2 multilib pax-utils python-r1 systemd
 

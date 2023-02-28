@@ -1,7 +1,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="8"
-PYTHON_COMPAT=( python{3_8,3_9,3_10,3_11} pypy )
+PYTHON_COMPAT=( python{3_9,3_10,3_11} pypy )
 
 inherit cmake db-use flag-o-matic gnome2 python-any-r1 systemd vala virtualx
 
@@ -13,7 +13,7 @@ LICENSE="|| ( LGPL-2 LGPL-3 ) BSD Sleepycat"
 SLOT="0/60" # subslot = libcamel-1.2 soname version
 KEYWORDS="*"
 
-IUSE="+berkdb +gnome-online-accounts +gtk gtk-doc google +introspection ldap kerberos vala +weather"
+IUSE="berkdb +gnome-online-accounts +gtk gtk-doc google +introspection ldap kerberos vala +weather"
 REQUIRED_USE="vala? ( introspection )"
 
 # Some tests fail due to missing locales.
