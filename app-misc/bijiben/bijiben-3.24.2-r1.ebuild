@@ -32,11 +32,11 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 "
 # Needed if eautoreconf:
-# sys-devel/autoconf-archive
+# dev-build/autoconf-archive
 
 src_prepare() {
 	# From GNOME:
-	# 	https://gitlab.gnome.org/GNOME/gnome-notes/commit/384dd61950cf40d2a0c2f9caf9ed0cb8bd2a4029
+	# 	https://gitlab.gnome.org/GNOME/gnome-notes/-/commit/384dd61950cf40d2a0c2f9caf9ed0cb8bd2a4029
 	eapply "${FILESDIR}"/${PN}-3.27.4-memo-provider-dont-add-custom-border-to-pixbuf.patch
 
 	gnome2_src_prepare

@@ -34,7 +34,7 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	# From GNOME:
-	# 	https://gitlab.gnome.org/GNOME/gnome-multi-writer/commit/a8248db854c5ddac5f1142e064a6feaf0b703680
+	# 	https://gitlab.gnome.org/GNOME/gnome-multi-writer/-/commit/a8248db854c5ddac5f1142e064a6feaf0b703680
 	eapply "${FILESDIR}"/${PN}-3.28.0-gschema-fix-gettext-domain.patch
 
 	gnome2_src_prepare

@@ -2,7 +2,7 @@
 
 EAPI="6"
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python{3_9,3_10,3_11} )
+PYTHON_COMPAT=( python{3_10,3_11,3_12,3_13} )
 
 inherit autotools flag-o-matic gnome2 multilib pax-utils python-r1 systemd
 
@@ -109,9 +109,9 @@ PDEPEND="
 DEPEND="${COMMON_DEPEND}
 	dev-libs/libxslt
 	>=dev-util/gdbus-codegen-2.45.3
-	>=dev-util/gtk-doc-am-1.17
+	>=dev-build/gtk-doc-am-1.17
 	gnome-base/gnome-common
-	sys-devel/autoconf-archive
+	dev-build/autoconf-archive
 	>=sys-devel/gettext-0.19.6
 	virtual/pkgconfig
 "
@@ -123,7 +123,7 @@ src_prepare() {
 
 	if ! use vanilla-gc; then
 		# From GNOME:
-		# 	https://gitlab.gnome.org/GNOME/gnome-shell/issues/64
+		# 	https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/64
 		eapply "${FILESDIR}"/${PN}-3.14.4-force-garbage-collection.patch
 	fi
 
@@ -149,10 +149,10 @@ src_prepare() {
 	eapply "${FILESDIR}"/${PN}-3.22.0-gir-build-fix.patch
 
 	# From GNOME:
-	# 	https://gitlab.gnome.org/GNOME/gnome-shell/commit/3033506f2c266115a00ff43daaad14e59e3215c5
-	# 	https://gitlab.gnome.org/GNOME/gnome-shell/commit/87da623d86323a0744b8723e1991f053586defaf
-	# 	https://gitlab.gnome.org/GNOME/gnome-shell/commit/9c41736a813354fd9291177b12f6c4f85bd1c5f7
-	# 	https://gitlab.gnome.org/GNOME/gnome-shell/commit/5bca4a884e8f02441a89d7b44490339d869e5966
+	# 	https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/3033506f2c266115a00ff43daaad14e59e3215c5
+	# 	https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/87da623d86323a0744b8723e1991f053586defaf
+	# 	https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/9c41736a813354fd9291177b12f6c4f85bd1c5f7
+	# 	https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/5bca4a884e8f02441a89d7b44490339d869e5966
 	eapply "${FILESDIR}"/${PN}-3.24.3-dnd-nullify-dragactor-after-weve-destroyed-it-and-avoid-invalid-access.patch
 	eapply "${FILESDIR}"/${PN}-3.26.2-messagelist-stop-syncing-if-closebutton-has-been-destroyed.patch
 	eapply "${FILESDIR}"/${PN}-3.26.2-automountmanager-remove-allowautorun-expire-timeout-on-volume-removal.patch

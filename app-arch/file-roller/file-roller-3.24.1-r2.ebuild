@@ -61,10 +61,10 @@ zoo     - app-arch/zoo"
 src_prepare() {
 	if use nautilus; then
 		# From GNOME:
-		# 	https://gitlab.gnome.org/GNOME/file-roller/commit/fad2372ccbbfd40013b4225002f4a737d67928bc
-		# 	https://gitlab.gnome.org/GNOME/file-roller/commit/aab1b7335c40b8b0e3d5a00cf8305dc53d48f3c8
-		# 	https://gitlab.gnome.org/GNOME/file-roller/commit/366a5147bd097a877d85295a36fb062213355a36
-		# 	https://gitlab.gnome.org/GNOME/file-roller/commit/da09ee41ca7c9b63082cf2a35ae19701c34adca7
+		# 	https://gitlab.gnome.org/GNOME/file-roller/-/commit/fad2372ccbbfd40013b4225002f4a737d67928bc
+		# 	https://gitlab.gnome.org/GNOME/file-roller/-/commit/aab1b7335c40b8b0e3d5a00cf8305dc53d48f3c8
+		# 	https://gitlab.gnome.org/GNOME/file-roller/-/commit/366a5147bd097a877d85295a36fb062213355a36
+		# 	https://gitlab.gnome.org/GNOME/file-roller/-/commit/da09ee41ca7c9b63082cf2a35ae19701c34adca7
 		eapply -R "${FILESDIR}"/${PN}-3.23.92-nautilus-fileroller-remove-compress-support.patch
 		eapply -R "${FILESDIR}"/${PN}-3.23.91-nautilus-fileroller-remove-mime-types-already-supported-by-nautilus.patch
 		eapply -R "${FILESDIR}"/${PN}-3.23.91-revert-remove-nautilus-extension.patch
@@ -72,8 +72,8 @@ src_prepare() {
 	fi
 
 	# From GNOME (CVE-2020-11736):
-	# 	https://gitlab.gnome.org/GNOME/file-roller/commit/45b2e76e25648961db621f898b4a9eb7c75ef4c0
-	# 	https://gitlab.gnome.org/GNOME/file-roller/commit/8572946d3ebe25f392f110ee838ff5abc7a3e78e
+	# 	https://gitlab.gnome.org/GNOME/file-roller/-/commit/45b2e76e25648961db621f898b4a9eb7c75ef4c0
+	# 	https://gitlab.gnome.org/GNOME/file-roller/-/commit/8572946d3ebe25f392f110ee838ff5abc7a3e78e
 	eapply "${FILESDIR}"/${PN}-3.32.5-libarchive-do-not-follow-external-links-when-extracting-files.patch
 	eapply "${FILESDIR}"/${PN}-3.32.5-libarchive-overwrite-the-symbolic-link-as-well.patch
 

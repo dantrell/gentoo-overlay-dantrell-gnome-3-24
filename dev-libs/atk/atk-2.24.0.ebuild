@@ -21,7 +21,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	>=dev-lang/perl-5
-	dev-util/gtk-doc-am
+	dev-build/gtk-doc-am
 	virtual/pkgconfig
 	nls? ( >=sys-devel/gettext-0.19.2 )
 "

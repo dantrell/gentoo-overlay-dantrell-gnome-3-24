@@ -14,7 +14,7 @@ KEYWORDS="*"
 IUSE="firmware gnome spell udev"
 
 RDEPEND="
-	dev-util/valgrind
+	dev-debug/valgrind
 	app-crypt/libsecret
 	dev-db/sqlite:3
 	>=dev-libs/appstream-glib-0.6.7:0

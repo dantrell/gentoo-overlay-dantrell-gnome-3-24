@@ -45,7 +45,7 @@ PDEPEND="gnome? ( >=gnome-base/gnome-control-center-3.2[gnome-online-accounts(+)
 DEPEND="${RDEPEND}
 	vala? ( $(vala_depend) )
 	dev-libs/libxslt
-	>=dev-util/gtk-doc-am-1.3
+	>=dev-build/gtk-doc-am-1.3
 	>=dev-util/gdbus-codegen-2.30.0
 	>=dev-util/intltool-0.50.1
 	sys-devel/gettext

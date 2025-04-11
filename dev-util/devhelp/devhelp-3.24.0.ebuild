@@ -1,7 +1,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
-PYTHON_COMPAT=( python{3_9,3_10,3_11} )
+PYTHON_COMPAT=( python{3_10,3_11,3_12,3_13} )
 
 inherit gnome2 python-single-r1 toolchain-funcs
 
@@ -33,13 +33,13 @@ RDEPEND="${COMMON_DEPEND}
 "
 DEPEND="${COMMON_DEPEND}
 	${PYTHON_DEPS}
-	>=dev-util/gtk-doc-am-1.25
+	>=dev-build/gtk-doc-am-1.25
 	>=sys-devel/gettext-0.19.7
 	virtual/pkgconfig
 "
 # eautoreconf requires:
 #  dev-libs/appstream-glib
-#  sys-devel/autoconf-archive
+#  dev-build/autoconf-archive
 
 pkg_setup() {
 	use gedit && python-single-r1_pkg_setup

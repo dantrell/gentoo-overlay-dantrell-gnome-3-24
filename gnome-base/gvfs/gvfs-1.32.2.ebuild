@@ -73,7 +73,7 @@ DEPEND="${RDEPEND}
 	>=sys-devel/gettext-0.19.4
 	virtual/pkgconfig
 	dev-util/gdbus-codegen
-	dev-util/gtk-doc-am
+	dev-build/gtk-doc-am
 	test? (
 		>=dev-python/twisted-16
 		|| (

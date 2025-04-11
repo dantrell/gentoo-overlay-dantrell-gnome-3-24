@@ -1,7 +1,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
-PYTHON_COMPAT=( python{3_9,3_10,3_11} )
+PYTHON_COMPAT=( python{3_10,3_11,3_12,3_13} )
 PYTHON_REQ_USE="xml(+)"
 
 inherit gnome2 python-single-r1 toolchain-funcs versionator
@@ -38,7 +38,7 @@ RDEPEND="
 "
 # Wants real bison, not app-alternatives/yacc
 DEPEND="${RDEPEND}
-	>=dev-util/gtk-doc-am-1.19
+	>=dev-build/gtk-doc-am-1.19
 	sys-devel/bison
 	sys-devel/flex
 "
@@ -47,7 +47,7 @@ PDEPEND="cairo? ( x11-libs/cairo[glib] )"
 
 PATCHES=(
 	# From GNOME:
-	# 	https://gitlab.gnome.org/GNOME/gobject-introspection/commit/1f9284228092b2a7200e8a78bc0ea6702231c6db
+	# 	https://gitlab.gnome.org/GNOME/gobject-introspection/-/commit/1f9284228092b2a7200e8a78bc0ea6702231c6db
 	"${FILESDIR}"/${PN}-1.63.2-drop-deprecated-xml-etree-elementtree-element-getchildren-calls.patch
 )
 

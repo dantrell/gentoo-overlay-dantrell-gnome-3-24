@@ -44,7 +44,7 @@ COMMON_DEPEND="
 DEPEND="${COMMON_DEPEND}
 	>=dev-lang/perl-5
 	>=dev-util/gdbus-codegen-2.33
-	>=dev-util/gtk-doc-am-1.10
+	>=dev-build/gtk-doc-am-1.10
 	>=sys-devel/gettext-0.19.7
 	virtual/pkgconfig
 	x11-base/xorg-proto
@@ -55,7 +55,7 @@ RDEPEND="${COMMON_DEPEND}
 
 # For eautoreconf
 #	gnome-base/gnome-common
-#	dev-util/gtk-doc-am"
+#	dev-build/gtk-doc-am"
 
 PDEPEND="
 	gnome? ( x11-themes/adwaita-icon-theme )

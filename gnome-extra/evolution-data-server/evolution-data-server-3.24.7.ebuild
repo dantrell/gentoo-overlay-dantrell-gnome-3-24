@@ -1,7 +1,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="8"
-PYTHON_COMPAT=( python{3_9,3_10,3_11} pypy )
+PYTHON_COMPAT=( python{3_10,3_11,3_12,3_13} pypy )
 
 inherit cmake db-use flag-o-matic gnome2 python-any-r1 systemd vala virtualx
 
@@ -64,7 +64,7 @@ BDEPEND="
 	${PYTHON_DEPS}
 	dev-util/gdbus-codegen
 	dev-util/gperf
-	>=dev-util/gtk-doc-am-1.14
+	>=dev-build/gtk-doc-am-1.14
 	>=dev-util/intltool-0.35.5
 	>=sys-devel/gettext-0.18.3
 	virtual/pkgconfig

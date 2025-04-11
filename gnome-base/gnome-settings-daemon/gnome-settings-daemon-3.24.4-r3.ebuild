@@ -2,7 +2,7 @@
 
 EAPI="6"
 GNOME2_LA_PUNT="yes"
-PYTHON_COMPAT=( python{3_9,3_10,3_11} )
+PYTHON_COMPAT=( python{3_10,3_11,3_12,3_13} )
 
 inherit autotools gnome2 python-any-r1 systemd udev virtualx
 
@@ -116,7 +116,7 @@ src_prepare() {
 	eapply "${FILESDIR}"/${PN}-3.12.0-optionally-allow-suspending-with-multiple-monitors-on-lid-close.patch
 
 	# From GNOME:
-	# 	https://gitlab.gnome.org/GNOME/gnome-settings-daemon/commit/3110457f72f70b2d283c1ad2f27b91b95d75d92f
+	# 	https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/commit/3110457f72f70b2d283c1ad2f27b91b95d75d92f
 	eapply "${FILESDIR}"/${PN}-3.29.90-housekeeping-fix-improper-notify-notification-close-usage.patch
 
 	eautoreconf

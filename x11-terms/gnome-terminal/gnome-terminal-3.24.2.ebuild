@@ -5,8 +5,8 @@ GNOME2_LA_PUNT="yes"
 
 inherit autotools gnome2 readme.gentoo-r1 vala
 
-DESCRIPTION="The Gnome Terminal"
-HOMEPAGE="https://wiki.gnome.org/Apps/Terminal/"
+DESCRIPTION="A terminal emulator for GNOME"
+HOMEPAGE="https://wiki.gnome.org/Apps/Terminal/ https://gitlab.gnome.org/GNOME/gnome-terminal"
 
 LICENSE="GPL-3+"
 SLOT="0"
@@ -49,7 +49,7 @@ src_prepare() {
 		eapply "${FILESDIR}"/${PN}-3.24.2-transparency.patch
 
 		# From GNOME:
-		# 	https://gitlab.gnome.org/GNOME/gnome-terminal/commit/b3c270b3612acd45f309521cf1167e1abd561c09
+		# 	https://gitlab.gnome.org/GNOME/gnome-terminal/-/commit/b3c270b3612acd45f309521cf1167e1abd561c09
 		eapply "${FILESDIR}"/${PN}-3.14.3-fix-broken-transparency-on-startup.patch
 	fi
 

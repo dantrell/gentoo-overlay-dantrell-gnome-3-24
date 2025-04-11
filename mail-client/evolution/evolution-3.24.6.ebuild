@@ -70,7 +70,7 @@ DEPEND="${COMMON_DEPEND}
 	app-text/docbook-xml-dtd:4.1.2
 	app-text/yelp-tools
 	dev-util/gdbus-codegen
-	>=dev-util/gtk-doc-am-1.14
+	>=dev-build/gtk-doc-am-1.14
 	>=dev-util/intltool-0.40.0
 	>=sys-devel/gettext-0.18.3
 	virtual/pkgconfig

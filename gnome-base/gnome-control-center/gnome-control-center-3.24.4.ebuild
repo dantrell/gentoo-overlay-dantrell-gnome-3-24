@@ -127,11 +127,11 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 
 	gnome-base/gnome-common
-	sys-devel/autoconf-archive
+	dev-build/autoconf-archive
 "
 # Needed for autoreconf
 #	gnome-base/gnome-common
-#	sys-devel/autoconf-archive
+#	dev-build/autoconf-archive
 
 src_prepare() {
 	# From GNOME:
@@ -155,7 +155,7 @@ src_prepare() {
 
 	# From GNOME:
 	# 	https://bugzilla.gnome.org/show_bug.cgi?id=780544
-	# 	https://gitlab.gnome.org/GNOME/gnome-control-center/commit/103d814d2fb8019e45b5777f2908a809f68b24e8
+	# 	https://gitlab.gnome.org/GNOME/gnome-control-center/-/commit/103d814d2fb8019e45b5777f2908a809f68b24e8
 	eapply "${FILESDIR}"/${PN}-3.24.4-common-dont-check-for-wayland-before-building-gsdudevdevicemanager.patch
 
 	if ! use vanilla-datetime; then

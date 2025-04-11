@@ -2,7 +2,7 @@
 
 EAPI="6"
 GNOME2_LA_PUNT="yes" # plugins are dlopened
-PYTHON_COMPAT=( python{3_9,3_10,3_11} )
+PYTHON_COMPAT=( python{3_10,3_11,3_12,3_13} )
 PYTHON_REQ_USE="threads(+)"
 
 inherit autotools gnome2 python-single-r1 vala
@@ -73,7 +73,7 @@ DEPEND="${COMMON_DEPEND}
 	app-text/docbook-xml-dtd:4.5
 	app-text/yelp-tools
 	dev-libs/appstream-glib
-	>=dev-util/gtk-doc-am-1.14
+	>=dev-build/gtk-doc-am-1.14
 	>=dev-util/intltool-0.50.1
 	sys-devel/gettext
 	virtual/pkgconfig

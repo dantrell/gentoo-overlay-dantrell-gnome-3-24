@@ -53,7 +53,7 @@ DEPEND="${COMMON_DEPEND}
 	dev-libs/libxml2:2
 	dev-libs/libxslt
 	dev-util/gdbus-codegen
-	>=dev-util/gtk-doc-am-1.14
+	>=dev-build/gtk-doc-am-1.14
 	>=dev-util/intltool-0.50
 	dev-util/itstool
 	virtual/pkgconfig

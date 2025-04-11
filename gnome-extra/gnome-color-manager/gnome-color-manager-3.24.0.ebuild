@@ -41,8 +41,13 @@ BDEPEND="
 "
 
 PATCHES=(
-	# https://gitlab.gnome.org/GNOME/gnome-color-manager/issues/4
-	"${FILESDIR}"/${PN}-3.24.0-exiv2-0.27.patch # bug 674086
+	# From GNOME:
+	# 	https://gitlab.gnome.org/GNOME/gnome-color-manager/-/issues/4
+	# 	https://bugs.gentoo.org/674086
+	#
+	# From Exiv2:
+	# 	https://github.com/Exiv2/exiv2/issues/2630
+	"${FILESDIR}"/${PN}-3.30.0-exiv2-0.28.patch
 )
 
 src_configure() {
